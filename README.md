@@ -1,2 +1,1 @@
-# copilot-dev
-GitHub Copilot for Developers
+# GitHub Copilot for Developers
