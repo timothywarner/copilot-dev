@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Application</title>
+</head>
+<body>
+  <h2>Number Adder</h2>
+  <form method="POST">
+    <label for="number1">Number 1:</label>
+    <input type="text" id="number1" name="number1"><br>
+    <label for="number2">Number 2:</label>
+    <input type="text" id="number2" name="number2"><br>
+    <input type="submit" value="Calculate Sum">
+  </form>
+  {% if sum %}
+  <p>Sum: {{ sum }}</p>
+  {% endif %}
+</body>
+</html>
