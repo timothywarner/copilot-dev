@@ -1,6 +1,6 @@
 # GitHub Copilot for Developers
 
-<img src="assets/images/tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
+<img src="tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
 
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Ftechtrainertim.com)](https://techtrainertim.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
