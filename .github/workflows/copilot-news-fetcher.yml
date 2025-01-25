@@ -1,0 +1,46 @@
+name: Daily GitHub Copilot News Fetcher
+
+on:
+  workflow_dispatch:  # Manual trigger for demos
+  schedule:
+    - cron: '0 0 * * *'  # Runs at 00:00 UTC every day
+
+env:
+  DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+
+jobs:
+  fetch-news:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests python-dateutil
+          
+      - name: Archive previous news
+        run: |
+          if [ -f latest-github-news.md ]; then
+            mkdir -p news-archive
+            mv latest-github-news.md "news-archive/github-news-$(date -d 'yesterday' +'%Y-%m-%d').md"
+          fi
+          
+      - name: Fetch latest news
+        run: python .github/scripts/fetch_news.py
+        
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add news-archive/ latest-github-news.md
+          git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push 
