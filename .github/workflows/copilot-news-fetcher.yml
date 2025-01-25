@@ -2,6 +2,8 @@ name: Daily GitHub Copilot News Fetcher
 
 on:
   workflow_dispatch:  # Manual trigger for demos
+  push:
+    branches: [ "main" ]  # Run on push to main
   schedule:
     - cron: '0 0 * * *'  # Runs at 00:00 UTC every day
 
@@ -107,6 +109,8 @@ jobs:
         run: |
           # Ensure the script runs with proper error handling
           set -e
+          # Change to repo root before running script
+          cd $GITHUB_WORKSPACE
           python .github/scripts/fetch_news.py
           if [ ! -f latest-github-news.md ]; then
             echo "Error: News fetching failed to create output file!"
@@ -130,7 +134,8 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Ensure we're on the latest main
+          # Ensure we're on the latest main and in repo root
+          cd $GITHUB_WORKSPACE
           git fetch origin main
           git reset --hard origin/main
           
