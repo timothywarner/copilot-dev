@@ -5,6 +5,11 @@ on:
   schedule:
     - cron: '0 0 * * *'  # Runs at 00:00 UTC every day
 
+# Ensure only one workflow runs at a time
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
 
@@ -22,6 +27,16 @@ jobs:
         with:
           fetch-depth: 1  # Shallow clone for faster checkout
           ref: main  # Explicitly checkout main branch
+          token: ${{ secrets.GITHUB_TOKEN }}  # Explicit token for push access
+      
+      # Create requirements.txt if it doesn't exist
+      - name: Ensure requirements.txt exists
+        run: |
+          mkdir -p .github/scripts
+          if [ ! -f .github/scripts/requirements.txt ]; then
+            echo "requests>=2.31.0" > .github/scripts/requirements.txt
+            echo "python-dateutil>=2.8.2" >> .github/scripts/requirements.txt
+          fi
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -42,10 +57,23 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip --quiet
-          pip install --quiet requests python-dateutil
+          pip install --quiet -r .github/scripts/requirements.txt
+      
+      # Ensure script directory and files exist
+      - name: Verify script setup
+        run: |
+          mkdir -p .github/scripts
+          # Only create fetch_news.py if it doesn't exist
+          if [ ! -f .github/scripts/fetch_news.py ]; then
+            echo "Error: fetch_news.py script is missing!"
+            exit 1
+          fi
+          # Ensure proper permissions
+          chmod +x .github/scripts/fetch_news.py
       
       - name: Archive previous news
         id: archive
+        continue-on-error: true  # Don't fail if no previous news exists
         run: |
           if [ -f latest-github-news.md ]; then
             mkdir -p news-archive
@@ -59,10 +87,18 @@ jobs:
       
       - name: Fetch latest news
         id: fetch
-        run: python .github/scripts/fetch_news.py
+        run: |
+          # Ensure the script runs with proper error handling
+          set -e
+          python .github/scripts/fetch_news.py
+          if [ ! -f latest-github-news.md ]; then
+            echo "Error: News fetching failed to create output file!"
+            exit 1
+          fi
       
       # Upload the news files as artifacts for potential reuse
       - name: Upload news artifacts
+        if: success()  # Only if previous steps succeeded
         uses: actions/upload-artifact@v3
         with:
           name: copilot-news
@@ -72,28 +108,54 @@ jobs:
           retention-days: 7  # Limit retention to save storage
       
       - name: Configure Git and Handle Changes
+        if: success()  # Only if previous steps succeeded
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Fetch and rebase with remote changes
+          # Ensure we're on the latest main
           git fetch origin main
-          git rebase origin/main
+          git reset --hard origin/main
           
-          # Check for changes
-          if [[ -n "$(git status --porcelain)" ]]; then
-            git add news-archive/ latest-github-news.md
-            git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')"
+          # Re-apply our changes
+          if [ -f latest-github-news.md ]; then
+            mkdir -p news-archive
+            if [ -n "$(ls -A news-archive 2>/dev/null)" ]; then
+              git add news-archive/
+            fi
+            git add latest-github-news.md
             
-            # Push with force-with-lease for safety
-            git push --force-with-lease origin main
+            if [[ -n "$(git status --porcelain)" ]]; then
+              git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')"
+              # Try pushing multiple times with exponential backoff
+              max_attempts=3
+              attempt=1
+              while [ $attempt -le $max_attempts ]; do
+                if git push origin main; then
+                  break
+                fi
+                sleep $((2 ** $attempt))
+                attempt=$((attempt + 1))
+                if [ $attempt -le $max_attempts ]; then
+                  echo "Push failed, retrying..."
+                  git pull --rebase origin main
+                fi
+              done
+              if [ $attempt -gt $max_attempts ]; then
+                echo "Failed to push after $max_attempts attempts"
+                exit 1
+              fi
+            else
+              echo "No changes to commit"
+            fi
           else
-            echo "No changes to commit"
+            echo "No news file found to commit"
+            exit 1
           fi
       
       # Clean up old artifacts to save space
       - name: Cleanup old artifacts
-        if: always()
+        if: always()  # Run even if previous steps failed
         uses: actions/github-script@v6
         with:
           script: |
