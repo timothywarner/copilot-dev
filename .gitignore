@@ -479,6 +479,7 @@ temp/
 # Project specific
 *.pptx
 *.pdf
+!OReilly*Reg*Page*.pdf
 *.docx
 *.xlsx
 *.csv
