@@ -4,6 +4,7 @@ __pycache__
 venv/
 env/
 .env
+.env.local
 .env.*
 !.env.example
 
@@ -334,7 +335,8 @@ paket-files/
 
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 *.pyo
 *.pyd
 *.so
