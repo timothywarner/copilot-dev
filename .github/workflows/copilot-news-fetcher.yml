@@ -22,12 +22,29 @@ jobs:
       actions: write  # For cache operations
     
     steps:
+      # Security check for API key exposure
+      - name: Check for exposed secrets
+        run: |
+          if [ -z "${{ secrets.DEEPSEEK_API_KEY }}" ]; then
+            echo "Error: DEEPSEEK_API_KEY secret is not set!"
+            exit 1
+          fi
+      
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1  # Shallow clone for faster checkout
           ref: main  # Explicitly checkout main branch
           token: ${{ secrets.GITHUB_TOKEN }}  # Explicit token for push access
+      
+      # Security scan for exposed secrets in the repo
+      - name: Check for exposed API keys
+        run: |
+          if grep -r "DEEPSEEK_API_KEY=sk-" . ; then
+            echo "WARNING: Found exposed API key in repository!"
+            echo "Please remove the exposed key and regenerate it immediately!"
+            exit 1
+          fi
       
       # Create requirements.txt if it doesn't exist
       - name: Ensure requirements.txt exists
