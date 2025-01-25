@@ -11,36 +11,107 @@ env:
 jobs:
   fetch-news:
     runs-on: ubuntu-latest
+    timeout-minutes: 10  # Prevent runaway jobs
     permissions:
       contents: write
+      actions: write  # For cache operations
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1  # Shallow clone for faster checkout
+          ref: main  # Explicitly checkout main branch
       
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          
+          cache: 'pip'  # Enable pip caching
+          cache-dependency-path: '.github/scripts/requirements.txt'
+      
+      # Cache the news archive to avoid repeated git operations
+      - name: Cache news archive
+        uses: actions/cache@v3
+        with:
+          path: news-archive
+          key: news-archive-${{ github.run_id }}
+          restore-keys: |
+            news-archive-
+      
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install requests python-dateutil
-          
+          python -m pip install --upgrade pip --quiet
+          pip install --quiet requests python-dateutil
+      
       - name: Archive previous news
+        id: archive
         run: |
           if [ -f latest-github-news.md ]; then
             mkdir -p news-archive
-            mv latest-github-news.md "news-archive/github-news-$(date -d 'yesterday' +'%Y-%m-%d').md"
+            ARCHIVE_NAME="github-news-$(date -d 'yesterday' +'%Y-%m-%d').md"
+            mv latest-github-news.md "news-archive/$ARCHIVE_NAME"
+            echo "archived=true" >> $GITHUB_OUTPUT
+            echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
+          else
+            echo "archived=false" >> $GITHUB_OUTPUT
           fi
-          
+      
       - name: Fetch latest news
+        id: fetch
         run: python .github/scripts/fetch_news.py
-        
-      - name: Commit and push changes
+      
+      # Upload the news files as artifacts for potential reuse
+      - name: Upload news artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: copilot-news
+          path: |
+            latest-github-news.md
+            news-archive/*.md
+          retention-days: 7  # Limit retention to save storage
+      
+      - name: Configure Git and Handle Changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add news-archive/ latest-github-news.md
-          git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')" || echo "No changes to commit"
-          git push 
+          
+          # Fetch and rebase with remote changes
+          git fetch origin main
+          git rebase origin/main
+          
+          # Check for changes
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git add news-archive/ latest-github-news.md
+            git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')"
+            
+            # Push with force-with-lease for safety
+            git push --force-with-lease origin main
+          else
+            echo "No changes to commit"
+          fi
+      
+      # Clean up old artifacts to save space
+      - name: Cleanup old artifacts
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const response = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            const artifacts = response.data.artifacts
+              .filter(artifact => 
+                artifact.name === 'copilot-news' && 
+                new Date(artifact.created_at) < new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+              );
+            
+            for (const artifact of artifacts) {
+              await github.rest.actions.deleteArtifact({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                artifact_id: artifact.id,
+              });
+            } 
