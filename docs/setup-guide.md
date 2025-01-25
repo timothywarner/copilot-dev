@@ -1,21 +1,24 @@
-# Environment Setup Guide
+# Setup Guide
 
 ## Prerequisites
 1. GitHub Account Setup
-   - Create or use existing GitHub account
-   - Enable GitHub Copilot subscription
-   - Configure GitHub authentication
+   * Create or login to your GitHub account
+   * Enable GitHub Copilot subscription
 
-2. Visual Studio Code Installation
-   - Download and install VS Code
-   - Install GitHub Copilot extension
-   - Install GitHub Copilot Chat extension
-   - Configure VS Code settings for optimal Copilot use
+2. IDE Installation
+   * Install Visual Studio Code
+   * Install GitHub Copilot extension
+   * Configure Copilot settings
 
 3. Git Configuration
-   - Install Git
-   - Configure Git credentials
-   - Basic Git commands review
+   * Install Git
+   * Configure basic Git settings
+   * Clone this repository
+
+4. Verify Installation
+   * Test Copilot suggestions
+   * Test Copilot Chat
+   * Verify access to all features
 
 ## VS Code Configuration
 ### Required Extensions

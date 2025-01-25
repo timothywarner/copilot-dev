@@ -1,6 +1,18 @@
 # Code Examples
 
-This directory contains real-world examples demonstrating GitHub Copilot's capabilities.
+This directory contains real-world examples demonstrating GitHub Copilot features:
+
+## Categories
+* `chat-examples/` - Copilot Chat usage patterns
+* `cli-examples/` - Command-line integration
+* `code-review-examples/` - Code review automation
+* `workspace-examples/` - Copilot Workspace demos
+
+Each example includes:
+* Use case description
+* Implementation details
+* Best practices
+* Common pitfalls to avoid
 
 ## Directory Structure
 

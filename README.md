@@ -1,3 +1,30 @@
+# Tim Warner's GitHub Learning Resources
+
+[![GitHub followers](https://img.shields.io/github/followers/timothywarner?style=social)](https://github.com/timothywarner)
+
+## 🎓 Certification Prep Resources
+
+[![AZ-104](https://img.shields.io/github/stars/timothywarner/az104?style=flat&label=AZ-104%20Azure%20Admin&color=blue)](https://github.com/timothywarner/az104)
+[![AZ-500](https://img.shields.io/github/stars/timothywarner/az500?style=flat&label=AZ-500%20Azure%20Security&color=blue)](https://github.com/timothywarner/az500)
+[![AZ-305](https://img.shields.io/github/stars/timothywarner/az305?style=flat&label=AZ-305%20Azure%20Architecture&color=blue)](https://github.com/timothywarner/az305)
+[![AZ-700](https://img.shields.io/github/stars/timothywarner/az700?style=flat&label=AZ-700%20Azure%20Networking&color=blue)](https://github.com/timothywarner/az700)
+[![AZ-400](https://img.shields.io/github/stars/timothywarner/az400?style=flat&label=AZ-400%20Azure%20DevOps&color=blue)](https://github.com/timothywarner/az400)
+[![DP-203](https://img.shields.io/github/stars/timothywarner/dp203?style=flat&label=DP-203%20Azure%20Data%20Engineering&color=blue)](https://github.com/timothywarner/dp203)
+
+## 🚀 GitHub Skills Resources
+
+[![GitHub Actions](https://img.shields.io/github/stars/timothywarner/actions-cert-prep?style=flat&label=GitHub%20Actions%20Certification&color=green)](https://github.com/timothywarner/actions-cert-prep)
+[![Copilot Course](https://img.shields.io/github/stars/timothywarner/copilotaio?style=flat&label=GitHub%20Copilot%20Course&color=green)](https://github.com/timothywarner/copilotaio)
+[![Mastering Copilot](https://img.shields.io/github/stars/timothywarner/mastering-github-copilot?style=flat&label=Mastering%20GitHub%20Copilot&color=green)](https://github.com/timothywarner/mastering-github-copilot)
+
+## 🤖 AI/ML Resources
+
+[![Elements of Prompt Engineering](https://img.shields.io/github/stars/timothywarner/elements?style=flat&label=Elements%20of%20Prompt%20Engineering&color=purple)](https://github.com/timothywarner/elements)
+[![Azure OpenAI](https://img.shields.io/github/stars/timothywarner/aoai?style=flat&label=Azure%20OpenAI&color=purple)](https://github.com/timothywarner/aoai)
+[![Microsoft Fabric](https://img.shields.io/github/stars/timothywarner/fabric?style=flat&label=Microsoft%20Fabric&color=purple)](https://github.com/timothywarner/fabric)
+
+---
+
 # GitHub Copilot for Developers
 
 <img src="tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
@@ -8,7 +35,7 @@
 Gain experience with an AI-based pair programmer right now!
 
 ## Course Information
-**Date**: January 28, 2024 (9am-1pm Central Standard Time)  
+
 **Instructor**: Tim Warner - Microsoft MVP, MCT
 
 ## Connect with Tim

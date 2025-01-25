@@ -1,3 +1,28 @@
+# Course Details
+
+## Schedule
+* 4-hour intensive workshop
+* January 28, 2024 (9am-1pm Central Standard Time)
+* Includes hands-on exercises and live demos
+
+## Format
+* Live online training
+* Interactive Q&A sessions
+* Real-world examples and scenarios
+* Hands-on practice opportunities
+
+## Topics Covered
+* GitHub Copilot fundamentals
+* Advanced features and capabilities
+* Enterprise integration
+* Best practices and patterns
+
+## Materials
+All course materials are available in this repository:
+* `/examples` - Demo code and examples
+* `/exercises` - Hands-on practice
+* `/assets` - Presentations and media
+
 # GitHub Copilot for Developers
 
 **Date**: January 28, 2024 (9am-1pm Central Standard Time)  
