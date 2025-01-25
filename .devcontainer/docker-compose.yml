@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  workspace:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      - ${HOME}${USERPROFILE}/.ssh:/home/vscode/.ssh:ro
+    command: sleep infinity
+    network_mode: service:redis
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+
+volumes:
+  redis-data: 

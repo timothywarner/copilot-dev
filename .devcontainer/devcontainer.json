@@ -1,0 +1,62 @@
+{
+    "name": "GitHub Copilot Development Environment",
+    "image": "mcr.microsoft.com/devcontainers/universal:2",
+    
+    "features": {
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
+        "ghcr.io/devcontainers/features/python:1": {
+            "version": "3.11"
+        },
+        "ghcr.io/devcontainers/features/powershell:1": {}
+    },
+
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot",
+                "GitHub.copilot-chat",
+                "GitHub.vscode-pull-request-github",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode",
+                "ms-vscode.PowerShell",
+                "ms-azuretools.vscode-docker",
+                "eamodio.gitlens",
+                "streetsidesoftware.code-spell-checker"
+            ],
+            "settings": {
+                "editor.formatOnSave": true,
+                "editor.formatOnPaste": true,
+                "editor.inlineSuggest.enabled": true,
+                "github.copilot.enable": {
+                    "*": true,
+                    "plaintext": true,
+                    "markdown": true,
+                    "scminput": false
+                },
+                "python.formatting.provider": "black",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true
+            }
+        }
+    },
+
+    "postCreateCommand": "npm install -g typescript && pip install black pylint pytest jupyter",
+
+    "remoteUser": "vscode",
+
+    "hostRequirements": {
+        "memory": "8gb",
+        "cpus": 4
+    },
+
+    "waitFor": "postCreateCommand",
+
+    "remoteEnv": {
+        "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}"
+    }
+} 

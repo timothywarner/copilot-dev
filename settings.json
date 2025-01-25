@@ -1,0 +1,14 @@
+{
+    "terminal.integrated.fontFamily": "JetBrains Mono NL",
+    "editor.fontFamily": "JetBrains Mono NL",
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.profiles.windows": {
+        "Git Bash": {
+            "path": ["C:\\Program Files\\Git\\bin\\bash.exe"],
+            "font": {
+                "face": "JetBrains Mono NL"
+            }
+        }
+    },
+    "terminal.integrated.defaultProfile.windows": "Git Bash"
+} 
