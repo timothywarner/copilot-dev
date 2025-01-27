@@ -1,6 +1,25 @@
-# Tim Warner's GitHub Learning Resources
+# GitHub Copilot for Developers
 
-[![GitHub followers](https://img.shields.io/github/followers/timothywarner?style=social)](https://github.com/timothywarner)
+<img src="tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
+
+[![Course Demo Repository](https://img.shields.io/badge/Course%20Demo-NodeGoat-brightgreen?style=for-the-badge)](https://github.com/timothywarner/nodegoat)
+[![Knowledge Base Demo](https://img.shields.io/badge/Knowledge%20Base-DemoKB-orange?style=for-the-badge)](https://github.com/timothywarner-org/demokb)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Ftechtrainertim.com)](https://techtrainertim.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Gain experience with an AI-based pair programmer right now!
+
+## Course Information
+
+**Instructor**: Tim Warner - Microsoft MVP, MCT
+
+## Connect with Tim
+- 📧 Email: [tim@techtrainertim.com](mailto:tim@techtrainertim.com)
+- 🌐 Website: [TechTrainerTim.com](https://techtrainertim.com)
+- 🐦 Bluesky: [@techtrainertim.bsky.social](https://bsky.app/profile/techtrainertim.bsky.social)
+- 💼 LinkedIn: [Timothy Warner](https://www.linkedin.com/in/timothywarner)
+- 🎥 YouTube: [@TechTrainerTim](https://youtube.com/@TechTrainerTim)
+- 📚 O'Reilly: [Timothy Warner](https://learning.oreilly.com/search/?q=author%3A%22Timothy+Warner%22&type=*&rows=100)
 
 ## 🎓 Certification Prep Resources
 
@@ -22,29 +41,6 @@
 [![Elements of Prompt Engineering](https://img.shields.io/github/stars/timothywarner/elements?style=flat&label=Elements%20of%20Prompt%20Engineering&color=purple)](https://github.com/timothywarner/elements)
 [![Azure OpenAI](https://img.shields.io/github/stars/timothywarner/aoai?style=flat&label=Azure%20OpenAI&color=purple)](https://github.com/timothywarner/aoai)
 [![Microsoft Fabric](https://img.shields.io/github/stars/timothywarner/fabric?style=flat&label=Microsoft%20Fabric&color=purple)](https://github.com/timothywarner/fabric)
-
----
-
-# GitHub Copilot for Developers
-
-<img src="tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
-
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Ftechtrainertim.com)](https://techtrainertim.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-Gain experience with an AI-based pair programmer right now!
-
-## Course Information
-
-**Instructor**: Tim Warner - Microsoft MVP, MCT
-
-## Connect with Tim
-- 📧 Email: [tim@techtrainertim.com](mailto:tim@techtrainertim.com)
-- 🌐 Website: [TechTrainerTim.com](https://techtrainertim.com)
-- 🐦 Bluesky: [@techtrainertim.bsky.social](https://bsky.app/profile/techtrainertim.bsky.social)
-- 💼 LinkedIn: [Timothy Warner](https://www.linkedin.com/in/timothywarner)
-- 🎥 YouTube: [@TechTrainerTim](https://youtube.com/@TechTrainerTim)
-- 📚 O'Reilly: [Timothy Warner](https://learning.oreilly.com/search/?q=author%3A%22Timothy+Warner%22&type=*&rows=100)
 
 ## Repository Structure
 - 📁 `/docs` - Course documentation and setup guides
