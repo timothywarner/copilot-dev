@@ -492,3 +492,18 @@ temp/
 !.gitignore
 !.gitkeep
 !.github/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# OS Files
+.DS_Store
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
