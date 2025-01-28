@@ -12,7 +12,7 @@ Each example includes:
 * Use case description
 * Implementation details
 * Best practices
-* Common pitfalls to avoid
+* Common pitfalls/gotchas to avoid
 
 ## Directory Structure
 
@@ -53,4 +53,4 @@ Automation scripts and tools:
 - Understand the prompt patterns
 - Note the context provided
 - Observe how complex tasks are broken down
-- Pay attention to error handling and edge cases 
+- Pay attention to error handling and edge cases
