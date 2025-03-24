@@ -1,56 +1,38 @@
-# Code Examples
+# GitHub Copilot Examples
 
-This directory contains real-world examples demonstrating GitHub Copilot features:
-
-## Categories
-* `chat-examples/` - Copilot Chat usage patterns
-* `cli-examples/` - Command-line integration
-* `code-review-examples/` - Code review automation
-* `workspace-examples/` - Copilot Workspace demos
-
-Each example includes:
-* Use case description
-* Implementation details
-* Best practices
-* Common pitfalls/gotchas to avoid
+This directory contains example code that demonstrates GitHub Copilot in various contexts. These examples are organized by domain and can be referenced throughout the course.
 
 ## Directory Structure
 
-### `/prompts`
-Effective prompt engineering examples for:
-- Code generation
-- Documentation writing
-- Test creation
-- Bug fixing
-- Code explanation
+- `/src` - Sample application files demonstrating Copilot with Python
+- `/web-dev` - Web development examples with HTML, CSS, and JavaScript
+- `/devops` - DevOps automation and infrastructure as code examples
+- `/playground` - Experimental examples for free exploration
 
-### `/web-dev`
-Web development examples including:
-- Frontend components
-- API endpoints
-- Database interactions
-- Authentication flows
-- Error handling
+## Using These Examples
 
-### `/automation`
-Automation scripts and tools:
-- GitHub Actions workflows
-- CI/CD pipelines
-- Testing automation
-- Deployment scripts
-- Infrastructure as Code
+The examples in this directory are meant to be:
 
-## How to Use These Examples
+1. **Reference Material** - For instructors to demonstrate Copilot's capabilities
+2. **Inspiration** - For students to see what's possible with Copilot
+3. **Starting Points** - Templates that can be extended during exercises
 
-1. Browse the category that matches your needs
-2. Study the comments and prompts used
-3. Understand the patterns and techniques
-4. Adapt examples to your use case
-5. Experiment with variations
+## Language Coverage
 
-## Best Practices
-- Read the comments carefully
-- Understand the prompt patterns
-- Note the context provided
-- Observe how complex tasks are broken down
-- Pay attention to error handling and edge cases
+Examples cover multiple programming languages and frameworks including:
+
+- JavaScript/TypeScript
+- Python
+- HTML/CSS
+- Shell scripts
+- Infrastructure as Code (Terraform, Bicep)
+- SQL
+
+## Related Resources
+
+For more focused examples specific to each module of the course, please see the examples directories within each module:
+
+- [Module 1: Getting Started](../modules/01-getting-started/examples)
+- [Module 2: Everyday Development](../modules/02-everyday-development/examples)
+- [Module 3: Advanced Features](../modules/03-advanced-features/examples)
+- [Module 4: Ecosystem and Future](../modules/04-ecosystem-future/examples)
