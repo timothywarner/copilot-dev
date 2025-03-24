@@ -44,14 +44,19 @@ Gain experience with an AI-based pair programmer right now!
 
 ## Repository Structure
 - 📁 `/docs` - Course documentation and setup guides
-- 📁 `/exercises` - Hands-on practice exercises
+- 📁 `/modules` - Course content organized by course segments
+  - 📁 `/01-getting-started` - Getting Started with GitHub Copilot
+  - 📁 `/02-everyday-development` - Using GitHub Copilot for Everyday Development
+  - 📁 `/03-advanced-features` - Scaling Productivity with Advanced Features
+  - 📁 `/04-ecosystem-future` - Exploring the Ecosystem and Future
 - 📁 `/examples` - Code examples and demos
 - 📁 `/assets` - Course media and presentations
+- 📁 `/resources` - Cheatsheets, templates, and additional materials
 
 ## Getting Started
 1. Review the [setup guide](docs/setup-guide.md)
 2. Check the [course details](docs/course-details.md)
-3. Start with [basic exercises](exercises/01-basics)
+3. Start with [Module 1: Getting Started](modules/01-getting-started)
 4. Explore [code examples](examples)
 
 ## Prerequisites

@@ -1,179 +1,118 @@
-Skip to content
-Sign In
-Try Now
-Teams
-For business
-For government
-For higher ed
-Individuals
-Features
-All features
-Courses
-Certifications
-Interactive learning
-Live events
-Answers
-Insights reporting
-Blog
-Content sponsorship
+# GitHub Copilot for Developers
 
-Explore our content
+![GitHub Copilot Course](../tim-gh-copilot-cover-slide.png)
 
-chevron left
-View all events
-live
-GitHub Copilot
-GitHub Copilot for Developers
-Published by Pearson
+**Instructor**: Tim Warner - Microsoft MVP, MCT  
+**Duration**: 4 hours  
+**Level**: Beginner to intermediate
 
-Beginner to intermediate
-Unlock Your Coding Superpowers and Boost Productivity with GitHub Copilot
+## Course Description
 
-What you’ll learn
-Is this live event for you?
-Schedule
-Personalized guidance to tailor GitHub Copilot for your unique coding style and preferences
-Full coverage of advanced Copilot X features for a cutting-edge development experience
-Insider techniques to boost productivity, directly from an experienced Copilot power user
-Unlock the full potential of your programming skills with our comprehensive 4-hour live training session on "GitHub Copilot Tips and Tricks for Developers." This class is designed to help you not only understand how to sign up for and configure GitHub Copilot but also leverage its capabilities as your ultimate pair programmer. Master time-saving tips, tricks, and shortcuts that will elevate your coding experience and streamline your workflow.
+Master GitHub Copilot to boost your coding efficiency and productivity. This class teaches developers to unlock the full potential of GitHub Copilot through practical, hands-on techniques and insider tips from a seasoned GitHub Copilot expert.
 
-In this class, you will learn how to use advanced GitHub Copilot X features and learn how to customize Copilot to suit your unique coding style and preferences. Moreover, you'll benefit from insider techniques shared by an experienced Copilot power user to boost your productivity and efficiency. Don't miss this opportunity to sharpen your development skills and stay ahead of the curve in an ever-evolving tech landscape.
+## What You'll Learn
 
-What you’ll learn and how you can apply it
-How to customize Copilot's AI suggestions to enhance code quality and align with personal preferences
-How to use Copilot's context-aware suggestions for seamless integration with existing codebases
-How to leverage advanced Copilot X features for improved efficiency in code generation and bug fixing
-How to implement time-saving shortcuts and hidden gems within GitHub Copilot to streamline workflows
-And you’ll be able to:
+- Master the latest GitHub Copilot features, including Edits and Knowledge Bases
+- Streamline coding workflows with practical, hands-on techniques
+- Learn insider tips from a seasoned GitHub Copilot expert
 
-Adjust Copilot's settings to generate code snippets tailored to specific programming styles and requirements
-Integrate Copilot's AI-driven suggestions into ongoing projects, ensuring seamless code merging and compatibility
-Apply advanced Copilot X capabilities to swiftly identify and resolve coding errors or bottlenecks
-Navigate GitHub Copilot's interface with ease, using shortcuts and hidden features to expedite development tasks
-This live event is for you because...
-This training is suitable for software developers and data scientists, catering to both beginners and more advanced learners. Whether you're just starting to explore GitHub Copilot or have some experience with it, this course will provide valuable insights and techniques to enhance your coding abilities and productivity. The course content will cover foundational concepts for beginners, while also delving into advanced features and strategies for those with more experience.
+## Core Skills You'll Develop
 
-Prerequisites
-To get the most out of this class, attendees should have a basic understanding of programming concepts and be familiar with at least one programming language.
-Prior experience with version control systems, especially Git and GitHub, will be helpful but not mandatory.
-No prior experience with GitHub Copilot is required, as the course will cover its fundamentals while also delving into advanced features for more experienced users.
-Course Set-up
+- Customize GitHub Copilot's suggestions to align with your coding style
+- Use Copilot Edits for efficient refactoring and multi-file changes
+- Leverage Knowledge Bases for project-specific insights
+- Maximize productivity using advanced features like multi-model support and intelligent prompts
 
-A GitHub account (free or paid) to access and configure GitHub Copilot (optional if you wish to follow along with the hands-on portion, but not required)
-A compatible code editor or IDE (e.g., Visual Studio Code) with GitHub Copilot extension installed
-Git installed and configured for version control, along with basic knowledge of Git commands
-A stable internet connection for seamless interaction with GitHub Copilot's AI suggestions during the live session
-Recommended Preparation
+## Course Outline
 
-Watch: _Git Essentials LiveLessons, 2nd Edition _(Video Training), by Daniel Chen
-Recommended Follow-up
+### Segment 1: Getting Started with GitHub Copilot (60 minutes)
 
-Read: Quick Start Guide to Large Language Models: Strategies and Best Practices for using ChatGPT and Other LLMs by Sinan Ozdemir
-Schedule
-The time frames are only estimates and may vary according to how the class is progressing.
+- **Welcome and Course Goals**
+  - Overview of GitHub Copilot and its transformative potential for developers
+  - Learning objectives: Productivity, efficiency, and ethical AI usage
 
-Segment 1: Introduction (10 minutes)
+- **Introduction to GitHub Copilot**
+  - What is Copilot? How does it work within IDEs like VS Code?
+  - Live Demo: Writing a simple function with Copilot suggestions
 
-Welcome and Overview
-Importance of GitHub Copilot in Modern Development
-Segment 2: Getting Started with GitHub Copilot (15 minutes)
+- **Responsible AI Foundations**
+  - Key risks and limitations of AI in development
+  - Ethical principles: Privacy, security, and human oversight
+  - Real-World Examples: Identifying and mitigating risks in AI-generated code
 
-Signing up for GitHub Copilot
-Installing and Configuring the Copilot Extension
-Compatible Code Editors and IDEs
-Segment 3: GitHub Copilot Fundamentals (30 minutes)
+- **GitHub Copilot Subscription Plans**
+  - Features of Individual, Business, and Enterprise tiers
+  - Setting up Copilot for your IDE
 
-Pair Programming with Copilot
-Generating Code Suggestions
-Evaluating and Integrating Suggestions
-Managing Multi-language Support
-Q&A (5 minutes)
+### Segment 2: Using GitHub Copilot for Everyday Development (60 minutes)
 
-Break (10 minutes)
+- **Code Completion in Action**
+  - Writing single-line and multi-line code with Copilot
+  - Live Demo: Creating a function, debugging, and writing documentation
 
-Segment 4: Time-saving Development Tips, Tricks, and Shortcuts (60 minutes)
+- **Prompt Crafting and Refinement**
+  - The role of prompts in guiding Copilot's output
+  - Hands-On Activity: Writing effective prompts for better suggestions
 
-Customizing Copilot AI Suggestions
-Efficient Code Generation Techniques
-Navigating the Interface with Shortcuts
-Streamlining Git Integration and Workflow
-Q&A (5 minutes)
+- **Custom Instructions for Tailored Suggestions**
+  - Using .github/copilot-instructions.md for project-specific customization
+  - Real-World Scenario: Enforcing a consistent coding style across teams
 
-Break (10 minutes)
+- **Leveraging GitHub Models**
+  - Switching between GPT-4, Anthropic, and Claude models for varied outputs
+  - Hands-On Demo: Comparing outputs for a complex task across models
 
-Segment 5: Advanced Capabilities with GitHub Copilot X (60 minutes)
+### Segment 3: Scaling Productivity with Copilot's Advanced Features (60 minutes)
 
-Exploring Copilot CLI
-Implementing Copilot for Pull Requests
-Leveraging Copilot Chat
-Break (10 minutes)
+- **Multi-File Edits and Refactoring**
+  - Using Copilot Edits for sweeping changes across projects
+  - Live Demo: Refactoring a feature across multiple files
 
-Segment 6: Real-world Use Cases and Best Practices (45 minutes)
+- **Testing and Debugging with Copilot**
+  - Automating unit tests, integration tests, and mock data generation
+  - Practical Example: Generating tests for edge cases in a given module
 
-Tailoring Copilot to Your Coding Style
-Fine-tuning Copilot's Settings and Preferences
-Managing and Troubleshooting Common Issues
-Case Studies on Efficient Copilot Usage
-Tips for Seamless Integration in Professional Projects
-Balancing Human Expertise and AI-driven Assistance
-Segment 8: Conclusion (15 minutes)
+- **Data Privacy and Security in Copilot**
+  - How Copilot handles your code and inputs
+  - Configuring privacy settings and content exclusions
+  - Real-World Application: Protecting sensitive codebases
 
-Recap and Key Takeaways
-Resources for Continued Learning
-Closing Remarks and Q&A
-Jan 28
-9am-1pm Central Standard Time
+- **Understanding Knowledge Bases**
+  - Setting up and using knowledge bases for domain-specific expertise
+  - Demo: Building a knowledge base to optimize a legacy codebase
 
-163 Spots Remaining
+### Segment 4: Exploring the Ecosystem and Future of AI Development (60 minutes)
 
-Sign up for a free trial!
-or sign in.
+- **Competitive Landscape and Ecosystem**
+  - Overview of other AI-powered coding assistants (Replit, Anysphere, Magic)
+  - How Copilot compares and integrates into modern workflows
 
-Your Instructor
-Tim Warner
-Read more
-Tim Warner has been a Microsoft MVP in Azure AI and Cloud/Datacenter Management for 6 years and a Microsoft Certified Trainer for more than 25 years. His O'Reilly Live Training classes on generative AI, GitHub, DevOps, data engineering, cloud computing, and Microsoft certification reach hundreds of thousands of students around the world. He's written for Microsoft Press, presented at Microsoft Ignite, and contributed to several Microsoft open-source projects. You can connect with Tim on LinkedIn: timw.info/li.
+- **Copilot for CLI and Beyond**
+  - Using Copilot in the command line for scripting and DevOps tasks
+  - Practical Example: Automating repetitive CLI tasks
 
-linkedin
-link
-search
-About O'Reilly
-Teach/write/train
-Careers
-Press releases
-Media coverage
-Community partners
-Affiliate program
-Submit an RFP
-Diversity
-O’Reilly for marketers
-Support
-Contact us
-Newsletters
-Privacy policy
-International
-Australia & New Zealand
-Hong Kong & Taiwan
-India
-Indonesia
-Japan
-Download the O'Reilly App
-Take O'Reilly with you and learn anywhere, anytime on your phone and tablet.
+- **Extending Copilot with Plugins and Extensions**
+  - Installing and using Copilot extensions from the GitHub Marketplace
+  - Live Demo: Leveraging extensions for web searches and documentation
 
-Apple app store
-Google play store
-Watch on your big screen
-View all O'Reilly videos, Superstream events, and Meet the Expert sessions on your home TV.
+- **The Future of AI-Powered Development**
+  - Upcoming Copilot innovations: Extensions, Copilot Workspace, and more
+  - Where to stay updated: GitHub blogs, release notes, and forums
 
-Roku Players and TVs
-Amazon appstore
-Do not sell my personal information
-© 2025, O'Reilly Media, Inc. All trademarks and registered trademarks appearing on oreilly.com are the property of their respective owners.
+## Course Prerequisites
 
-Terms of Service
-•
-Privacy Policy
-•
-Editorial Independence
-•
-Modern Slavery Act Statement
+- Basic understanding of programming concepts
+- Familiarity with at least one programming language
+- Prior experience with version control systems helpful but not mandatory
+- No prior experience with GitHub Copilot required
+
+## Course Setup Requirements
+
+- GitHub account (free or paid) with GitHub Copilot enabled
+- Compatible IDE (e.g., Visual Studio Code) with GitHub Copilot extension installed
+- Git installed and configured on your machine
+- Stable internet connection
+
+## Resources
+
+- Course Materials repository: https://github.com/timothywarner/copilot-dev
