@@ -1,0 +1,14 @@
+{
+  "name": "blackbeard-extension",
+  "private": "true",
+  "description": "A basic example of a Copilot Extension",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@octokit/core": "^6.1.2",
+    "express": "^4.19.2"
+  }
+}
