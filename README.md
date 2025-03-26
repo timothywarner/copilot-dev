@@ -24,11 +24,11 @@ Gain experience with an AI-based pair programmer right now!
 ## Repository Structure
 
 ### Course Content
-- 📁 `/course` - Core course materials organized by topic
-  - 📁 `/basics` - Getting started with GitHub Copilot
-  - 📁 `/everyday` - Using Copilot for everyday development
-  - 📁 `/advanced` - Advanced features and techniques
-  - 📁 `/ecosystem` - Ecosystem and future possibilities
+- 📁 `/modules` - Core course materials organized by topic
+  - 📁 `/01-getting-started` - Getting started with GitHub Copilot
+  - 📁 `/02-everyday-development` - Using Copilot for everyday development
+  - 📁 `/03-advanced-features` - Advanced features and techniques
+  - 📁 `/04-ecosystem-future` - Ecosystem and future possibilities
 
 ### Resources
 - 📁 `/exercises` - Hands-on exercises (all in one place)
@@ -41,7 +41,7 @@ Gain experience with an AI-based pair programmer right now!
 ## Getting Started
 1. Review the [setup guide](docs/setup-guide.md)
 2. Check the [course details](docs/course-details.md) 
-3. Start with the [basics](course/basics/README.md)
+3. Start with the [basics](modules/01-getting-started/README.md)
 4. Try the [exercises](exercises/README.md)
 
 ## Prerequisites
@@ -51,10 +51,32 @@ Gain experience with an AI-based pair programmer right now!
 - Familiarity with at least one programming language
 
 ## Core Resources
+### Official Documentation
 - [GitHub Copilot Product Page](https://github.com/features/copilot)
 - [Official Documentation](https://docs.github.com/en/copilot)
+- [GitHub Copilot for Individuals](https://docs.github.com/en/copilot/quickstart)
+- [GitHub Copilot for Business](https://docs.github.com/en/copilot/github-copilot-enterprise/overview)
+
+### IDE Extensions
 - [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
+- [Visual Studio Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs)
+- [JetBrains Extension](https://plugins.jetbrains.com/plugin/17718-github-copilot)
+- [Neovim Extension](https://github.com/github/copilot.vim)
+
+### GitHub Copilot X Features
+- [Copilot CLI](https://githubnext.com/projects/copilot-cli/)
+- [Copilot for Pull Requests](https://github.blog/2023-11-08-github-copilot-in-the-cli-now-in-public-beta/)
+- [Copilot Chat](https://docs.github.com/en/copilot/github-copilot-chat/using-github-copilot-chat)
+
+### Learning Resources
+- [GitHub Learning Lab](https://github.com/skills/copilot-codespaces-vs)
+- [Best Practices for Prompting](https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/)
+- [GitHub Copilot Trust Center](https://github.com/features/copilot/trust)
+- [Community Forum](https://github.community/c/code-to-cloud/github-copilot/41)
+
+### Pricing & Billing
 - [Pricing Information](https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot)
+- [Enterprise Features](https://docs.github.com/en/copilot/github-copilot-enterprise/overview)
 
 ## License
 MIT License - See [LICENSE](LICENSE) for details

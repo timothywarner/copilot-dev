@@ -1,0 +1,164 @@
+name: Validate PowerShell Scripts
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - '*.ps1'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - '*.ps1'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate PowerShell Scripts
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Set-PSRepository PSGallery -InstallationPolicy Trusted
+          Install-Module -Name PSScriptAnalyzer -Force
+      
+      - name: Run PSScriptAnalyzer on scripts directory
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path scripts -Recurse -Severity Warning
+          $results | Format-Table -AutoSize
+          if ($results) {
+            Write-Error "PSScriptAnalyzer found issues in scripts directory."
+            exit 1
+          }
+      
+      - name: Run PSScriptAnalyzer on root ps1 files
+        shell: pwsh
+        run: |
+          $results = Invoke-ScriptAnalyzer -Path . -Include *.ps1 -Exclude */scripts/* -Severity Warning
+          $results | Format-Table -AutoSize
+          if ($results) {
+            Write-Error "PSScriptAnalyzer found issues in root ps1 files."
+            exit 1
+          }
+      
+      - name: Check for PowerShell syntax errors
+        shell: pwsh
+        run: |
+          $ErrorFound = $false
+          
+          # Check scripts directory
+          Get-ChildItem -Path scripts -Filter *.ps1 -Recurse | ForEach-Object {
+            $file = $_.FullName
+            $syntaxErrors = $null
+            $content = Get-Content -Path $file -Raw
+            
+            $null = [System.Management.Automation.PSParser]::Tokenize($content, [ref]$syntaxErrors)
+            
+            if ($syntaxErrors.Count -gt 0) {
+              Write-Error "Syntax errors found in $file"
+              $syntaxErrors | Format-Table -AutoSize
+              $ErrorFound = $true
+            }
+          }
+          
+          # Check root ps1 files
+          Get-ChildItem -Path . -Filter *.ps1 | ForEach-Object {
+            $file = $_.FullName
+            $syntaxErrors = $null
+            $content = Get-Content -Path $file -Raw
+            
+            $null = [System.Management.Automation.PSParser]::Tokenize($content, [ref]$syntaxErrors)
+            
+            if ($syntaxErrors.Count -gt 0) {
+              Write-Error "Syntax errors found in $file"
+              $syntaxErrors | Format-Table -AutoSize
+              $ErrorFound = $true
+            }
+          }
+          
+          if ($ErrorFound) {
+            exit 1
+          }
+      
+      - name: Verify PowerShell files have proper encoding
+        shell: pwsh
+        run: |
+          $ErrorFound = $false
+          
+          function Test-FileEncoding {
+            param (
+              [string]$Path
+            )
+            
+            $bytes = [System.IO.File]::ReadAllBytes($Path)
+            $encoding = "ASCII"
+            
+            if ($bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF) {
+              $encoding = "UTF-8 with BOM"
+            } elseif ($bytes.Length -ge 4 -and $bytes[0] -eq 0 -and $bytes[1] -eq 0 -and $bytes[2] -eq 0xFE -and $bytes[3] -eq 0xFF) {
+              $encoding = "UTF-32 BE"
+            } elseif ($bytes.Length -ge 4 -and $bytes[0] -eq 0xFF -and $bytes[1] -eq 0xFE -and $bytes[2] -eq 0 -and $bytes[3] -eq 0) {
+              $encoding = "UTF-32 LE"
+            } elseif ($bytes.Length -ge 2 -and $bytes[0] -eq 0xFE -and $bytes[1] -eq 0xFF) {
+              $encoding = "UTF-16 BE"
+            } elseif ($bytes.Length -ge 2 -and $bytes[0] -eq 0xFF -and $bytes[1] -eq 0xFE) {
+              $encoding = "UTF-16 LE"
+            } else {
+              # Try to detect UTF-8 without BOM
+              $isUtf8 = $true
+              $i = 0
+              while ($i -lt $bytes.Length) {
+                if ($bytes[$i] -lt 0x80) {
+                  $i++
+                } elseif ($bytes[$i] -ge 0xC2 -and $bytes[$i] -lt 0xE0 -and $i + 1 -lt $bytes.Length -and $bytes[$i + 1] -ge 0x80 -and $bytes[$i + 1] -lt 0xC0) {
+                  $i += 2
+                } elseif ($bytes[$i] -ge 0xE0 -and $bytes[$i] -lt 0xF0 -and $i + 2 -lt $bytes.Length -and $bytes[$i + 1] -ge 0x80 -and $bytes[$i + 1] -lt 0xC0 -and $bytes[$i + 2] -ge 0x80 -and $bytes[$i + 2] -lt 0xC0) {
+                  $i += 3
+                } elseif ($bytes[$i] -ge 0xF0 -and $bytes[$i] -lt 0xF5 -and $i + 3 -lt $bytes.Length -and $bytes[$i + 1] -ge 0x80 -and $bytes[$i + 1] -lt 0xC0 -and $bytes[$i + 2] -ge 0x80 -and $bytes[$i + 2] -lt 0xC0 -and $bytes[$i + 3] -ge 0x80 -and $bytes[$i + 3] -lt 0xC0) {
+                  $i += 4
+                } else {
+                  $isUtf8 = $false
+                  break
+                }
+              }
+              
+              if ($isUtf8) {
+                $encoding = "UTF-8 without BOM"
+              }
+            }
+            
+            return $encoding
+          }
+          
+          # Check scripts directory
+          Get-ChildItem -Path scripts -Filter *.ps1 -Recurse | ForEach-Object {
+            $file = $_.FullName
+            $encoding = Test-FileEncoding -Path $file
+            
+            if ($encoding -ne "UTF-8 without BOM" -and $encoding -ne "ASCII") {
+              Write-Error "File $file has incorrect encoding: $encoding. Expected: UTF-8 without BOM or ASCII."
+              $ErrorFound = $true
+            }
+          }
+          
+          # Check root ps1 files
+          Get-ChildItem -Path . -Filter *.ps1 | ForEach-Object {
+            $file = $_.FullName
+            $encoding = Test-FileEncoding -Path $file
+            
+            if ($encoding -ne "UTF-8 without BOM" -and $encoding -ne "ASCII") {
+              Write-Error "File $file has incorrect encoding: $encoding. Expected: UTF-8 without BOM or ASCII."
+              $ErrorFound = $true
+            }
+          }
+          
+          if ($ErrorFound) {
+            exit 1
+          } 
