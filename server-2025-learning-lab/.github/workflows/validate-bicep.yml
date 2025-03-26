@@ -1,0 +1,59 @@
+name: Validate Bicep Templates
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'bicep/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'bicep/**'
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Bicep Templates
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Setup Bicep
+        run: |
+          curl -Lo bicep https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
+          chmod +x ./bicep
+          sudo mv ./bicep /usr/local/bin/bicep
+          bicep --version
+      
+      - name: Validate main template
+        run: |
+          bicep build --file bicep/main.bicep
+      
+      - name: Validate module templates
+        run: |
+          for file in bicep/modules/*.bicep; do
+            echo "Validating $file"
+            bicep build --file "$file"
+          done
+      
+      - name: Run Bicep Linter
+        run: |
+          echo "Running linter on all Bicep files"
+          # Linting main template
+          bicep build --file bicep/main.bicep --diagnostics 2>&1 | tee linter_results.txt
+          
+          # Linting module templates
+          for file in bicep/modules/*.bicep; do
+            echo "Linting $file"
+            bicep build --file "$file" --diagnostics 2>&1 | tee -a linter_results.txt
+          done
+          
+          # Check if there are any warnings or errors
+          if grep -E "Warning|Error" linter_results.txt; then
+            echo "Linter found issues. Please fix them."
+            exit 1
+          else
+            echo "No linter issues found."
+          fi 
