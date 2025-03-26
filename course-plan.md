@@ -4,14 +4,7 @@
 - **Duration**: 4 hours total
 - **Segments**: 4 x ~55 minute segments
 - **Breaks**: ~9 minute breaks between segments
-- **Platform**: ON24 live training platform
-
-## Pre-Session Checklist
-- [ ] Test audio/video
-- [ ] Open VS Code with GitHub Copilot enabled
-- [ ] Prepare browser tabs: GitHub, documentation, demo repositories
-- [ ] Have NodeGoat and DemoKB repositories ready
-- [ ] Check that all demos work in current Copilot version
+- **Platform**: ON24 live training **platform**
 
 ## SEGMENT 1: Getting Started with GitHub Copilot (55min)
 
