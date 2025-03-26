@@ -1,6 +1,7 @@
 # GitHub Copilot for Developers - Teaching Punchlist
 
 ## Course Structure
+
 - **Duration**: 4 hours total
 - **Segments**: 4 x ~55 minute segments
 - **Breaks**: ~9 minute breaks between segments
@@ -9,12 +10,14 @@
 ## SEGMENT 1: Getting Started with GitHub Copilot (55min)
 
 ### 1. Welcome & Introduction (10min)
+
 - [ ] Personal introduction (MVP, MCT status)
 - [ ] Repository link in chat: `https://github.com/timothywarner/copilot-dev`
 - [ ] Encourage questions in chat throughout
 - [ ] Highlight repository structure: modules follow exactly this session
 
 ### 2. GitHub Copilot Overview (15min)
+
 - [ ] What is Copilot? AI pair programmer powered by OpenAI Codex
 - [ ] DEMO: Basic code completion in VS Code
 - [ ] Show different IDEs that support Copilot
@@ -22,18 +25,21 @@
 - [ ] Latest features (March 2024): Edits, KB, Multi-model support
 
 ### 3. Responsible AI Foundations (15min)
+
 - [ ] Discuss key risks: code quality, security, intellectual property
 - [ ] Show privacy settings in VS Code extension
 - [ ] DEMO: Identify problematic code suggestions
 - [ ] Best practices for review and validation
 
 ### 4. Setup & Configuration (10min)
+
 - [ ] Walkthrough subscription setup
 - [ ] VS Code extension installation
 - [ ] DEMO: Initial configuration options
 - [ ] Verify that Copilot is working correctly
 
 ### 5. Q&A and Segment Wrap-up (5min)
+
 - [ ] Address early questions
 - [ ] Preview upcoming segment
 - [ ] Quick self-assessment: Copilot basics
@@ -43,30 +49,35 @@
 ## SEGMENT 2: Everyday Development (55min)
 
 ### 1. Code Completion in Action (15min)
+
 - [ ] DEMO: Single-line completions
 - [ ] DEMO: Multi-line function generation
 - [ ] DEMO: Documentation writing
 - [ ] Best practices for accepting/rejecting suggestions
 
 ### 2. Prompt Crafting (15min)
+
 - [ ] Effective comment structure
 - [ ] DEMO: Compare different prompt approaches
 - [ ] EXERCISE: Have students suggest prompts in chat
 - [ ] Show how specificity improves results
 
 ### 3. Custom Instructions (10min)
+
 - [ ] Show .github/copilot-instructions.md file
 - [ ] DEMO: Create custom instructions for a project
 - [ ] How to enforce coding standards
 - [ ] Repository-wide vs user preferences
 
 ### 4. Multiple Model Support (10min)
+
 - [ ] How to switch between models
 - [ ] DEMO: Compare outputs between GPT-4 and Claude
 - [ ] When to use different models
 - [ ] Performance vs quality considerations
 
 ### 5. Q&A and Segment Wrap-up (5min)
+
 - [ ] Address questions
 - [ ] Preview upcoming segment
 - [ ] Quick tip: Keyboard shortcuts (Alt+])
@@ -76,30 +87,35 @@
 ## SEGMENT 3: Advanced Features (55min)
 
 ### 1. Multi-File Edits (15min)
+
 - [ ] DEMO: Copilot Edits for refactoring
 - [ ] How to specify multi-file changes
 - [ ] Best practices for complex edits
 - [ ] Compare with traditional refactoring
 
 ### 2. Testing and Debugging (15min)
+
 - [ ] DEMO: Generate unit tests
 - [ ] DEMO: Debug with Copilot assistance
 - [ ] Test coverage recommendations
 - [ ] Validating test quality
 
 ### 3. Privacy and Security (10min)
+
 - [ ] Enterprise security features
 - [ ] Public code filtering
 - [ ] GDPR and compliance considerations
 - [ ] Security best practices with AI-generated code
 
 ### 4. Knowledge Bases (10min)
+
 - [ ] What are Knowledge Bases?
 - [ ] DEMO: Create a project-specific KB
 - [ ] Effective KB organization
 - [ ] Link to DemoKB repository
 
 ### 5. Q&A and Segment Wrap-up (5min)
+
 - [ ] Address questions
 - [ ] Preview final segment
 - [ ] Share quick refactoring tip
@@ -109,24 +125,28 @@
 ## SEGMENT 4: Ecosystem and Future (55min)
 
 ### 1. AI Coding Assistant Landscape (10min)
+
 - [ ] Compare: Copilot, Replit, Anysphere, Magic
 - [ ] Integration with GitHub ecosystem
 - [ ] Cost/benefit analysis
 - [ ] Microsoft/OpenAI/Anthropic relationships
 
 ### 2. Copilot CLI (15min)
+
 - [ ] DEMO: GitHub CLI with Copilot
 - [ ] Common command line use cases
 - [ ] Automation opportunities
 - [ ] Shell integration tips
 
 ### 3. Extensions and Integration (15min)
+
 - [ ] GitHub marketplace extensions
 - [ ] DEMO: Install and use an extension
 - [ ] API integration possibilities
 - [ ] Creating custom plugins
 
 ### 4. Future Developments & Wrap-up (15min)
+
 - [ ] Upcoming Copilot features
 - [ ] Workspace, Agent, Flow possibilities
 - [ ] Where to stay updated
@@ -134,6 +154,7 @@
 - [ ] Contact information and follow-up
 
 ## Post-Session Tasks
+
 - [ ] Share slide deck
 - [ ] Post any requested resources in chat
 - [ ] Follow up on unanswered questions
