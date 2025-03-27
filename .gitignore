@@ -459,7 +459,7 @@ log/
 *.pfx
 *.env
 *.env.*
-!*.env.example
+!.env.example
 .secrets/
 secrets/
 credentials/
@@ -507,3 +507,4 @@ temp/
 .idea/
 *.swp
 *.swo
+tims-notebook.md

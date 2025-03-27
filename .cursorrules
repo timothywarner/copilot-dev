@@ -1,0 +1,76 @@
+{
+    "rules": {
+        "python": {
+            "max_line_length": 88,
+            "docstring_style": "google",
+            "require_type_hints": true,
+            "require_docstrings": true,
+            "require_async_for_io": true,
+            "require_error_handling": true
+        },
+        "general": {
+            "require_tests": true,
+            "test_coverage_threshold": 80,
+            "require_readme": true,
+            "require_requirements": true,
+            "require_logging": true,
+            "require_error_messages": true
+        },
+        "security": {
+            "prevent_hardcoded_secrets": true,
+            "require_input_validation": true,
+            "require_dependency_pinning": true
+        },
+        "style": {
+            "require_consistent_naming": true,
+            "require_comments_complex_logic": true,
+            "max_function_length": 50,
+            "max_complexity": 10
+        },
+        "teaching": {
+            "require_example_comments": true,
+            "require_step_documentation": true,
+            "require_performance_comments": true
+        },
+        "git": {
+            "require_conventional_commits": true,
+            "max_commit_size": 300,
+            "require_branch_protection": true
+        },
+        "ci_cd": {
+            "require_github_actions": true,
+            "require_security_scanning": true,
+            "require_dependency_updates": true
+        },
+        "observability": {
+            "require_structured_logging": true,
+            "require_error_tracking": true,
+            "require_performance_metrics": true
+        }
+    },
+    "documentation": {
+        "required_sections": [
+            "Overview",
+            "Installation",
+            "Usage",
+            "Configuration",
+            "Testing",
+            "Security",
+            "Performance",
+            "Contributing"
+        ]
+    },
+    "ignore_patterns": [
+        "**/__pycache__/**",
+        "**/.pytest_cache/**",
+        "**/venv/**",
+        "**/node_modules/**"
+    ],
+    "custom_checks": {
+        "teaching_readiness": {
+            "require_step_by_step_comments": true,
+            "require_learning_objectives": true,
+            "require_example_outputs": true
+        }
+    }
+}

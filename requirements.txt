@@ -1,0 +1,3 @@
+httpx==0.26.0
+feedparser==6.0.11
+rich==13.7.0 

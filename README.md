@@ -1,84 +1,110 @@
-# GitHub Copilot for Developers
+# GitHub Copilot Dev Repository
 
-<img src="assets/images/tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
-
-[![Course Demo Repository](https://img.shields.io/badge/Course%20Demo-NodeGoat-brightgreen?style=for-the-badge)](https://github.com/timothywarner/nodegoat)
-[![Knowledge Base Demo](https://img.shields.io/badge/Knowledge%20Base-DemoKB-orange?style=for-the-badge)](https://github.com/timothywarner-org/demokb)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Ftechtrainertim.com)](https://techtrainertim.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-Gain experience with an AI-based pair programmer right now!
-
-## Course Information
-
-**Instructor**: Tim Warner - Microsoft MVP, MCT
-
-## Connect with Tim
-- 📧 Email: [tim@techtrainertim.com](mailto:tim@techtrainertim.com)
-- 🌐 Website: [TechTrainerTim.com](https://techtrainertim.com)
-- 🐦 Bluesky: [@techtrainertim.bsky.social](https://bsky.app/profile/techtrainertim.bsky.social)
-- 💼 LinkedIn: [Timothy Warner](https://www.linkedin.com/in/timothywarner)
-- 🎥 YouTube: [@TechTrainerTim](https://youtube.com/@TechTrainerTim)
-- 📚 O'Reilly: [Timothy Warner](https://learning.oreilly.com/search/?q=author%3A%22Timothy+Warner%22&type=*&rows=100)
+## Overview
+This repository is a collection of resources, examples, and exercises for mastering GitHub Copilot and related technologies.
 
 ## Repository Structure
-
-### Course Content
-- 📁 `/modules` - Core course materials organized by topic
-  - 📁 `/01-getting-started` - Getting started with GitHub Copilot
-  - 📁 `/02-everyday-development` - Using Copilot for everyday development
-  - 📁 `/03-advanced-features` - Advanced features and techniques
-  - 📁 `/04-ecosystem-future` - Ecosystem and future possibilities
-
-### Resources
-- 📁 `/exercises` - Hands-on exercises (all in one place)
-- 📁 `/examples` - Code examples organized by language/technology
-- 📁 `/docs` - Course documentation and reference materials
-- 📁 `/workflows` - GitHub Actions and automation examples
-- 📁 `/presentations` - Slides and presentation materials
-- 📁 `/cheatsheets` - Quick reference guides
+- **assets/**: Images and other media assets.
+- **blackbeard-extension-main/**: A sample extension project.
+- **data/**: Example datasets for exercises.
+- **docs/**: Documentation and guides.
+- **examples/**: Code examples and templates.
+- **exercises/**: Hands-on exercises for learning.
+- **modules/**: Structured learning modules.
+- **resources/**: Additional learning resources.
+- **server-2025-learning-lab/**: A server-side learning lab project.
 
 ## Getting Started
-1. Review the [setup guide](docs/setup-guide.md)
-2. Check the [course details](docs/course-details.md) 
-3. Start with the [basics](modules/01-getting-started/README.md)
-4. Try the [exercises](exercises/README.md)
+1. Clone the repository: `git clone <repo-url>`
+2. Navigate to the desired folder and follow the instructions in the README files.
 
-## Prerequisites
-- GitHub account (free or paid)
-- Visual Studio Code with GitHub Copilot extension
-- Basic understanding of Git and GitHub
-- Familiarity with at least one programming language
-
-## Core Resources
-### Official Documentation
-- [GitHub Copilot Product Page](https://github.com/features/copilot)
-- [Official Documentation](https://docs.github.com/en/copilot)
-- [GitHub Copilot for Individuals](https://docs.github.com/en/copilot/quickstart)
-- [GitHub Copilot for Business](https://docs.github.com/en/copilot/github-copilot-enterprise/overview)
-
-### IDE Extensions
-- [VS Code Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
-- [Visual Studio Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilotvs)
-- [JetBrains Extension](https://plugins.jetbrains.com/plugin/17718-github-copilot)
-- [Neovim Extension](https://github.com/github/copilot.vim)
-
-### GitHub Copilot X Features
-- [Copilot CLI](https://githubnext.com/projects/copilot-cli/)
-- [Copilot for Pull Requests](https://github.blog/2023-11-08-github-copilot-in-the-cli-now-in-public-beta/)
-- [Copilot Chat](https://docs.github.com/en/copilot/github-copilot-chat/using-github-copilot-chat)
-
-### Learning Resources
-- [GitHub Learning Lab](https://github.com/skills/copilot-codespaces-vs)
-- [Best Practices for Prompting](https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/)
-- [GitHub Copilot Trust Center](https://github.com/features/copilot/trust)
-- [Community Forum](https://github.community/c/code-to-cloud/github-copilot/41)
-
-### Pricing & Billing
-- [Pricing Information](https://docs.github.com/en/billing/managing-billing-for-github-copilot/about-billing-for-github-copilot)
-- [Enterprise Features](https://docs.github.com/en/copilot/github-copilot-enterprise/overview)
+## Contributing
+See [CONTRIBUTING.md](server-2025-learning-lab/CONTRIBUTING.md) for guidelines.
 
 ## License
-MIT License - See [LICENSE](LICENSE) for details
+This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE) for details.
+
+# GitHub Copilot News Fetcher
+
+A modern Python example demonstrating how to fetch and display GitHub Copilot news from official sources. This educational example showcases several Python best practices and modern development patterns.
+
+## Learning Objectives
+
+1. **Modern Python Features**
+   - Type hints with `typing` module
+   - Dataclasses for clean data structures
+   - Async/await for concurrent operations
+   - Resource management with context managers
+
+2. **Best Practices**
+   - Clean code organization with classes
+   - Error handling with try/except
+   - Resource cleanup in finally blocks
+   - Strong typing for better maintainability
+   - Concurrent operations for better performance
+
+3. **Real-world Integration**
+   - HTTP requests with modern `httpx` library
+   - RSS feed parsing
+   - GitHub API integration
+   - Beautiful console output with `rich`
+
+## Installation
+
+```bash
+# Create and activate a virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Usage
+
+Simply run the script:
+
+```bash
+python github-news-fetcher2.py
+```
+
+The script will:
+1. Fetch the latest Copilot-related posts from the GitHub blog
+2. Fetch the latest Copilot releases from GitHub
+3. Display the combined results in a nicely formatted table
+
+## Code Structure
+
+- `CopilotNews`: Dataclass representing a single news item
+- `GitHubNewsFetcher`: Main class handling news fetching and display
+  - `fetch_blog_posts()`: Fetches and filters GitHub blog posts
+  - `fetch_releases()`: Fetches latest GitHub Copilot releases
+  - `display_news()`: Formats and displays results
+
+## Error Handling
+
+The script includes robust error handling:
+- Timeouts for HTTP requests
+- Exception catching for API and parsing errors
+- Graceful degradation (continues even if one source fails)
+- Resource cleanup with async context management
+
+## Dependencies
+
+- `httpx`: Modern async HTTP client
+- `feedparser`: RSS/Atom feed parser
+- `rich`: Terminal formatting and tables
+
+## Extension Ideas
+
+1. Add more news sources (Twitter, YouTube, etc.)
+2. Implement caching for API responses
+3. Add filtering options for specific topics
+4. Create a web interface using FastAPI
+5. Add unit tests with pytest
+
+## Contributing
+
+Feel free to submit issues and enhancement requests!
 
 
