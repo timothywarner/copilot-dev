@@ -120,6 +120,25 @@ function Save-DeploymentState {
     }
 }
 
+# Function to validate virtual network configuration
+function Validate-VnetConfiguration {
+    param (
+        [string]$VnetAddressSpace,
+        [string]$SubnetAddressPrefix
+    )
+    
+    # Convert address spaces to IPNetwork objects
+    $vnetNetwork = [System.Net.IPNetwork]::Parse($VnetAddressSpace)
+    $subnetNetwork = [System.Net.IPNetwork]::Parse($SubnetAddressPrefix)
+    
+    # Check if subnet is within the VNet address space
+    if (-not [System.Net.IPNetwork]::Contains($vnetNetwork, $subnetNetwork)) {
+        return $false
+    }
+    
+    return $true
+}
+
 # Check if user is logged in to Azure
 $context = Get-AzContext -ErrorAction SilentlyContinue
 if (-not $context) {
@@ -262,6 +281,15 @@ try {
 }
 
 Save-DeploymentState -Stage "Prerequisites" -Completed $true
+
+# Validate virtual network configuration
+$vnetAddressSpace = "10.0.0.0/16"  # Example VNet address space
+$subnetAddressPrefix = "10.0.1.0/24"  # Example subnet address prefix
+
+if (-not (Validate-VnetConfiguration -VnetAddressSpace $vnetAddressSpace -SubnetAddressPrefix $subnetAddressPrefix)) {
+    Write-Host "Error: Subnet address prefix $subnetAddressPrefix is not within the VNet address space $vnetAddressSpace" -ForegroundColor Red
+    exit 1
+}
 
 # Deploy bicep template
 Write-Host "Starting deployment..." -ForegroundColor Cyan
