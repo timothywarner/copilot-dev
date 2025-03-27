@@ -1,12 +1,5 @@
 # GitHub Copilot for Developers - Teaching Punchlist
 
-## Course Structure
-
-- **Duration**: 4 hours total
-- **Segments**: 4 x ~55 minute segments
-- **Breaks**: ~9 minute breaks between segments
-- **Platform**: ON24 live training **platform**
-
 ## SEGMENT 1: Getting Started with GitHub Copilot (55min)
 
 ### 1. Welcome & Introduction (10min)
@@ -126,7 +119,7 @@
 
 ### 1. AI Coding Assistant Landscape (10min)
 
-- [ ] Compare: Copilot, Replit, Anysphere, Magic
+- [ ] Compare: Copilot, Windsurf, v0, Replit, Anysphere, Magic
 - [ ] Integration with GitHub ecosystem
 - [ ] Cost/benefit analysis
 - [ ] Microsoft/OpenAI/Anthropic relationships
@@ -141,7 +134,7 @@
 ### 3. Extensions and Integration (15min)
 
 - [ ] GitHub marketplace extensions
-- [ ] DEMO: Install and use an extension
+- [ ] DEMO: Install and use an extensions
 - [ ] API integration possibilities
 - [ ] Creating custom plugins
 
