@@ -1,10 +1,15 @@
-# Contributing to Windows Server 2025 Learning Lab
+# Contributing Guidelines
 
-Thank you for considering contributing to the Windows Server 2025 Learning Lab project! This document provides guidelines and instructions for contributing.
+Thank you for considering contributing to this project! Please follow these guidelines to ensure a smooth contribution process.
+
+## How to Contribute
+1. Fork the repository.
+2. Create a new branch for your feature or bugfix.
+3. Commit your changes with clear and descriptive messages.
+4. Submit a pull request to the `main` branch.
 
 ## Code of Conduct
-
-By participating in this project, you agree to abide by its [Code of Conduct](CODE_OF_CONDUCT.md).
+Please adhere to the [Code of Conduct](CODE_OF_CONDUCT.md) to maintain a welcoming and inclusive environment.
 
 ## How Can I Contribute?
 
@@ -134,4 +139,4 @@ This project uses labels to categorize issues and pull requests:
 
 ## Thank You!
 
-Your contributions are greatly appreciated. Every little bit helps, and credit will always be given. 
+Your contributions are greatly appreciated. Every little bit helps, and credit will always be given.
