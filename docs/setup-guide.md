@@ -1,24 +1,29 @@
 # Setup Guide
 
 ## Prerequisites
-1. GitHub Account Setup
-   * Create or login to your GitHub account
-   * Enable GitHub Copilot subscription
+- Git installed on your machine.
+- Python 3.8+ and Node.js 14+ installed.
+- A GitHub account.
 
-2. IDE Installation
-   * Install Visual Studio Code
-   * Install GitHub Copilot extension
-   * Configure Copilot settings
-
-3. Git Configuration
-   * Install Git
-   * Configure basic Git settings
-   * Clone this repository
-
-4. Verify Installation
-   * Test Copilot suggestions
-   * Test Copilot Chat
-   * Verify access to all features
+## Steps
+1. Clone the repository:
+   ```bash
+   git clone <repo-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd copilot-dev-2
+   ```
+3. Install dependencies:
+   - For Python:
+     ```bash
+     pip install -r requirements.txt
+     ```
+   - For Node.js:
+     ```bash
+     npm install
+     ```
+4. Run the application or scripts as needed.
 
 ## VS Code Configuration
 ### Required Extensions
@@ -53,4 +58,4 @@
 - Verify GitHub authentication
 - Check Copilot subscription status
 - Ensure VS Code is up to date
-- Clear VS Code cache if needed 
+- Clear VS Code cache if needed
