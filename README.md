@@ -1,11 +1,11 @@
 # GitHub Copilot for Developers
 
-<img src="assets/images/tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="600" />
+<img src="images/cover.png" alt="GitHub Copilot Course Cover" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
 
+[![Website](https://img.shields.io/badge/Website-techtrainertim.com-blue?logo=firefox&style=for-the-badge)](https://techtrainertim.com)
 [![Course Demo Repository](https://img.shields.io/badge/Course%20Demo-NodeGoat-brightgreen?style=for-the-badge)](https://github.com/timothywarner/nodegoat)
 [![Knowledge Base Demo](https://img.shields.io/badge/Knowledge%20Base-DemoKB-orange?style=for-the-badge)](https://github.com/timothywarner-org/demokb)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Ftechtrainertim.com)](https://techtrainertim.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 Gain experience with an AI-based pair programmer right now!
 
