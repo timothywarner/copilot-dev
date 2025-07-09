@@ -1,6 +1,3 @@
-// Windows Server 2025 Learning Lab
-// Main deployment file
-
 targetScope = 'subscription'
 
 // Parameters
