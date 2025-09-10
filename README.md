@@ -1,6 +1,6 @@
 # GitHub Copilot for Developers
 
-<img src="images/cover.png" alt="GitHub Copilot Course Cover" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
+<img src="tim-gh-copilot-cover-slide.png" alt="GitHub Copilot Course Cover" width="800" style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"/>
 
 [![Website](https://img.shields.io/badge/Website-techtrainertim.com-blue?logo=firefox&style=for-the-badge)](https://techtrainertim.com)
 [![Course Demo Repository](https://img.shields.io/badge/Course%20Demo-NodeGoat-brightgreen?style=for-the-badge)](https://github.com/timothywarner/nodegoat)
