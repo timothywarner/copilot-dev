@@ -1,0 +1,193 @@
+{
+  "tips": [
+    {
+      "id": "prompt-001",
+      "title": "Provide Top-Level Comments for Context",
+      "description": "Add a high-level comment at the top of your file describing the overall purpose and goals. This gives Copilot context about what you're building, especially for boilerplate generation. Include details about frameworks, patterns, and expected outcomes.",
+      "category": "Prompting Techniques",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "prompt-002",
+      "title": "Use Descriptive Function Names",
+      "description": "Name your functions descriptively (e.g., 'sortArrayOfObjectsByProperty' instead of 'foo'). Copilot uses function names to infer intent and generate more accurate implementations. Follow good naming conventions as you would for human readers.",
+      "category": "Prompting Techniques",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "prompt-003",
+      "title": "Write Specific Function Comments",
+      "description": "Include detailed specifications in function comments with exact requirements, constraints, and edge cases. Single, specific, short comments help Copilot provide targeted suggestions rather than generic implementations.",
+      "category": "Prompting Techniques",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "prompt-004",
+      "title": "Break Down Complex Tasks",
+      "description": "Split large requests into smaller, focused prompts. Instead of asking Copilot to build an entire feature at once, request individual components step by step. This leads to higher quality, more maintainable code.",
+      "category": "Prompting Techniques",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "prompt-005",
+      "title": "Provide Examples in Prompts",
+      "description": "Include examples of expected input/output in your prompts, especially for data processing or string manipulation tasks. Examples help ground the model and produce more accurate implementations.",
+      "category": "Prompting Techniques",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "shortcut-001",
+      "title": "Accept Suggestions with Tab",
+      "description": "Press Tab to accept Copilot's inline suggestion. This is the fastest way to incorporate generated code into your workflow. Use Esc to dismiss suggestions you don't want.",
+      "category": "IDE Shortcuts",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "shortcut-002",
+      "title": "Cycle Through Alternative Suggestions",
+      "description": "Use Alt + ] (Windows/Linux) or Option + ] (macOS) to see the next suggestion, and Alt + [ or Option + [ for the previous one. Copilot often generates multiple valid solutions.",
+      "category": "IDE Shortcuts",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "shortcut-003",
+      "title": "Trigger Inline Suggestions Manually",
+      "description": "Press Alt + \\ (Windows/Linux) or Option + \\ (macOS) to manually trigger Copilot suggestions when they don't appear automatically. Useful after pausing or when editing existing code.",
+      "category": "IDE Shortcuts",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "shortcut-004",
+      "title": "Open Inline Chat Quickly",
+      "description": "Press Ctrl + I (Windows/Linux) or Cmd + I (macOS) to open inline chat directly in your code. This is more convenient for quick fixes than opening the full chat panel.",
+      "category": "IDE Shortcuts",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "shortcut-005",
+      "title": "Look for Magic Sparkles Icons",
+      "description": "In VS Code, look for sparkle icons in areas like commit message boxes and inline editing. Clicking them triggers AI-powered assistance for that specific context.",
+      "category": "IDE Shortcuts",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "codegen-001",
+      "title": "Set Imports and References First",
+      "description": "Manually set the includes/imports you need before asking Copilot to generate code. This tells Copilot which frameworks, libraries, and versions to use, avoiding outdated or incorrect dependencies.",
+      "category": "Code Generation",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "codegen-002",
+      "title": "Write Tests First for TDD",
+      "description": "Write your test cases first, then let Copilot implement functions that pass those tests. This test-driven development approach produces more focused implementations and provides sample code context.",
+      "category": "Code Generation",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "codegen-003",
+      "title": "Start Implementation, Let Copilot Complete",
+      "description": "Begin writing a function's logic and let Copilot complete the pattern. Starting with a few lines gives Copilot clear direction on your coding style and the approach you prefer.",
+      "category": "Code Generation",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "codegen-004",
+      "title": "Use Copilot for Boilerplate and Scaffolding",
+      "description": "Copilot excels at generating boilerplate code, configuration files, and scaffolding new projects. Use /new in chat to scaffold entire applications quickly.",
+      "category": "Code Generation",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "chat-001",
+      "title": "Use Slash Commands for Common Tasks",
+      "description": "Use built-in slash commands like /explain, /fix, /tests, /doc, and /optimize for quick access to common operations. These are shortcuts to well-crafted prompts optimized for specific tasks.",
+      "category": "Chat Features",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "chat-002",
+      "title": "Attach Files with #file Reference",
+      "description": "Use #file:filename.ts to explicitly include specific files in your chat context. This scopes Copilot to relevant code and provides more accurate suggestions.",
+      "category": "Chat Features",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "chat-003",
+      "title": "Use @workspace for Project-Wide Context",
+      "description": "The @workspace agent is aware of your entire workspace and can answer questions about project structure, find code, and understand relationships between files.",
+      "category": "Chat Features",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "chat-004",
+      "title": "Organize Conversations with Threads",
+      "description": "Start new conversation threads (click the + sign) when switching topics. This keeps conversations focused and prevents irrelevant context from affecting suggestions.",
+      "category": "Chat Features",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "chat-005",
+      "title": "Remove Irrelevant Chat Messages",
+      "description": "Delete previously asked questions in the chat interface if they're no longer relevant. This improves conversation flow and gives Copilot only necessary context.",
+      "category": "Chat Features",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "context-001",
+      "title": "Keep Relevant Files Open",
+      "description": "Open related files in your editor to provide Copilot with broader context. Copilot analyzes currently open files to inform its suggestions. Close irrelevant files when switching tasks.",
+      "category": "Workspace Context",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "context-002",
+      "title": "Use #editor for Open Files Context",
+      "description": "In VS Code, use #editor in the chat interface to provide Copilot with context from all currently opened files. This gives broader project awareness for complex questions.",
+      "category": "Workspace Context",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "context-003",
+      "title": "Provide Sample Code Patterns",
+      "description": "Include example code in your project showing your preferred patterns and coding standards. Copilot learns from existing code to match your style and practices.",
+      "category": "Workspace Context",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "context-004",
+      "title": "Highlight Code Before Asking Questions",
+      "description": "Select relevant code in your editor before asking Copilot Chat questions. This provides targeted context and generates more specific, useful responses.",
+      "category": "Workspace Context",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "security-001",
+      "title": "Always Review Suggestions Before Accepting",
+      "description": "Copilot can make mistakes. Always understand and validate suggested code before implementing it. Consider functionality, security, readability, and maintainability.",
+      "category": "Security & Privacy",
+      "difficulty": "beginner"
+    },
+    {
+      "id": "security-002",
+      "title": "Use Automated Testing to Validate Suggestions",
+      "description": "Pair Copilot-generated code with linting, code scanning, and IP scanning tools. Automated tests add an extra security layer to catch issues Copilot might introduce.",
+      "category": "Security & Privacy",
+      "difficulty": "intermediate"
+    },
+    {
+      "id": "security-003",
+      "title": "Block Suggestions Matching Public Code",
+      "description": "Enable settings to block suggestions that match public code if you need to avoid potential licensing issues. This is available in individual and organization Copilot settings.",
+      "category": "Security & Privacy",
+      "difficulty": "advanced"
+    },
+    {
+      "id": "security-004",
+      "title": "Use /vulnerability Command for Security Checks",
+      "description": "Use the /vulnerability slash command in Copilot Chat to analyze selected code for potential security issues. This helps identify common vulnerabilities before they reach production.",
+      "category": "Security & Privacy",
+      "difficulty": "intermediate"
+    }
+  ]
+}
