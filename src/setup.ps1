@@ -1,10 +1,10 @@
 # setup.ps1 - Virtual Environment Setup Script for Copilot Tips MCP Server
-# Primary bootstrap script for Windows users (PowerShell)
+# Primary bootstrap script for Windows users (PowerShell 7+ / pwsh)
 #
 # Usage:
-#   .\setup.ps1           - Create venv and install dependencies
-#   .\setup.ps1 -Force    - Recreate venv from scratch
-#   .\setup.ps1 -Activate - Only activate existing venv
+#   pwsh .\setup.ps1           - Create venv and install dependencies
+#   pwsh .\setup.ps1 -Force    - Recreate venv from scratch
+#   pwsh .\setup.ps1 -Activate - Only activate existing venv
 
 param(
     [switch]$Force,
@@ -114,7 +114,7 @@ Write-Host ""
 Write-Host "Quick Commands:" -ForegroundColor Yellow
 Write-Host "   Run the server:      python copilot_tips_server.py" -ForegroundColor Gray
 Write-Host "   Start inspector:     python start_inspector.py" -ForegroundColor Gray
-Write-Host "   Activate later:      .\setup.ps1 -Activate" -ForegroundColor Gray
+Write-Host "   Activate later:      pwsh .\setup.ps1 -Activate" -ForegroundColor Gray
 Write-Host ""
 Write-Host "VS Code Note:" -ForegroundColor Yellow
 Write-Host "   VS Code should auto-activate the venv in new terminals." -ForegroundColor Gray
