@@ -38,11 +38,20 @@ python copilot_tips_server.py
 
 The server runs via stdio transport (standard MCP protocol).
 
+
 ### 3. Test with MCP Inspector
 
 The MCP Inspector provides a web UI for testing your server interactively:
 
 ```bash
+python start_inspector.py
+```
+
+**Note for Windows users:**
+If you are running commands from outside the `src` directory, or if your project is not located at `C:\github\copilot-dev\src`, you may need to adjust the path to match your local setup. For example, if your project is in a different folder, navigate to that directory first:
+
+```powershell
+cd path\to\your\copilot-dev\src
 python start_inspector.py
 ```
 
