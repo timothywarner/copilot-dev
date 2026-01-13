@@ -23,15 +23,16 @@ Prompts:
 import json
 import random
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Literal
 from collections import Counter
+from dataclasses import dataclass
 
-from fastmcp import FastMCP
+from fastmcp import FastMCP, Context
 
 # Initialize FastMCP server
 mcp = FastMCP(
-    "Copilot Tips Server",
-    description="MCP server for GitHub Copilot tips and tricks - O'Reilly teaching example"
+    name="Copilot Tips Server",
+    instructions="MCP server for GitHub Copilot tips and tricks. Use tools to search, retrieve, and manage tips. Use resources to get categories and statistics."
 )
 
 # Load tips data
@@ -391,67 +392,143 @@ Create a structured 2-week learning plan with daily goals."""
 
 
 # =============================================================================
-# ELICITATIONS (Basic examples - client support varies)
+# ELICITATIONS - Interactive tools that prompt users for input
 # =============================================================================
 
-# Note: Elicitations are a newer MCP feature with limited client support.
-# These are included as teaching examples but may fall back to prompts.
+# Dataclass for structured tip finder input
+@dataclass
+class TipFinderPreferences:
+    """User preferences for finding tips."""
+    difficulty: str
+    category: str
 
-@mcp.prompt()
-def interactive_tip_finder() -> str:
+
+@mcp.tool
+async def interactive_tip_finder(ctx: Context) -> dict:
     """
-    Interactive prompt that guides users through finding the right tip.
+    Interactively gather user preferences and find matching tips.
 
-    This serves as a fallback for elicitations where client support is limited.
+    Uses MCP elicitation to prompt the user for their experience level
+    and area of interest, then returns relevant tips.
+
+    Note: Requires client support for elicitations.
     """
-    return """Let me help you find the perfect GitHub Copilot tip!
+    # Step 1: Get difficulty preference
+    difficulty_result = await ctx.elicit(
+        message="What's your experience level with GitHub Copilot?",
+        response_type=Literal["beginner", "intermediate", "advanced"]
+    )
 
-Please answer these questions:
+    if difficulty_result.action != "accept":
+        return {
+            "success": False,
+            "message": "Tip finder cancelled - no difficulty selected"
+        }
 
-1. **What's your experience level?**
-   - Beginner (just getting started)
-   - Intermediate (comfortable with basics)
-   - Advanced (looking for power-user tips)
+    difficulty = difficulty_result.data
 
-2. **What area are you interested in?**
-   - Prompting Techniques (writing better prompts)
-   - IDE Shortcuts (keyboard efficiency)
-   - Code Generation (getting better code output)
-   - Chat Features (using Copilot Chat effectively)
-   - Workspace Context (leveraging project context)
-   - Security & Privacy (safe Copilot usage)
+    # Step 2: Get category preference
+    category_result = await ctx.elicit(
+        message="Which area would you like tips for?",
+        response_type=Literal[
+            "Prompting Techniques",
+            "IDE Shortcuts",
+            "Code Generation",
+            "Chat Features",
+            "Workspace Context",
+            "Security & Privacy"
+        ]
+    )
 
-3. **What's your specific goal right now?**
-   (Describe what you're trying to accomplish)
+    if category_result.action != "accept":
+        return {
+            "success": False,
+            "message": "Tip finder cancelled - no category selected"
+        }
 
-Once you answer, I'll search for the most relevant tips and provide personalized recommendations!"""
+    category = category_result.data
+
+    # Step 3: Find matching tips
+    tips = get_tips_store()
+    matching = [
+        t for t in tips
+        if t["difficulty"] == difficulty and t["category"] == category
+    ]
+
+    if not matching:
+        # Fall back to just category match
+        matching = [t for t in tips if t["category"] == category]
+
+    return {
+        "success": True,
+        "preferences": {
+            "difficulty": difficulty,
+            "category": category
+        },
+        "tips": matching[:5],
+        "total_matches": len(matching)
+    }
 
 
-@mcp.prompt()
-def quiz_me(category: Optional[str] = None) -> str:
+@mcp.tool
+async def guided_random_tip(ctx: Context) -> dict:
     """
-    Generate a quiz prompt to test knowledge of Copilot tips.
+    Get a random tip with optional guided filtering via elicitation.
 
-    Args:
-        category: Optional category to focus the quiz on
+    Prompts the user to optionally filter by category before
+    returning a random tip.
 
-    Returns:
-        A formatted quiz prompt.
+    Note: Requires client support for elicitations.
     """
-    category_text = f' in the "{category}" category' if category else ""
+    # Ask if user wants to filter
+    filter_result = await ctx.elicit(
+        message="Would you like to filter tips by category, or get a completely random tip?",
+        response_type=Literal["filter by category", "completely random"]
+    )
 
-    return f"""Let's test your GitHub Copilot knowledge{category_text}!
+    if filter_result.action != "accept":
+        return {
+            "success": False,
+            "message": "Cancelled"
+        }
 
-I'll ask you questions about best practices and tips. For each question:
-1. I'll describe a scenario
-2. You tell me which tip or technique would be most helpful
-3. I'll provide feedback and explain the best approach
+    tips = get_tips_store()
 
-Ready? Let's start with an easy one!
+    if filter_result.data == "filter by category":
+        # Get category preference
+        category_result = await ctx.elicit(
+            message="Select a category:",
+            response_type=Literal[
+                "Prompting Techniques",
+                "IDE Shortcuts",
+                "Code Generation",
+                "Chat Features",
+                "Workspace Context",
+                "Security & Privacy"
+            ]
+        )
 
-**Question 1:** You're writing a new function but Copilot's suggestions don't match what you need. What's the FIRST thing you should try?
+        if category_result.action != "accept":
+            return {
+                "success": False,
+                "message": "Category selection cancelled"
+            }
 
-(Answer, and I'll give you feedback and move to the next question!)"""
+        tips = [t for t in tips if t["category"] == category_result.data]
+
+        if not tips:
+            return {
+                "success": False,
+                "error": f"No tips in category '{category_result.data}'"
+            }
+
+    selected = random.choice(tips)
+
+    return {
+        "success": True,
+        "tip": selected,
+        "pool_size": len(tips)
+    }
 
 
 # =============================================================================
