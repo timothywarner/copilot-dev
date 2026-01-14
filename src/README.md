@@ -9,6 +9,7 @@ A FastMCP server providing GitHub Copilot tips and tricks via the Model Context 
 - 🛠️ **Tools** — Search, filter, random tips, delete/reset
 - 💬 **Prompts** — Task suggestions, category exploration, learning paths
 - 🎯 **Elicitations** — Interactive guided discovery with real MCP elicitations
+- 📝 **Logging** — Structured logging to file and console for debugging
 - 🧪 **26 unit tests** with pytest
 
 ## Quick Start
@@ -71,6 +72,30 @@ pytest test_copilot_tips_server.py -v
 ```
 
 All 26 tests should pass.
+
+## Logging
+
+The server includes structured logging to help with debugging and monitoring:
+
+- **Log Location**: `logs/mcp_server.log`
+- **Log Level**: INFO (configurable via code)
+- **Outputs**: Both file and console
+
+Logs include:
+- Server initialization
+- Tool invocations with parameters
+- Search results and patterns
+- Errors and warnings
+- Tip access patterns
+
+View logs:
+```bash
+# Tail the log file
+tail -f logs/mcp_server.log
+
+# On Windows PowerShell
+Get-Content logs/mcp_server.log -Wait -Tail 20
+```
 
 ## Using the Inspector
 
