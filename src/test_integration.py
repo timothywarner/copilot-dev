@@ -33,8 +33,16 @@ class TestMCPIntegration:
             stdin=subprocess.PIPE
         )
         
-        # Give server time to initialize
-        time.sleep(2)
+        # Poll for server startup (max 5 seconds)
+        max_wait = 5
+        wait_interval = 0.1
+        elapsed = 0
+        while elapsed < max_wait:
+            if process.poll() is not None:
+                # Process exited prematurely
+                break
+            time.sleep(wait_interval)
+            elapsed += wait_interval
         
         yield process
         

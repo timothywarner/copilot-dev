@@ -56,11 +56,17 @@ def clean_tips_store():
 
 @pytest.fixture
 def empty_tips_store():
-    """Provide empty tips store for testing edge cases."""
+    """
+    Provide empty tips store for testing edge cases.
+    
+    Note: This fixture directly accesses _tips_store since it's a module-level
+    variable that's part of the server's public API for testing purposes.
+    The backup/restore mechanism ensures test isolation.
+    """
     from copilot_tips_server import _tips_store
     backup = _tips_store.copy()
     _tips_store.clear()
     yield
-    # Restore backup
+    # Restore backup to ensure test isolation
     _tips_store.clear()
     _tips_store.extend(backup)
