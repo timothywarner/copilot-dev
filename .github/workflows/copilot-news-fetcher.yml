@@ -120,7 +120,7 @@ jobs:
       # Upload the news files as artifacts for potential reuse
       - name: Upload news artifacts
         if: success()  # Only if previous steps succeeded
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: copilot-news
           path: |
