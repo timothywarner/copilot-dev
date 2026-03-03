@@ -15,21 +15,25 @@ jobs:
     name: Analyze CodeQL
     runs-on: ubuntu-latest
 
+    permissions:
+      security-events: write
+      contents: read
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: javascript, python
           queries: +custom-queries
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
       - name: Upload SARIF results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
 
       - name: Custom Query for LOIC Mitigation
         run: |

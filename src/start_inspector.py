@@ -40,7 +40,14 @@ def check_node_installed() -> tuple[bool, str]:
             text=True,
             timeout=15,
             check=False,
-            shell=True  # Required on Windows to find npx.cmd
+            # SECURITY NOTE: shell=True is required on Windows because npm/npx are
+            # installed as .cmd batch files, not native executables. Without shell=True,
+            # subprocess cannot locate npx.cmd via PATH on Windows.
+            # Risk is LOW here: the command list is fully static (["npx", "--version"]),
+            # no user input is ever interpolated into this call. Do NOT use shell=True
+            # with any string that includes user-supplied data — that would enable
+            # OS command injection (CWE-78).
+            shell=True
         )
         if result.returncode == 0:
             version = result.stdout.strip()
@@ -169,7 +176,12 @@ def main():
     print()
 
     try:
-        # Run the inspector (shell=True required on Windows to find npx.cmd)
+        # Run the inspector.
+        # SECURITY NOTE: shell=True is required on Windows because npx is a .cmd batch
+        # file and cannot be found by subprocess without shell resolution. The command
+        # list (inspector_cmd) is constructed from sys.executable and __file__ — both
+        # derived from the local Python environment, never from user input. Do NOT
+        # replicate this pattern with any string that contains user-controlled data.
         process = subprocess.run(
             inspector_cmd,
             env=env,

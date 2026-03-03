@@ -1,4 +1,14 @@
 /**
+ * ⚠️  TEACHING DEMO FILE — CONTAINS AN INTENTIONAL BUG ⚠️
+ *
+ * This file is used in the GitHub Copilot Coding Agent demo
+ * (COPILOT_AGENT_TUTORIAL.md) to demonstrate how Copilot can find and fix bugs.
+ *
+ * THE BUG: getTaskById() uses assignment (=) instead of strict equality (===)
+ * on approximately line 87. This is deliberate. DO NOT copy this code to
+ * production. Run `node src/test-app.js` to see the bug in action.
+ *
+ * -----------------------------------------------------------------------
  * test-app.js
  *
  * Simple task management utility for a to-do list system.
