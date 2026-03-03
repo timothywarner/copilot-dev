@@ -38,7 +38,6 @@ python copilot_tips_server.py
 
 The server runs via stdio transport (standard MCP protocol).
 
-
 ### 3. Test with MCP Inspector
 
 The MCP Inspector provides a web UI for testing your server interactively:
@@ -56,6 +55,7 @@ python start_inspector.py
 ```
 
 This will:
+
 - ✅ Check for Node.js 18+ (shows version)
 - ✅ Verify the port is actually available before using it
 - ✅ Validate server script and Python executable exist
@@ -95,7 +95,7 @@ All 26 tests should pass.
 | `interactive_tip_finder` | (uses elicitation) | Guided tip discovery |
 | `guided_random_tip` | (uses elicitation) | Random tip with prompts |
 
-3. Click **Run** to execute
+1. Click **Run** to execute
 
 **Note**: The `interactive_tip_finder` and `guided_random_tip` tools use MCP elicitations to prompt you for input. These require client support for elicitations.
 
@@ -118,13 +118,14 @@ The server is pre-configured for VS Code:
 ### Auto-Activate Virtual Environment
 
 VS Code automatically activates the venv in new terminals. If not working:
+
 1. `Ctrl+Shift+P` → "Python: Select Interpreter"
 2. Choose `src/.venv/Scripts/python.exe`
 3. Reload window
 
 ## Project Structure
 
-```
+```text
 src/
 ├── copilot_tips_server.py      # Main FastMCP server (resources, tools, prompts)
 ├── test_copilot_tips_server.py # Pytest test suite (26 tests)
@@ -162,16 +163,21 @@ Tips are stored in `data/copilot_tips.json`:
 ## Troubleshooting
 
 ### "Node.js/npx not found"
+
 Install Node.js 18+ from https://nodejs.org/ and restart your terminal. The inspector shows detailed error messages if npx isn't working.
 
 ### Import errors in VS Code
+
 The Python extension may not detect the venv. Select the interpreter manually or reload the window.
 
 ### "Port already in use"
+
 The inspector now verifies port availability before use. If issues persist, close other inspector instances or processes using ports in the 49152-65535 range.
 
 ### Inspector exits immediately
+
 Check the terminal output for error details. Common issues:
+
 - Server script not found (verify `copilot_tips_server.py` exists)
 - Python venv not created (run `setup.ps1` or `setup.sh`)
 - Node.js version too old (need 18+)
@@ -184,7 +190,7 @@ Check the terminal output for error details. Common issues:
 
 ## Architecture
 
-```
+```text
 ┌─────────────────┐     stdio      ┌──────────────────────┐
 │  MCP Inspector  │◄──────────────►│  copilot_tips_server │
 │  (Web UI)       │                │  (FastMCP/Python)    │

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In | MyApp</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 1rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .logo h1 {
+      font-size: 1.75rem;
+      color: #1a1a2e;
+      letter-spacing: -0.5px;
+    }
+
+    .logo p {
+      color: #666;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.375rem;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 0.625rem 0.875rem;
+      border: 1.5px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: #111;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    input.invalid {
+      border-color: #dc2626;
+    }
+
+    .field-error {
+      color: #dc2626;
+      font-size: 0.75rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .field-error.visible {
+      display: block;
+    }
+
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: 0.8rem;
+      color: #4f46e5;
+      text-decoration: none;
+      margin-top: 0.25rem;
+    }
+
+    .forgot-link:hover { text-decoration: underline; }
+
+    .error-banner {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-bottom: 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .error-banner.visible {
+      display: flex;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #4f46e5;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover { background: #4338ca; }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .divider {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 0.8rem;
+      margin: 1.25rem 0;
+      position: relative;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+
+    .signup-link {
+      text-align: center;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+
+    .signup-link a {
+      color: #4f46e5;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup-link a:hover { text-decoration: underline; }
+
+    .success-banner {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      color: #15803d;
+      font-size: 0.875rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .success-banner.visible { display: flex; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="logo">
+      <h1>MyApp</h1>
+      <p>Sign in to your account</p>
+    </div>
+
+    <!-- Error banner — shown on failed login attempt -->
+    <div
+      id="error-banner"
+      class="error-banner"
+      role="alert"
+      aria-live="assertive"
+      aria-atomic="true"
+    >
+      <span aria-hidden="true">&#9888;</span>
+      <span id="error-message">Invalid email or password. Please try again.</span>
+    </div>
+
+    <!-- Success banner — shown on successful login -->
+    <div
+      id="success-banner"
+      class="success-banner"
+      role="status"
+      aria-live="polite"
+    >
+      <span aria-hidden="true">&#10003;</span>
+      <span>Login successful! Redirecting…</span>
+    </div>
+
+    <form id="login-form" novalidate aria-label="Sign in form">
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          autocomplete="email"
+          placeholder="you@example.com"
+          required
+          aria-required="true"
+          aria-describedby="email-error"
+        />
+        <span id="email-error" class="field-error" role="alert">
+          Email is required
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          autocomplete="current-password"
+          required
+          aria-required="true"
+          aria-describedby="password-error"
+        />
+        <span id="password-error" class="field-error" role="alert">
+          Password is required
+        </span>
+        <a href="/forgot-password" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">
+        Sign in
+      </button>
+    </form>
+
+    <div class="divider">or</div>
+
+    <p class="signup-link">
+      Don't have an account? <a href="/register">Create one</a>
+    </p>
+  </main>
+
+  <script>
+    // Demo credentials — intentionally hardcoded for teaching purposes only
+    const VALID_EMAIL = 'user@example.com';
+    const VALID_PASSWORD = 'correct-horse-battery-staple';
+
+    const form = document.getElementById('login-form');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const errorBanner = document.getElementById('error-banner');
+    const successBanner = document.getElementById('success-banner');
+    const submitBtn = document.getElementById('submit-btn');
+
+    function clearErrors() {
+      emailInput.classList.remove('invalid');
+      passwordInput.classList.remove('invalid');
+      emailError.classList.remove('visible');
+      passwordError.classList.remove('visible');
+      errorBanner.classList.remove('visible');
+    }
+
+    function showFieldError(input, errorEl, message) {
+      input.classList.add('invalid');
+      errorEl.textContent = message;
+      errorEl.classList.add('visible');
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      let hasErrors = false;
+
+      if (!email) {
+        showFieldError(emailInput, emailError, 'Email is required');
+        hasErrors = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError(emailInput, emailError, 'Please enter a valid email address');
+        hasErrors = true;
+      }
+
+      if (!password) {
+        showFieldError(passwordInput, passwordError, 'Password is required');
+        hasErrors = true;
+      }
+
+      if (hasErrors) return;
+
+      // Simulate network delay
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Signing in…';
+
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      if (email === VALID_EMAIL && password === VALID_PASSWORD) {
+        successBanner.classList.add('visible');
+        form.style.display = 'none';
+        // In a real app: window.location.href = '/dashboard';
+      } else {
+        errorBanner.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Sign in';
+        emailInput.focus();
+      }
+    });
+  </script>
+</body>
+</html>

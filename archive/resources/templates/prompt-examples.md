@@ -6,7 +6,7 @@ These prompt examples can help you get better results from GitHub Copilot by str
 
 ### Function Generation
 
-```
+```javascript
 /**
  * Create a function that validates a password with the following requirements:
  * - At least 8 characters
@@ -22,7 +22,7 @@ These prompt examples can help you get better results from GitHub Copilot by str
 
 ### Code Explanation Request
 
-```
+```javascript
 // Explain what this code does:
 const memoize = (fn) => {
   const cache = {};
@@ -40,7 +40,7 @@ const memoize = (fn) => {
 
 ### Test Generation
 
-```
+```javascript
 // Generate unit tests for this function:
 function calculateTotalPrice(items, taxRate) {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -51,7 +51,7 @@ function calculateTotalPrice(items, taxRate) {
 
 ### Bug Fix Request
 
-```
+```javascript
 // This function has a bug. It should return the nth Fibonacci number:
 function fibonacci(n) {
   if (n <= 0) return 0;
@@ -65,7 +65,7 @@ function fibonacci(n) {
 
 ### Node.js Example
 
-```
+```javascript
 /**
  * Create an Express.js REST API endpoint that:
  * - Accepts POST requests to /api/users
@@ -78,7 +78,7 @@ function fibonacci(n) {
 
 ### Python Example
 
-```
+```python
 # Create a Python function that:
 # 1. Reads a CSV file
 # 2. Filters rows based on a specified column value
@@ -89,7 +89,7 @@ function fibonacci(n) {
 
 ### SQL Example
 
-```
+```sql
 -- Create an SQL query that:
 -- 1. Shows total sales per product category 
 -- 2. For the last 30 days
@@ -103,4 +103,4 @@ function fibonacci(n) {
 2. Include specific requirements or constraints
 3. Provide context by describing the problem you're solving
 4. Include examples of expected input/output when appropriate
-5. Break complex requests into smaller, focused prompts 
+5. Break complex requests into smaller, focused prompts

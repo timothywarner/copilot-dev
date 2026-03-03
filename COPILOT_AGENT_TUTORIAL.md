@@ -5,6 +5,7 @@ A step-by-step guide to enabling and delegating work to GitHub Copilot's autonom
 ## 🚀 What is the Coding Agent?
 
 GitHub Copilot's coding agent is an autonomous AI that can:
+
 - Take on GitHub issues independently
 - Create feature branches
 - Write and modify code
@@ -17,11 +18,13 @@ The agent works in a secure, cloud-based GitHub Actions environment and can hand
 ## 📋 Prerequisites
 
 ### Required Access
+
 - **GitHub Copilot Enterprise** or **Business** subscription
 - **Administrator must enable** the "Copilot coding agent" policy for your organization
 - **VS Code 1.99+** or VS Code Insiders
 
 ### Required Extensions
+
 - GitHub Copilot extension
 - GitHub Pull Requests extension (signed into correct GitHub account)
 
@@ -54,21 +57,28 @@ We've intentionally added a bug to `src/test-app.js` on line 42. Let's create an
 2. **Click Issues → New Issue**
 3. **Title**: `Fix assignment instead of comparison bug in test-app.js`
 4. **Description**:
+
 ```markdown
 ## Bug Description
 There's a JavaScript assignment bug in `src/test-app.js` line 42 where we're using `=` instead of `===` for comparison.
 
 ## Current Behavior
+```
+
 ```javascript
 if (code = 0) {  // BUG: Assignment instead of comparison
 ```
 
+```markdown
 ## Expected Behavior
 Should use strict comparison:
+```
+
 ```javascript
 if (code === 0) {
 ```
 
+```markdown
 ## Impact
 This causes the condition to always evaluate to truthy (except when code is 0), making the success/failure logic incorrect.
 
@@ -78,7 +88,7 @@ This causes the condition to always evaluate to truthy (except when code is 0), 
 - [ ] Add a test case to prevent regression
 ```
 
-5. **Create Issue** and note the issue number (#X)
+1. **Create Issue** and note the issue number (#X)
 
 ## 🤖 Step 3: Assign the Issue to Copilot
 
@@ -100,20 +110,24 @@ gh issue edit [ISSUE_NUMBER] --add-assignee github-copilot[bot]
 
 1. **Open Copilot Chat**: `Ctrl+Alt+I` (Windows/Linux) or `Cmd+Option+I` (Mac)
 2. **Start a conversation**:
-```
+
+```text
 I need to fix a JavaScript bug in src/test-app.js line 42. There's an assignment operator (=) being used instead of a comparison operator (===). Can you create a branch, fix this bug, add a test, and open a PR?
 ```
-3. **Click "Delegate to coding agent"** button (if UI integration enabled)
+
+1. **Click "Delegate to coding agent"** button (if UI integration enabled)
 
 ### Method 4: New Agents Panel (GitHub.com)
 
 1. **Visit any page on GitHub.com**
 2. **Click the Agents panel** (new feature)
 3. **Describe your task**:
-```
+
+```text
 Fix the JavaScript assignment bug in src/test-app.js line 42 where = should be ===. Create a branch, fix the bug, add a test to prevent regression, and open a PR linked to issue #[NUMBER]
 ```
-4. **Select your repository** and submit
+
+1. **Select your repository** and submit
 
 ## 📊 Step 4: Monitor Agent Progress
 
@@ -132,6 +146,7 @@ Fix the JavaScript assignment bug in src/test-app.js line 42 where = should be =
 ### What the Agent Does
 
 The agent will:
+
 1. **React with 👀** to acknowledge the assignment
 2. **Create a feature branch** from the default branch
 3. **Analyze the codebase** and understand the bug
@@ -161,7 +176,8 @@ If the agent's solution needs adjustments, comment on the PR:
 @copilot The fix looks correct, but can you also check for similar issues in other files?
 ```
 
-### Agent Will Respond By:
+### Agent Will Respond By
+
 - Making requested changes
 - Pushing new commits to the PR branch
 - Running tests again
@@ -169,21 +185,22 @@ If the agent's solution needs adjustments, comment on the PR:
 
 ## ✅ Step 6: Expected Workflow Completion
 
-### What You Should See:
+### What You Should See
 
 1. **New Branch**: `copilot-fix-assignment-comparison-bug` (or similar)
 2. **Fixed Code**:
+
 ```javascript
 if (code === 0) {  // Fixed: Strict comparison
 ```
 
-3. **Pull Request** with:
+1. **Pull Request** with:
    - Clear title: "Fix assignment operator in test-app.js condition"
    - Detailed description of the change
    - Link to original issue: "Fixes #X"
    - Test results showing green CI
 
-4. **Additional Improvements** might include:
+2. **Additional Improvements** might include:
    - Enhanced error handling
    - Added test cases
    - Code comments for clarity
@@ -191,16 +208,19 @@ if (code === 0) {  // Fixed: Strict comparison
 ## 🛠️ Troubleshooting
 
 ### Agent Doesn't Respond
+
 - Check if Copilot coding agent policy is enabled in your org
 - Ensure you have the right subscription (Business/Enterprise)
 - Try reassigning the issue
 
 ### Agent Gets Stuck
+
 - Add clarifying comments to the issue
 - Provide more specific requirements
 - Tag `@copilot` in issue comments with additional guidance
 
 ### Tests Fail
+
 - The agent will automatically try to fix test failures
 - It reads error messages and attempts corrections
 - If stuck, provide hints in PR comments
@@ -220,7 +240,7 @@ Fix [specific problem] in [specific file/location]
 
 ## Acceptance Criteria
 - [ ] Specific fix requirements
-- [ ] Testing requirements  
+- [ ] Testing requirements
 - [ ] Documentation needs
 
 ## Context
@@ -273,6 +293,7 @@ When fixing bugs:
 ### Integration with CI/CD
 
 Ensure your repository has:
+
 - Automated testing on PRs
 - Linting and formatting checks
 - Security scanning
@@ -291,6 +312,7 @@ The agent will wait for CI checks and attempt to fix failures automatically.
 ### Success Metrics
 
 Monitor:
+
 - Issue resolution time
 - PR quality (review comments, iterations)
 - Test coverage improvements
@@ -311,6 +333,7 @@ This hands-on experience will help you understand the agent's capabilities and h
 ## 🚨 Limitations and Considerations
 
 ### What the Agent Handles Well
+
 - Bug fixes in well-understood codebases
 - Feature additions with clear requirements
 - Test generation and improvement
@@ -318,6 +341,7 @@ This hands-on experience will help you understand the agent's capabilities and h
 - Documentation updates
 
 ### What to Avoid
+
 - Complex architectural changes
 - Security-critical modifications without review
 - Large-scale migrations
@@ -325,6 +349,7 @@ This hands-on experience will help you understand the agent's capabilities and h
 - Critical production hotfixes (review first!)
 
 ### Security Considerations
+
 - Agent runs in secure GitHub Actions environment
 - No direct access to production systems
 - All changes go through normal PR review process

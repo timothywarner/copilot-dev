@@ -3,6 +3,7 @@
 This file contains teaching examples of various GitHub Copilot customization files including instructions, prompts, and agent configurations. These are JavaScript/Node.js-oriented examples designed for the GitHub Copilot training repository.
 
 ## 📁 Repository-wide Instructions
+
 **File:** `.github/copilot-instructions.md`
 
 ```markdown
@@ -37,6 +38,7 @@ You are assisting with a JavaScript/Node.js teaching repository for GitHub Copil
 ```
 
 ## 📁 Path-scoped Instructions
+
 **File:** `.github/instructions/frontend.instructions.md`
 
 ```markdown
@@ -133,7 +135,8 @@ description: "API and backend route instructions"
 }
 ```
 
-## Example Route:
+## Example Route
+
 ```javascript
 router.post('/users', 
   validateInput(userSchema),
@@ -184,13 +187,15 @@ describe('ComponentName', () => {
 });
 ```
 
-## Coverage Requirements:
+## Coverage Requirements
+
 - Functions: 80% minimum
 - Branches: 75% minimum
 - Lines: 80% minimum
 - Statements: 80% minimum
 
-## Mocking Example:
+## Mocking Example
+
 ```javascript
 jest.mock('../services/userService');
 
@@ -199,6 +204,7 @@ mockUserService.findById.mockResolvedValue({ id: 1, name: 'Test User' });
 ```
 
 ## 📁 Prompt Files
+
 **File:** `.github/prompts/component-generator.prompt.md`
 
 ```markdown
@@ -245,7 +251,7 @@ Please follow the coding standards in our copilot-instructions.md file.
 
 **File:** `.github/prompts/api-endpoint.prompt.md`
 
-```markdown
+````markdown
 ---
 mode: 'agent'
 model: 'Claude-3.5-Sonnet'
@@ -299,7 +305,8 @@ router.${method.toLowerCase()}('${path}',
 ```
 
 Run tests after creation to ensure everything works.
-```
+
+````
 
 **File:** `.github/prompts/code-review.prompt.md`
 
@@ -412,9 +419,10 @@ After fixing, run the test suite to ensure no regressions.
 ```
 
 ## 📁 Agent Configuration
+
 **File:** `AGENTS.md`
 
-```markdown
+````markdown
 # GitHub Copilot Agent Configuration
 
 This file configures the GitHub Copilot coding agent for this repository.
@@ -500,6 +508,7 @@ git push            # Push to remote
 ## Error Recovery
 
 If the agent encounters an error:
+
 1. Save the error message
 2. Rollback any partial changes
 3. Analyze the root cause
@@ -513,9 +522,11 @@ If the agent encounters an error:
 - Use caching for frequently accessed data
 - Optimize database queries with proper indexing
 - Implement rate limiting for public APIs
-```
+
+````
 
 ## 📁 VS Code MCP Configuration
+
 **File:** `.vscode/mcp.json`
 
 ```json
@@ -545,9 +556,10 @@ If the agent encounters an error:
 ```
 
 ## 📁 Knowledge Base Reference
+
 **File:** `.github/KB_REFERENCE.md`
 
-```markdown
+````markdown
 # Knowledge Base Usage Guide
 
 ## Available Knowledge Bases
@@ -563,12 +575,16 @@ API documentation and integration guides
 
 ## How to Reference in Chat
 
-```
+```text
+
 @knowledge-base:javascript-patterns How do I implement the Observer pattern?
-```
 
 ```
+
+```text
+
 Using @knowledge-base:api-documentation, explain the user authentication flow
+
 ```
 
 ## Creating New Knowledge Bases
@@ -579,7 +595,7 @@ Using @knowledge-base:api-documentation, explain the user authentication flow
 4. Add documentation sources
 5. Name it descriptively
 6. Use in VS Code with @knowledge-base:name
-```
+````
 
 ## Usage Tips
 

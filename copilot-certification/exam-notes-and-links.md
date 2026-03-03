@@ -1,108 +1,118 @@
 # GitHub Copilot Certification Exam Notes and (Difficult to Find) Links
 
 ## 🎯 Certification Overview
-- **Exam Code:** Not assigned (This is GitHub's first certification)
-- **Exam Provider:** PSI (https://www.psionline.com)
+
+- **Exam Code:** GH-300
+- **Exam Provider:** Pearson VUE (https://examregistration.github.com/)
 - **Format:** Online proctored
-- **Duration:** 90 minutes
+- **Duration:** 100 minutes
+- **Questions:** ~65 total
 - **Question Types:** Multiple choice and multiple response
-- **Passing Score:** 70%
+- **Passing Score:** 700 (scaled score)
 - **Price:** $99 USD
-- **Languages:** English only (as of 2024)
+- **Languages:** English (additional languages available ~8 weeks after English updates)
 - **Validity:** 2 years
+- **Last Major Update:** January 2026 (significant restructuring)
 
 ## 📚 Official Resources
 
 ### Core Documentation
+
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [GitHub Copilot Trust Center](https://resources.github.com/copilot-trust-center/)
-- [GitHub Copilot Enterprise Documentation](https://docs.github.com/en/enterprise-cloud@latest/copilot/overview-of-github-copilot/about-github-copilot-enterprise)
-- [GitHub Copilot Chat Documentation](https://docs.github.com/en/copilot/github-copilot-chat/using-github-copilot-chat)
+- [GitHub Copilot Trust Center](https://github.com/trust-center)
+- [GitHub Copilot Enterprise Documentation](https://docs.github.com/en/enterprise-cloud@latest/copilot)
+- [GitHub Copilot Chat Documentation](https://docs.github.com/en/copilot/how-tos/chat-with-copilot/chat-in-ide)
 
 ### Microsoft Learn
-- [Copilot Fundamentals Learning Path](https://learn.microsoft.com/en-us/training/paths/copilot-fundamentals/)
-- [Accelerate Development Learning Path](https://learn.microsoft.com/en-us/training/paths/copilot-accelerate-dev/)
+
+- [GitHub Copilot Fundamentals Part 1](https://learn.microsoft.com/en-us/training/paths/copilot/)
+- [GitHub Copilot Fundamentals Part 2](https://learn.microsoft.com/en-us/training/paths/gh-copilot-2/)
+- [GH-300 Official Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-300)
 - [Microsoft Learn Copilot Collection](https://learn.microsoft.com/en-us/training/browse/?terms=copilot)
 
 ### Certification Specific
-- [Certification Overview Page](https://examregistration.github.com/overview)
-- [Exam Registration Portal](https://examregistration.github.com/register)
-- [Certification Policies](https://examregistration.github.com/policies)
-- [Exam Readiness Assessment](https://examregistration.github.com/assessment)
-- [PSI Testing Requirements](https://www.psionline.com/test-takers/what-to-expect)
-- [PSI Online Testing System Requirements](https://helpdesk.psionline.com/hc/en-gb/articles/4409608794260-PSI-Bridge-Platform-System-Requirements)
+
+- [GitHub Copilot Certification Page](https://learn.microsoft.com/en-us/credentials/certifications/github-copilot/)
+- [Exam Sandbox (Practice Environment)](https://aka.ms/GHExamDemo-enu)
+- [Certification Renewal](https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification)
+- [Pearson VUE: GitHub Exam Registration](https://examregistration.github.com/)
+- [Pearson VUE OnVUE System Requirements](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
 
 ## 🛠️ Practice Resources
 
 ### Official Practice Materials
+
 - [GitHub Skills](https://skills.github.com/)
 - [GitHub Learning Lab](https://github.com/apps/github-learning-lab)
-- [GitHub Copilot Labs](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-labs)
+- [GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 
 ### Technical Documentation
+
 - [VS Code Extension Details](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [JetBrains Extension Details](https://plugins.jetbrains.com/plugin/17718-github-copilot)
-- [Neovim Extension Setup](https://docs.github.com/en/copilot/getting-started-with-github-copilot?tool=neovim)
+- [Neovim Extension Setup](https://docs.github.com/en/copilot/get-started/quickstart?tool=neovim)
 
 ## 📋 Exam Preparation Checklist
 
 ### Required Experience
+
 - Basic programming knowledge
 - Git fundamentals
 - IDE familiarity (VS Code, Visual Studio, JetBrains, or Neovim)
 - Understanding of software development lifecycle
 
-### Key Study Areas
-1. **Responsible AI (7%)**
-   - Ethics in AI
-   - Bias recognition
-   - Fair use principles
+### Key Study Areas (Updated January 2026)
 
-2. **GitHub Copilot Plans and Features (31%)**
-   - Licensing models
-   - IDE integration
-   - Feature comparison
-   - Configuration options
+1. **Use GitHub Copilot Responsibly (15-20%)**
+   - Responsible AI principles, risks, limitations
+   - Ethical AI usage and harm mitigation
+   - Validating AI output
 
-3. **How GitHub Copilot Works (15%)**
-   - LLM basics
-   - Context handling
-   - Suggestion generation
-   - Model training
+2. **Use GitHub Copilot Features (25-30%)**
+   - IDE enablement, inline suggestions, chat, CLI, Plan Mode
+   - Copilot CLI installation, features, interactive sessions, script generation
+   - Agent Mode, Edit Mode, MCP, Sub-Agents, agent sessions
+   - Spaces, Spark, PR summaries, prompt file reuse
+   - Organization policy management, Code Review policies, audit logs
 
-4. **Prompt Engineering (9%)**
-   - Effective prompting
-   - Context optimization
-   - Command syntax
+3. **GitHub Copilot Features (25-30%)**
+   - Code review and coding assistance
+   - Customizable review standards via instructions files
+   - Copilot Chat limits, options, commands
 
-5. **Developer Use Cases (14%)**
-   - Code generation
-   - Testing
-   - Documentation
-   - Debugging
+4. **Understand GitHub Copilot Data and Architecture (10-15%)**
+   - Data usage, flow, sharing, and processing
+   - Proxy filtering and post-processing
+   - Code suggestion lifecycle and LLM limitations
 
-6. **Testing with Copilot (9%)**
-   - Test generation
-   - TDD practices
-   - Test frameworks
+5. **Apply Prompt Engineering and Context Crafting (10-15%)**
+   - Prompt structure, context determination
+   - Zero-shot and few-shot prompting
+   - Prompt process flow and chat history
 
-7. **Privacy and Security (15%)**
-   - Data handling
-   - Security features
-   - Compliance
-   - Exclusions
+6. **Improve Developer Productivity with GitHub Copilot (10-15%)**
+   - Code generation, refactoring, documentation
+   - Test generation, edge cases, assertions
+   - Security improvements and performance optimizations
+
+7. **Configure Privacy, Content Exclusions, and Safeguards (10-15%)**
+   - Content exclusions and editor settings
+   - Output ownership and limitations
+   - Duplication detection, security warnings, troubleshooting
 
 ## 🔍 Exam Day Requirements
 
 ### Technical Requirements
+
 - Stable internet connection (1+ Mbps)
 - Webcam and microphone
 - Clean desk policy
 - Private, quiet room
 - Valid government ID
-- PSI Secure Browser installed
+- Pearson VUE OnVUE app installed
 
 ### Prohibited Items
+
 - Second monitors
 - Phones/tablets
 - Notebooks/papers
@@ -113,75 +123,86 @@
 ## 📝 Additional Resources
 
 ### Community Content
+
 - [GitHub Copilot Discussion Forum](https://github.com/community/community/discussions/categories/copilot)
 - [GitHub Blog: Copilot Posts](https://github.blog/tag/github-copilot/)
 - [GitHub YouTube Channel](https://www.youtube.com/@GitHub)
 
 ### Support Resources
+
 - [GitHub Copilot Support](https://support.github.com/contact?tags=copilot-support)
-- [PSI Test Taker Support](https://psi-cdexp.zendesk.com/hc/en-us)
-- [Technical Requirements Check](https://syscheck.bridge.psiexams.com/)
+- [Pearson VUE Test Taker Support](https://pvhelp.pearsonvue.com/s/)
+- [Pearson VUE OnVUE Technical Requirements](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
 
 ## 🎓 Additional Learning Resources
 
 ### Official GitHub Resources
-- [GitHub Copilot Individual FAQ](https://github.com/features/copilot/faq)
-- [GitHub Copilot for Business FAQ](https://resources.github.com/copilot-for-business/faq/)
+
+- [GitHub Copilot FAQ](https://github.com/features/copilot#faq)
+- [GitHub Copilot for Business](https://github.com/features/copilot/copilot-business)
 - [GitHub Copilot Product Page](https://github.com/features/copilot)
-- [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/github-copilot-in-the-cli)
-- [GitHub Copilot Security Features](https://docs.github.com/en/copilot/managing-copilot/about-github-copilot-security-features)
+- [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli)
+- [GitHub Copilot Security Features](https://docs.github.com/en/copilot)
 
 ### Official Video Content
+
 - [GitHub Universe 2023: Copilot Sessions](https://www.youtube.com/playlist?list=PL0lo9MOBetEEzTzyEKFSWU6aQGheOVe_k)
 - [GitHub Copilot Office Hours](https://www.youtube.com/playlist?list=PL0lo9MOBetEHkjUOn6QPB8vcG5yKqXAT9)
 - [GitHub Copilot Enterprise Overview](https://www.youtube.com/watch?v=0yXB8-t-Bz4)
 - [Microsoft Build 2023: Copilot Sessions](https://www.youtube.com/playlist?list=PLlrxD0HtieHgJsKkAk3MY0TM_LPzHqnN_)
 
 ### Technical Deep Dives
-- [GitHub Next Research](https://githubnext.com/projects/copilot-research)
-- [GitHub Copilot Architecture Overview](https://github.blog/2023-05-17-how-github-copilot-is-getting-better-at-understanding-your-code/)
-- [Copilot Context Management](https://github.blog/2023-08-03-introducing-file-level-intelligence-for-github-copilot/)
-- [Copilot Security Best Practices](https://github.blog/2023-07-28-how-to-keep-your-github-copilot-suggestions-secure-and-private/)
+
+- [GitHub Next](https://githubnext.com/)
+- [GitHub Copilot Architecture Overview](https://github.blog/ai-and-ml/github-copilot/how-github-copilot-is-getting-better-at-understanding-your-code/)
+- [Copilot Memory System](https://github.blog/ai-and-ml/github-copilot/building-an-agentic-memory-system-for-github-copilot/)
+- [Copilot Security Best Practices](https://github.com/trust-center)
 
 ### Expert Community Content
+
 - [GitHub Skills: Code with GitHub Copilot](https://github.com/skills/copilot-codespaces-vscode)
-- [GitHub Copilot Workshop Materials](https://github.com/github/copilot-workshops)
-- [Microsoft Cloud Workshop: GitHub Copilot](https://github.com/microsoft/cloud-advocate-workshops/tree/main/github-copilot)
-- [GitHub Copilot Demo Repository](https://github.com/github/copilot-demo)
+- [GitHub Skills: Copilot](https://skills.github.com/)
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+- [GitHub Copilot Quickstart](https://docs.github.com/en/copilot/get-started/quickstart)
 
 ### Interactive Learning
+
 - [GitHub Codespaces + Copilot Quickstart](https://github.com/codespaces/templates)
 - [VS Code GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
-- [GitHub Copilot Labs Features](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot-labs)
+- [GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [GitHub CLI with Copilot](https://cli.github.com/manual/gh_copilot)
 
 ### Best Practices and Guidelines
-- [Prompt Engineering Guide for Copilot](https://github.blog/2023-06-20-how-to-write-better-prompts-for-github-copilot/)
-- [GitHub Copilot Trust Center](https://resources.github.com/copilot-trust-center/)
-- [Copilot Security Documentation](https://docs.github.com/en/copilot/managing-copilot/about-github-copilot-security-features)
-- [Responsible AI at GitHub](https://github.blog/2023-11-08-how-github-uses-ai-responsibly/)
+
+- [Prompt Engineering Guide for Copilot](https://github.blog/developer-skills/github/how-to-write-better-prompts-for-github-copilot/)
+- [GitHub Copilot Trust Center](https://github.com/trust-center)
+- [Copilot Security Documentation](https://docs.github.com/en/copilot)
+- [Responsible AI with GitHub Copilot](https://learn.microsoft.com/en-us/training/modules/responsible-ai-with-github-copilot/)
 
 ### Certification Preparation Tools
+
 - [Microsoft Learn for GitHub](https://learn.microsoft.com/en-us/training/github/)
 - [GitHub Skills Courses](https://skills.github.com/)
 - [GitHub Learning Pathways](https://resources.github.com/learn/)
-- [PSI Test Taker Guide](https://helpdesk.psionline.com/hc/en-gb/articles/4409608651412-PSI-Bridge-Platform-Candidate-Journey-Guide)
+- [Pearson VUE OnVUE Candidate Guide](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
 
 ### Regular Updates and News
+
 - [GitHub Changelog](https://github.blog/changelog/)
-- [GitHub Blog - Copilot](https://github.blog/category/products/copilot/)
+- [GitHub Blog - Copilot](https://github.blog/tag/github-copilot/)
 - [GitHub YouTube Playlists](https://www.youtube.com/@GitHub/playlists)
-- [GitHub Social Updates](https://github.com/about/social)
+- [GitHub About](https://github.com/about)
 
 ### New: Language-Specific Resources
-- [Python with GitHub Copilot](https://github.blog/2023-12-27-a-beginners-guide-to-prompt-engineering-with-github-copilot/)
-- [JavaScript & TypeScript Tips](https://github.blog/2023-10-09-introducing-github-copilot-chat-for-javascript-and-typescript/)
-- [Java Development Guide](https://github.blog/2023-10-09-introducing-github-copilot-chat-for-java/)
-- [C# Programming Tips](https://github.blog/2023-10-09-introducing-github-copilot-chat-for-c-sharp/)
+
+- [Prompt Engineering with GitHub Copilot](https://github.blog/developer-skills/github/how-to-write-better-prompts-for-github-copilot/)
+- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
+- [GitHub Copilot Quickstart](https://docs.github.com/en/copilot/get-started/quickstart)
+- [Prompt Engineering for Copilot Chat](https://docs.github.com/en/copilot/concepts/prompting/prompt-engineering)
 
 ### New: Enterprise Resources
-- [Copilot Enterprise Setup Guide](https://docs.github.com/en/enterprise-cloud@latest/admin/policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-copilot-in-your-enterprise)
-- [Business Deployment Guide](https://resources.github.com/copilot-for-business/)
-- [Enterprise Security Controls](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-security-settings-for-github-copilot)
-- [Organization Management](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-access-for-copilot-in-your-organization)
 
+- [Copilot Enterprise Setup Guide](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-copilot-in-your-enterprise)
+- [Business Deployment Guide](https://github.com/features/copilot/copilot-business)
+- [Enterprise Security Controls](https://docs.github.com/en/enterprise-cloud@latest/copilot)
+- [Organization Management](https://docs.github.com/en/copilot/how-tos/administer-copilot/manage-for-organization)

@@ -1,6 +1,7 @@
 # Tim's Instructional Notes
 
 ## Segment 1: Getting Started
+
 - Copilot install/setup in VS Code
 - Show code completion (single-line, multi-line)
 - Demo: Copilot in different file types (JS, Python, Markdown)
@@ -11,6 +12,7 @@
 - GitHub cloud integration walkthrough (VS Code <-> Edge browser with GHEC)
 
 ## Segment 2: Everyday Development
+
 - Demo: Function generation from comment
 - Demo: Docstring and README generation
 - Show prompt crafting (specific vs vague)
@@ -21,6 +23,7 @@
 - Demo: Generate and run tests with Copilot
 
 ## Segment 3: Advanced Features
+
 - Lean into Copilot agents (Agent mode demo)
 - Demo: Multi-file edit/refactor with Copilot
 - Show Copilot Edits tab in VS Code
@@ -32,6 +35,7 @@
 - Emphasize public code matches and code referencing
 
 ## Segment 4: Ecosystem & Future
+
 - Demo: Copilot CLI in terminal
 - Show Copilot extensions (Azure, Docker, etc.)
 - Demo: Install/use a Copilot extension
