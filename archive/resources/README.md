@@ -38,4 +38,4 @@ This repository has been reorganized to directly align with the 4-hour O'Reilly 
    - Template files
    - Additional learning materials
 
-This structure supports a logical flow through the course material, making it easier to follow along during the 4-hour session and providing clear navigation for both instructors and students aligned with the actual course delivery. 
+This structure supports a logical flow through the course material, making it easier to follow along during the 4-hour session and providing clear navigation for both instructors and students aligned with the actual course delivery.

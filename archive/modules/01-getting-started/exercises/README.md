@@ -21,4 +21,4 @@ These exercises are designed to take approximately 15-20 minutes to complete, in
 - Follow the exercises in order as they build upon each other
 - Make sure to complete the setup exercise first before moving on
 - If you encounter issues with Copilot suggestions, try providing more context
-- Experiment beyond the basic instructions to deepen your understanding 
+- Experiment beyond the basic instructions to deepen your understanding

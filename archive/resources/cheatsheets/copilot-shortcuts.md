@@ -38,4 +38,4 @@
 | Add comments above your code | Provide context for better suggestions |
 | Write function signatures | Let Copilot implement the body |
 | Use descriptive variable names | Improves Copilot's understanding |
-| Define test cases first | Get Copilot to implement passing code | 
+| Define test cases first | Get Copilot to implement passing code |

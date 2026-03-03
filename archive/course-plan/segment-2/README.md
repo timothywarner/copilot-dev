@@ -19,6 +19,7 @@ These exercises are designed to take approximately 25-30 minutes to complete.
 ## Learning Goals
 
 Through these exercises, you will learn:
+
 - How to effectively communicate with Copilot through comments
 - Techniques for evaluating and integrating suggested code
 - How to use Copilot for documentation generation
@@ -29,4 +30,4 @@ Through these exercises, you will learn:
 - Be deliberate in writing clear, descriptive comments
 - Try rejecting suggestions and requesting new ones if they don't match your needs
 - Experiment with different levels of detail in your prompting
-- Pay attention to how context affects Copilot's suggestions 
+- Pay attention to how context affects Copilot's suggestions

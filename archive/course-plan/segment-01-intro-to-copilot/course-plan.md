@@ -176,4 +176,4 @@
 - If Copilot is slow/down: Have pre-generated examples ready
 - If questions run long: Prioritize demos over theory
 - If audio issues: Use chat more extensively
-- If demo fails: Refer to repository examples 
+- If demo fails: Refer to repository examples
