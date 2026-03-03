@@ -21,13 +21,12 @@ jobs:
     timeout-minutes: 10  # Prevent runaway jobs
     permissions:
       contents: write
-      actions: write  # For cache operations
     
     steps:
       # Security check for API key exposure
       - name: Check for exposed secrets
         run: |
-          if [ -z "${{ secrets.DEEPSEEK_API_KEY }}" ]; then
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
             echo "Error: DEEPSEEK_API_KEY secret is not set!"
             exit 1
           fi
@@ -66,7 +65,7 @@ jobs:
       
       # Cache the news archive to avoid repeated git operations
       - name: Cache news archive
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: news-archive
           key: news-archive-${{ github.run_id }}
@@ -120,7 +119,7 @@ jobs:
       # Upload the news files as artifacts for potential reuse
       - name: Upload news artifacts
         if: success()  # Only if previous steps succeeded
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: copilot-news
           path: |
@@ -178,7 +177,7 @@ jobs:
       # Clean up old artifacts to save space
       - name: Cleanup old artifacts
         if: always()  # Run even if previous steps failed
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const response = await github.rest.actions.listArtifactsForRepo({

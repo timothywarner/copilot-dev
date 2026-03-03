@@ -23,7 +23,9 @@ def query_deepseek(prompt):
     response = requests.post(
         "https://api.deepseek.com/v1/chat/completions",
         headers=headers,
-        json=data
+        json=data,
+        timeout=60,   # Prevent indefinite hangs; job-level timeout is 10 min
+        verify=True   # Explicitly enforce TLS certificate verification
     )
     
     if response.status_code != 200:
