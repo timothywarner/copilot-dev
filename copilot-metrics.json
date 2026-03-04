@@ -1,17 +1,154 @@
-{
-  "copilot_metrics": {
-    "active_users": 37, // Number of developers actively using Copilot—shows adoption and engagement.
-    "suggestion_acceptance_rate": 71, // Percentage of Copilot suggestions accepted—indicates value and trust in Copilot's output.
-    "time_saved_per_month_hours": 126, // Estimated hours saved from Copilot-assisted coding—useful for ROI calculations.
-    "coverage_by_language": {
-      "nodejs": 65, // Percentage of Node.js code written with Copilot's help.
-      "python": 74, // Percentage of Python code written with Copilot's help.
-      "bash": 56 // Percentage of Bash scripts generated or improved by Copilot.
+[
+  {
+    "_demo_note": "Sample response from GET /orgs/{org}/copilot/metrics (Copilot Metrics API). This API is deprecated as of April 2026 — migrate to the Copilot Usage Metrics API (/enterprises/{enterprise}/copilot/metrics/reports/). KEY DIFF: the new Usage Metrics API returns signed download links for NDJSON reports with richer telemetry (agent mode, edit mode, PR lifecycle) rather than inline JSON. Both APIs return chat data — see copilot_ide_chat and copilot_dotcom_chat below.",
+    "date": "2026-03-03",
+    "total_active_users": 37,
+    "total_engaged_users": 31,
+    "copilot_ide_code_completions": {
+      "_note": "IDE code completion telemetry — requires telemetry enabled in the IDE. Breakdowns by language and editor/model.",
+      "total_engaged_users": 28,
+      "languages": [
+        { "name": "python", "total_engaged_users": 14 },
+        { "name": "typescript", "total_engaged_users": 10 },
+        { "name": "javascript", "total_engaged_users": 9 },
+        { "name": "bash", "total_engaged_users": 5 }
+      ],
+      "editors": [
+        {
+          "name": "vscode",
+          "total_engaged_users": 22,
+          "models": [
+            {
+              "name": "default",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_engaged_users": 22,
+              "languages": [
+                {
+                  "name": "python",
+                  "total_engaged_users": 10,
+                  "total_code_suggestions": 612,
+                  "total_code_acceptances": 437,
+                  "total_code_lines_suggested": 1184,
+                  "total_code_lines_accepted": 845
+                },
+                {
+                  "name": "typescript",
+                  "total_engaged_users": 8,
+                  "total_code_suggestions": 488,
+                  "total_code_acceptances": 311,
+                  "total_code_lines_suggested": 920,
+                  "total_code_lines_accepted": 586
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "jetbrains",
+          "total_engaged_users": 6,
+          "models": [
+            {
+              "name": "default",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_engaged_users": 6,
+              "languages": [
+                {
+                  "name": "java",
+                  "total_engaged_users": 4,
+                  "total_code_suggestions": 298,
+                  "total_code_acceptances": 196,
+                  "total_code_lines_suggested": 541,
+                  "total_code_lines_accepted": 356
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
-    "test_code_generated": 42, // Number of unit/integration test cases Copilot helped author—shows quality improvements.
-    "documentation_suggestions": 28, // Number of docstrings or Markdown docs Copilot suggested—highlights improved documentation.
-    "pull_requests_touched": 52, // Number of PRs with Copilot-generated code—shows workflow impact.
-    "copilot_feedback_positive": 89, // Positive feedback instances—shows user satisfaction.
-    "copilot_feedback_negative": 7 // Negative feedback instances—helps identify improvement areas.
+    "copilot_ide_chat": {
+      "_note": "IDE Copilot Chat telemetry — YES, chat data is included in the Metrics API. Covers Ask/Edit/Agent mode chat in supported IDEs. Does NOT include GitHub.com chat (see copilot_dotcom_chat) or mobile/CLI chat.",
+      "total_engaged_users": 24,
+      "editors": [
+        {
+          "name": "vscode",
+          "total_engaged_users": 21,
+          "models": [
+            {
+              "name": "default",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_engaged_users": 19,
+              "total_chats": 187,
+              "total_chat_insertion_events": 54,
+              "total_chat_copy_events": 41
+            },
+            {
+              "name": "claude-sonnet-4-6",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_engaged_users": 6,
+              "total_chats": 43,
+              "total_chat_insertion_events": 18,
+              "total_chat_copy_events": 9
+            }
+          ]
+        }
+      ]
+    },
+    "copilot_dotcom_chat": {
+      "_note": "GitHub.com Copilot Chat telemetry (browser-based chat, not IDE). Distinct from copilot_ide_chat. The new Usage Metrics API does NOT include GitHub.com or mobile chat — IDE telemetry only.",
+      "total_engaged_users": 16,
+      "models": [
+        {
+          "name": "default",
+          "is_custom_model": false,
+          "custom_model_training_date": null,
+          "total_engaged_users": 14,
+          "total_chats": 76
+        },
+        {
+          "name": "gpt-5.2",
+          "is_custom_model": false,
+          "custom_model_training_date": null,
+          "total_engaged_users": 4,
+          "total_chats": 22
+        }
+      ]
+    },
+    "copilot_dotcom_pull_requests": {
+      "_note": "PR summary feature on GitHub.com — tracks how many PR summaries Copilot generated per repo/model.",
+      "total_engaged_users": 19,
+      "repositories": [
+        {
+          "name": "acme-corp/backend-api",
+          "total_engaged_users": 11,
+          "models": [
+            {
+              "name": "default",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_pr_summaries_created": 14,
+              "total_engaged_users": 11
+            }
+          ]
+        },
+        {
+          "name": "acme-corp/frontend-app",
+          "total_engaged_users": 8,
+          "models": [
+            {
+              "name": "default",
+              "is_custom_model": false,
+              "custom_model_training_date": null,
+              "total_pr_summaries_created": 9,
+              "total_engaged_users": 8
+            }
+          ]
+        }
+      ]
+    }
   }
-}
+]

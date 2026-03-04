@@ -75,7 +75,7 @@ Gain experience with an AI-based pair programmer right now!
 - Audit logs and usage analytics
 - Security best practices (secret detection, vulnerability scanning)
 - Policy enforcement and compliance guardrails
-- ROI measurement and productivity metrics (Copilot Metrics API)
+- ROI measurement and productivity metrics (Copilot Metrics API — legacy; new Usage Metrics API GA Feb 27, 2026)
 - IDE expansion: JetBrains, Eclipse, Xcode, Visual Studio 2026 (find_symbol, enterprise MCP, proxy support)
 - GH-300 Certification exam overview (7 domains, updated Jan 2026; covers Agent Mode, MCP, Spaces, CLI)
 
