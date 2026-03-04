@@ -134,11 +134,17 @@
 - Policy enforcement and compliance guardrails (GHEC admin controls)
   - MCP server allowlists for organizations
   - Model availability restrictions per org policy
-- ROI measurement and productivity metrics (Copilot Metrics API)
-  - **Copilot Metrics GA** (Feb 27, 2026): dashboards + API now production-ready for all orgs/enterprises
-  - Acceptance rates, time saved, lines suggested, active users
+- ROI measurement and productivity metrics (two distinct APIs — see table below)
+  - **Copilot Metrics API** (legacy, `/orgs/{org}/copilot/metrics`): aggregated daily JSON; returns `copilot_ide_code_completions`, `copilot_ide_chat`, `copilot_dotcom_chat`, and `copilot_dotcom_pull_requests`; **deprecated April 2026**
+    - **Yes, this API returns chat data** — both IDE chat (`copilot_ide_chat`) and GitHub.com browser chat (`copilot_dotcom_chat`)
+    - Does NOT cover agent mode, edit mode, or individual user-level telemetry
+  - **Copilot Usage Metrics API** (new, `/enterprises/{enterprise}/copilot/metrics/reports/`): returns signed download URLs for NDJSON reports — **GA Feb 27, 2026**
+    - Covers completions + IDE chat + agent mode + edit mode; richer per-feature/IDE/language/model/user breakdowns
+    - Does NOT include GitHub.com browser chat, GitHub Mobile, or CLI activity
+    - Up to 1 year of history (from Oct 10, 2025); data available within ~3 days of processing
   - **Plan mode telemetry** (Mar 2, 2026): metrics now break out plan mode usage separately (`chat_panel_plan_mode`); visible in Insights dashboard under AI Controls
   - Enterprise Cloud with data residency support; custom enterprise roles for fine-grained dashboard access
+  - Demo file: `copilot-metrics.json` — realistic sample matching the Copilot Metrics API format (4 sections, includes chat)
 - IDE expansion: JetBrains, Eclipse, Xcode, Visual Studio 2026
   - VS 2026: find_symbol tool for agent mode, enterprise MCP governance, proxy support
   - JetBrains: Agent Mode available, MCP support in progress
@@ -165,7 +171,8 @@
 |------|--------|---------|
 | Mar 2 | **Copilot Metrics: plan mode telemetry** | Plan mode usage now reported separately in metrics dashboards and API (`chat_panel_plan_mode`). Available in Insights under AI Controls. Orgs on VS Code Insiders, JetBrains, Eclipse, Xcode now; stable VS Code coming soon. |
 | Mar 2 | **Coding Agent network changes in effect** | Plan-specific network endpoints now active (announced Feb 13, effective Feb 27). Affects self-hosted/private-network runner orgs. Enterprise: `api.enterprise.githubcopilot.com`, Business: `api.business.githubcopilot.com`, Pro/Pro+: `api.individual.githubcopilot.com`. |
-| Feb 27 | **Copilot Metrics GA** | Usage metrics dashboards and API now production-ready for all orgs and enterprises. Includes fine-grained access controls, GHEC data residency support, and custom enterprise roles for dashboard sharing. |
+| Feb 27 | **Copilot Usage Metrics API GA** | New Usage Metrics API production-ready: `/enterprises/{enterprise}/copilot/metrics/reports/`. Returns signed download URLs for NDJSON reports covering completions, IDE chat, agent mode, edit mode, and PR lifecycle. Does NOT include GitHub.com browser chat or mobile. Includes fine-grained access controls, GHEC data residency, custom enterprise roles. Replaces the legacy Copilot Metrics API (deprecated April 2026). |
+| Apr 2026 | **Legacy Copilot Metrics API deprecated** | `/orgs/{org}/copilot/metrics` endpoint retiring. Migrate to Usage Metrics API. Key diff: old API returned inline JSON with `copilot_ide_chat` + `copilot_dotcom_chat` but lacked agent/edit mode telemetry; new API returns NDJSON report download links with full coverage. |
 | Feb 25 | **Copilot CLI GA** | Terminal-native coding agent now production-ready for all paid subscribers. Includes Plan mode, Autopilot mode, sub-agent delegation, built-in GitHub MCP server, and custom MCP support. |
 | Feb 26 | **Long-distance NES** | Next Edit Suggestions now predict edits anywhere in the file, not just near the cursor position. |
 | Feb 17 | **Model deprecations** | Claude Opus 4.1, GPT-5, and GPT-5-Codex removed from model picker. Migrate to Opus 4.5/4.6 or GPT-5.1/5.2. |
@@ -209,7 +216,7 @@
 | Coding Agent Bug Demo | `src/test-app.js` | Intentional bug on line 87 (`=` vs `===`) — Coding Agent `/fix` demo | 3 |
 | Agent Tutorial | `COPILOT_AGENT_TUTORIAL.md` | Coding Agent walkthrough (issue → PR) | 3 |
 | Customization Samples | `COPILOT_CUSTOMIZATION_SAMPLES.md` | Reference examples for all customization types | 2-3 |
-| Metrics JSON | `copilot-metrics.json` | Enterprise metrics API response demo | 4 |
+| Metrics JSON | `copilot-metrics.json` | Realistic sample matching legacy Copilot Metrics API format — shows `copilot_ide_chat`, `copilot_dotcom_chat`, `copilot_ide_code_completions`, `copilot_dotcom_pull_requests`; demo notes explain diff vs new Usage Metrics API | 4 |
 | Cert Objectives | `copilot-certification/` | GH-300 exam prep (Jan 2026 update, Pearson VUE) | 4 |
 
 ### Custom Instructions
@@ -260,7 +267,8 @@
 - **GPT-5.3-Codex**: Highlight this as the newest model addition (Feb 9). It targets agentic workflows specifically and is 25% faster than GPT-5.2-Codex on those tasks. Business/Enterprise admins must explicitly enable the policy before users see it in the picker.
 - **Model deprecation callout**: Remind attendees to update their model picker if they were using Claude Opus 4.1, GPT-5, or GPT-5-Codex (the old one). These are gone as of Feb 17.
 - **Long-distance NES**: Show a before/after of NES predicting edits far from the cursor. This is a tangible improvement attendees can try immediately.
-- **Copilot Metrics GA + plan mode telemetry**: Good enterprise-segment talking point. Metrics are now fully GA (Feb 27) and plan mode has its own telemetry category (Mar 2). Enterprise admins can now track who's using plan mode vs. other chat modes.
+- **Copilot Metrics API vs Usage Metrics API — key talking point**: Attendees often conflate these two APIs. The **legacy Copilot Metrics API** (`/orgs/{org}/copilot/metrics`, deprecated April 2026) returned inline JSON with 4 sections: `copilot_ide_code_completions`, `copilot_ide_chat`, `copilot_dotcom_chat`, and `copilot_dotcom_pull_requests`. **Yes — it did return chat data.** The new **Copilot Usage Metrics API** (`/enterprises/{enterprise}/copilot/metrics/reports/`, GA Feb 27 2026) returns signed download URLs for NDJSON reports instead of inline JSON; covers everything the old API did plus agent mode, edit mode, and PR lifecycle metrics, but drops GitHub.com browser chat and mobile. Use `copilot-metrics.json` to show the old format during the demo, then point to the GitHub docs for the new NDJSON schema.
+- **Copilot Metrics GA + plan mode telemetry**: Good enterprise-segment talking point. Usage Metrics API is now fully GA (Feb 27) and plan mode has its own telemetry category (Mar 2). Enterprise admins can now track who's using plan mode vs. other chat modes.
 - **Coding Agent network changes**: Flag for enterprise admins only — if their org uses self-hosted runners or Azure private networking, they need to update allowlists to the plan-specific endpoints. Standard GitHub-hosted runners are unaffected.
 - **VS Code version**: Ensure demo machine runs VS Code 1.109+ stable. The 1.110 insiders channel has browser integration and auto-approval rules for agents if you want to preview those.
 - **CLI vs Agent Mode**: Clarify that Copilot CLI and VS Code Agent Mode share the same underlying agentic capabilities (Plan mode, Autopilot, sub-agents) but operate in different environments (terminal vs editor).
