@@ -24,12 +24,7 @@ from copilot_tips_server import (
 # Fixtures
 # =============================================================================
 
-@pytest.fixture(autouse=True)
-def reset_store_between_tests():
-    """Reset the tips store before each test."""
-    reset_tips_store()
-    yield
-    reset_tips_store()
+# Note: The autouse fixture for resetting tips store is now in conftest.py
 
 
 # =============================================================================

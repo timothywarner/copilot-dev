@@ -9,7 +9,7 @@ A FastMCP server providing GitHub Copilot tips and tricks via the Model Context 
 - 🛠️ **Tools** — Search, filter, random tips, delete/reset
 - 💬 **Prompts** — Task suggestions, category exploration, learning paths
 - 🎯 **Elicitations** — Interactive guided discovery with real MCP elicitations
-- 🧪 **26 unit tests** with pytest
+- 🧪 **Comprehensive test suite** with 90%+ coverage (unit, integration, performance tests)
 
 ## Quick Start
 
@@ -67,10 +67,23 @@ Open the URL shown in the terminal (e.g., `http://localhost:52341`).
 ### 4. Run Tests
 
 ```bash
-pytest test_copilot_tips_server.py -v
+# Run all tests with coverage
+pytest
+
+# Run specific test types
+pytest -m unit              # Unit tests only
+pytest -m integration       # Integration tests only  
+pytest -m performance       # Performance tests only
+
+# Generate HTML coverage report
+pytest --cov=copilot_tips_server --cov-report=html
+# Open htmlcov/index.html to view coverage
+
+# Run tests in parallel
+pytest -n auto
 ```
 
-All 26 tests should pass.
+See the [Testing](#testing) section below for more details.
 
 ## Using the Inspector
 
@@ -187,6 +200,120 @@ Check the terminal output for error details. Common issues:
 - Python 3.10+
 - Node.js 18+ (for MCP Inspector)
 - PowerShell 7+ (Windows) or Bash (Unix)
+
+## Testing
+
+### Running Tests
+
+This project has comprehensive test coverage (90%+) with multiple test types:
+
+```bash
+# Run all tests with coverage
+pytest
+
+# Run with detailed coverage report
+pytest --cov=copilot_tips_server --cov-report=html --cov-report=term-missing
+
+# Run specific test types
+pytest -m unit              # Fast, isolated unit tests
+pytest -m integration       # Full server integration tests
+pytest -m performance       # Performance/benchmark tests
+
+# Run tests in parallel (faster)
+pytest -n auto
+
+# Run without coverage checks (faster for development)
+pytest --no-cov
+
+# Run specific test file
+pytest test_edge_cases.py -v
+```
+
+### Test Organization
+
+The test suite is organized into multiple files:
+
+- **`test_copilot_tips_server.py`** — Core functionality tests (26 tests)
+  - Data loading and store management
+  - Resource endpoints (categories, stats)
+  - Tool functions (search, random, delete, reset)
+  - Server configuration
+
+- **`test_edge_cases.py`** — Edge cases and error conditions (18 tests)
+  - Empty/invalid inputs
+  - Unicode and special characters
+  - Concurrent access patterns
+  - Security (SQL injection, regex handling)
+
+- **`test_prompts.py`** — Prompt template tests (17 tests)
+  - All three prompt templates (tip_suggestion, category_explorer, learning_path)
+  - Input validation and edge cases
+
+- **`test_async_functions.py`** — Async elicitation tests (9 tests)
+  - Interactive tip finder with mocked user inputs
+  - Guided random tip with various scenarios
+  - Cancellation handling
+
+- **`test_integration.py`** — Integration tests (9 tests)
+  - Server startup and lifecycle
+  - Process management
+  - Data file validation
+
+- **`test_performance.py`** — Performance/benchmark tests (10 tests)
+  - Search operation speed
+  - Concurrent access performance
+  - Stress testing with 500+ rapid requests
+
+### Test Markers
+
+Tests are organized with pytest markers:
+
+```bash
+# Unit tests - fast, isolated
+pytest -m unit
+
+# Integration tests - slower, test full server
+pytest -m integration
+
+# Performance tests - benchmark operations
+pytest -m performance
+
+# Slow tests - take extra time
+pytest -m slow
+```
+
+### Coverage Goals
+
+- **Target:** 90%+ code coverage
+- **Current:** 97% coverage achieved
+- **Check coverage:** After running tests, open `htmlcov/index.html` in your browser
+
+### Continuous Integration
+
+Tests run automatically on every push via GitHub Actions:
+- Matrix testing across Python 3.10, 3.11, and 3.12
+- Unit tests, integration tests, and coverage reporting
+- Coverage artifacts uploaded for Python 3.12
+
+View workflow: `.github/workflows/test-mcp-server.yml`
+
+### Test Fixtures
+
+Reusable test fixtures are available in `conftest.py`:
+
+- `sample_tip` — Single test tip
+- `sample_tips_batch` — Multiple test tips
+- `clean_tips_store` — Reset store before/after test
+- `empty_tips_store` — Empty store for edge case testing
+
+### Test Utilities
+
+Helper functions in `test_utils.py`:
+
+- `assert_valid_tip(tip)` — Validate tip structure
+- `assert_success_response(response)` — Check success response
+- `assert_error_response(response, msg)` — Check error response
+- `create_test_tip(id, **overrides)` — Create test tip data
 
 ## Architecture
 

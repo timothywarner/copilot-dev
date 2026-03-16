@@ -1,0 +1,62 @@
+name: Test MCP Server
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - '.github/workflows/test-mcp-server.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/**'
+      - '.github/workflows/test-mcp-server.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        cd src
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+    
+    - name: Run unit tests with coverage
+      run: |
+        cd src
+        pytest -m "not integration and not performance" --cov=copilot_tips_server --cov-report=xml --cov-report=term-missing
+    
+    - name: Run edge case tests
+      run: |
+        cd src
+        pytest test_edge_cases.py -v
+    
+    - name: Run integration tests
+      run: |
+        cd src
+        pytest -m integration -v
+    
+    - name: Run all tests with coverage report
+      run: |
+        cd src
+        pytest --cov=copilot_tips_server --cov-report=xml --cov-report=term-missing --cov-fail-under=90
+    
+    - name: Upload coverage to artifacts
+      uses: actions/upload-artifact@v4
+      if: matrix.python-version == '3.12'
+      with:
+        name: coverage-report
+        path: src/htmlcov/
+        retention-days: 30

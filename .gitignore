@@ -507,3 +507,4 @@ temp/
 .idea/
 *.swp
 *.swo
+.pytest_cache/
