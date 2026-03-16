@@ -21,6 +21,7 @@ Prompts:
 """
 
 import json
+import logging
 import random
 from pathlib import Path
 from typing import Optional, Literal
@@ -28,6 +29,22 @@ from collections import Counter
 from dataclasses import dataclass
 
 from fastmcp import FastMCP, Context
+
+# Configure logging
+LOG_DIR = Path(__file__).parent / "logs"
+LOG_DIR.mkdir(exist_ok=True)
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler(LOG_DIR / "mcp_server.log"),
+        logging.StreamHandler()
+    ]
+)
+
+logger = logging.getLogger("copilot_tips_server")
+logger.info("Initializing Copilot Tips MCP Server")
 
 # Initialize FastMCP server
 mcp = FastMCP(
@@ -41,10 +58,14 @@ DATA_FILE = Path(__file__).parent / "data" / "copilot_tips.json"
 
 def load_tips() -> list[dict]:
     """Load tips from the JSON data file."""
+    logger.debug(f"Loading tips from {DATA_FILE}")
     if DATA_FILE.exists():
         with open(DATA_FILE, "r", encoding="utf-8") as f:
             data = json.load(f)
-            return data.get("tips", [])
+            tips = data.get("tips", [])
+            logger.info(f"Loaded {len(tips)} tips from data file")
+            return tips
+    logger.warning(f"Tips file not found at {DATA_FILE}")
     return []
 
 
@@ -135,15 +156,18 @@ def get_tip_by_id(tip_id: str) -> dict:
     Returns:
         The tip object if found, or an error message if not found.
     """
+    logger.info(f"Tool invoked: get_tip_by_id(tip_id={tip_id})")
     tips = get_tips_store()
 
     for tip in tips:
         if tip["id"].lower() == tip_id.lower():
+            logger.debug(f"Found tip: {tip['title']}")
             return {
                 "success": True,
                 "tip": tip
             }
 
+    logger.warning(f"Tip not found: {tip_id}")
     return {
         "success": False,
         "error": f"Tip with ID '{tip_id}' not found",
@@ -168,6 +192,7 @@ def get_tip_by_topic(
     Returns:
         List of matching tips sorted by relevance.
     """
+    logger.info(f"Tool invoked: get_tip_by_topic(search_term='{search_term}', category={category}, difficulty={difficulty})")
     tips = get_tips_store()
     search_lower = search_term.lower()
 
@@ -211,12 +236,14 @@ def get_tip_by_topic(
     matches.sort(key=lambda x: x["relevance"], reverse=True)
 
     if not matches:
+        logger.info(f"No tips found for search term: '{search_term}'")
         return {
             "success": False,
             "error": f"No tips found matching '{search_term}'",
             "suggestion": "Try broader search terms or remove filters"
         }
 
+    logger.info(f"Found {len(matches)} matching tips for '{search_term}'")
     return {
         "success": True,
         "count": len(matches),
@@ -280,11 +307,13 @@ def delete_tip(tip_id: str) -> dict:
     Returns:
         Confirmation of deletion or error if tip not found.
     """
+    logger.info(f"Tool invoked: delete_tip(tip_id={tip_id})")
     tips = get_tips_store()
 
     for i, tip in enumerate(tips):
         if tip["id"].lower() == tip_id.lower():
             deleted_tip = tips.pop(i)
+            logger.info(f"Deleted tip: {tip_id} - '{deleted_tip['title']}'")
             return {
                 "success": True,
                 "message": f"Tip '{tip_id}' deleted successfully",
@@ -292,6 +321,7 @@ def delete_tip(tip_id: str) -> dict:
                 "remaining_count": len(tips)
             }
 
+    logger.warning(f"Cannot delete tip: {tip_id} not found")
     return {
         "success": False,
         "error": f"Tip with ID '{tip_id}' not found"
