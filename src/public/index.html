@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%92%A1%3C/text%3E%3C/svg%3E" />
+    <title>GitHub Copilot Tips — May 2026</title>
+    <style>
+      :root {
+        --bg: #0d1117;
+        --panel: #161b22;
+        --panel-2: #1f2630;
+        --border: #30363d;
+        --text: #e6edf3;
+        --muted: #8b949e;
+        --accent: #58a6ff;
+        --accent-2: #7ee787;
+        --warn: #f0883e;
+        --crit: #ff7b72;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.55;
+        min-height: 100vh;
+      }
+      header {
+        padding: 32px 24px 16px;
+        max-width: 880px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+        letter-spacing: -0.01em;
+      }
+      header p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+      .controls {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      button {
+        background: var(--accent);
+        color: #0d1117;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 18px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s ease, transform 0.05s ease;
+      }
+      button:hover { background: #79b8ff; }
+      button:active { transform: translateY(1px); }
+      button:disabled {
+        opacity: 0.55;
+        cursor: progress;
+      }
+      .secondary {
+        background: var(--panel-2);
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+      .secondary:hover { background: #2a313c; }
+      .meta {
+        color: var(--muted);
+        font-size: 13px;
+        margin-left: auto;
+      }
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 28px;
+        position: relative;
+        overflow: hidden;
+        animation: fadein 0.25s ease;
+      }
+      @keyframes fadein {
+        from { opacity: 0; transform: translateY(4px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      .card .id-pill {
+        position: absolute;
+        top: 16px;
+        right: 20px;
+        font-size: 12px;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      .card h2 {
+        margin: 0 0 12px;
+        font-size: 22px;
+        line-height: 1.3;
+        color: var(--text);
+      }
+      .card .description {
+        margin: 0 0 20px;
+        color: var(--text);
+        font-size: 16px;
+      }
+      .badges {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+        background: var(--panel-2);
+        color: var(--muted);
+        border: 1px solid var(--border);
+      }
+      .badge.category {
+        color: var(--accent);
+        border-color: rgba(88, 166, 255, 0.4);
+      }
+      .badge.difficulty-beginner { color: var(--accent-2); border-color: rgba(126, 231, 135, 0.4); }
+      .badge.difficulty-intermediate { color: var(--warn); border-color: rgba(240, 136, 62, 0.4); }
+      .badge.difficulty-advanced { color: var(--crit); border-color: rgba(255, 123, 114, 0.4); }
+      .badge.impact-critical { color: var(--crit); border-color: rgba(255, 123, 114, 0.4); }
+      .badge.impact-high { color: var(--warn); border-color: rgba(240, 136, 62, 0.4); }
+      .badge.impact-medium { color: var(--accent); border-color: rgba(88, 166, 255, 0.4); }
+      .badge.impact-low { color: var(--muted); }
+      footer {
+        max-width: 880px;
+        margin: 32px auto;
+        padding: 0 24px;
+        color: var(--muted);
+        font-size: 12px;
+        text-align: center;
+      }
+      .error {
+        color: var(--crit);
+        background: rgba(255, 123, 114, 0.08);
+        border: 1px solid rgba(255, 123, 114, 0.4);
+        padding: 16px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>GitHub Copilot tips</h1>
+      <p id="header-meta">Loading…</p>
+    </header>
+    <main>
+      <div class="controls">
+        <button id="btn-random" type="button">Get random tip</button>
+        <button id="btn-copy" class="secondary" type="button">Copy tip</button>
+        <span class="meta" id="counter">— / —</span>
+      </div>
+      <section id="card-host">
+        <div class="card" aria-busy="true">
+          <h2>Loading…</h2>
+          <p class="description">Fetching tips from <code>/api/tips</code>.</p>
+        </div>
+      </section>
+    </main>
+    <footer id="footer-meta">May 2026 delivery</footer>
+
+    <script>
+      const headerMeta = document.getElementById("header-meta");
+      const footerMeta = document.getElementById("footer-meta");
+      const counter = document.getElementById("counter");
+      const cardHost = document.getElementById("card-host");
+      const btnRandom = document.getElementById("btn-random");
+      const btnCopy = document.getElementById("btn-copy");
+
+      let total = 0;
+      let seenCount = 0;
+      let currentTip = null;
+
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[c]);
+      }
+
+      function renderTip(tip) {
+        currentTip = tip;
+        cardHost.innerHTML = `
+          <div class="card">
+            <span class="id-pill">#${escapeHtml(tip.id)}</span>
+            <h2>${escapeHtml(tip.title)}</h2>
+            <p class="description">${escapeHtml(tip.description)}</p>
+            <div class="badges">
+              <span class="badge category">${escapeHtml(tip.category)}</span>
+              <span class="badge difficulty-${escapeHtml(tip.difficulty)}">difficulty: ${escapeHtml(tip.difficulty)}</span>
+              <span class="badge impact-${escapeHtml(tip.impact)}">impact: ${escapeHtml(tip.impact)}</span>
+            </div>
+          </div>
+        `;
+        seenCount += 1;
+        counter.textContent = `tip ${seenCount} / ${total}`;
+      }
+
+      function renderError(message) {
+        cardHost.innerHTML = `<div class="error">${escapeHtml(message)}</div>`;
+      }
+
+      async function fetchRandom() {
+        btnRandom.disabled = true;
+        try {
+          const url = currentTip ? `/api/random-tip?exclude=${currentTip.id}` : "/api/random-tip";
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          renderTip(await res.json());
+        } catch (e) {
+          renderError(`Could not load a tip: ${e.message}`);
+        } finally {
+          btnRandom.disabled = false;
+        }
+      }
+
+      async function init() {
+        try {
+          const res = await fetch("/api/tips");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = await res.json();
+          total = data.total;
+          headerMeta.textContent = `${data.total} tips · v${data.metadata?.version ?? "?"} · ${data.metadata?.lastUpdated ?? ""}`;
+          footerMeta.textContent = data.metadata?.currency ?? footerMeta.textContent;
+          counter.textContent = `tip 0 / ${total}`;
+          await fetchRandom();
+        } catch (e) {
+          renderError(`Could not load tips: ${e.message}`);
+        }
+      }
+
+      btnRandom.addEventListener("click", fetchRandom);
+      btnCopy.addEventListener("click", async () => {
+        if (!currentTip) return;
+        const text = `${currentTip.title}\n\n${currentTip.description}\n\n— ${currentTip.category} (#${currentTip.id})`;
+        try {
+          await navigator.clipboard.writeText(text);
+          btnCopy.textContent = "Copied!";
+          setTimeout(() => (btnCopy.textContent = "Copy tip"), 1200);
+        } catch {
+          btnCopy.textContent = "Copy failed";
+          setTimeout(() => (btnCopy.textContent = "Copy tip"), 1200);
+        }
+      });
+
+      init();
+    </script>
+  </body>
+</html>
