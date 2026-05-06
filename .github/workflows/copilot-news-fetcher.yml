@@ -93,10 +93,10 @@ jobs:
         id: archive
         continue-on-error: true  # Don't fail if no previous news exists
         run: |
-          if [ -f latest-github-news.md ]; then
+          if [ -f docs/latest-github-news.md ]; then
             mkdir -p news-archive
             ARCHIVE_NAME="github-news-$(date -d 'yesterday' +'%Y-%m-%d').md"
-            mv latest-github-news.md "news-archive/$ARCHIVE_NAME"
+            mv docs/latest-github-news.md "news-archive/$ARCHIVE_NAME"
             echo "archived=true" >> $GITHUB_OUTPUT
             echo "archive_name=$ARCHIVE_NAME" >> $GITHUB_OUTPUT
           else
@@ -111,7 +111,7 @@ jobs:
           # Change to repo root before running script
           cd $GITHUB_WORKSPACE
           python .github/scripts/fetch_news.py
-          if [ ! -f latest-github-news.md ]; then
+          if [ ! -f docs/latest-github-news.md ]; then
             echo "Error: News fetching failed to create output file!"
             exit 1
           fi
@@ -123,7 +123,7 @@ jobs:
         with:
           name: copilot-news
           path: |
-            latest-github-news.md
+            docs/latest-github-news.md
             news-archive/*.md
           retention-days: 7  # Limit retention to save storage
       
@@ -139,12 +139,12 @@ jobs:
           git reset --hard origin/main
           
           # Re-apply our changes
-          if [ -f latest-github-news.md ]; then
+          if [ -f docs/latest-github-news.md ]; then
             mkdir -p news-archive
             if [ -n "$(ls -A news-archive 2>/dev/null)" ]; then
               git add news-archive/
             fi
-            git add latest-github-news.md
+            git add docs/latest-github-news.md
             
             if [[ -n "$(git status --porcelain)" ]]; then
               git commit -m "Update GitHub Copilot news for $(date +'%Y-%m-%d')"

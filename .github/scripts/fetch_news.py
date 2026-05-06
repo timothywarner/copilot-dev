@@ -121,7 +121,8 @@ Only include verifiable information from the past few days. If certain categorie
 </div>"""
         
         # Write to file
-        with open('latest-github-news.md', 'w', encoding='utf-8') as f:
+        os.makedirs('docs', exist_ok=True)
+        with open('docs/latest-github-news.md', 'w', encoding='utf-8') as f:
             f.write(full_content)
             
     except Exception as e:

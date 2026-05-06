@@ -115,7 +115,7 @@ Anyone with a Copilot license (including Free) can create and use Spaces. Recent
 
 ## GH-300 Certification Exam Update (January 2026)
 
-The exam has been significantly restructured with new domains, reworded objectives, and coverage of Agent Mode, MCP, Plan Mode, Sub-Agents, Copilot CLI, Spaces, and Spark. See `copilot-certification/` in this repo for updated objectives.
+The exam has been significantly restructured with new domains, reworded objectives, and coverage of Agent Mode, MCP, Plan Mode, Sub-Agents, Copilot CLI, Spaces, and Spark. See `docs/certification/` in this repo for updated objectives.
 
 - [GH-300 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-300)
 

@@ -2,7 +2,7 @@
  * ⚠️  TEACHING DEMO FILE — CONTAINS AN INTENTIONAL BUG ⚠️
  *
  * This file is used in the GitHub Copilot Coding Agent demo
- * (COPILOT_AGENT_TUTORIAL.md) to demonstrate how Copilot can find and fix bugs.
+ * (docs/COPILOT_AGENT_TUTORIAL.md) to demonstrate how Copilot can find and fix bugs.
  *
  * THE BUG: getTaskById() uses assignment (=) instead of strict equality (===)
  * on approximately line 87. This is deliberate. DO NOT copy this code to
@@ -12,7 +12,7 @@
  * test-app.js
  *
  * Simple task management utility for a to-do list system.
- * Used in the GitHub Copilot Coding Agent demo (COPILOT_AGENT_TUTORIAL.md).
+ * Used in the GitHub Copilot Coding Agent demo (docs/COPILOT_AGENT_TUTORIAL.md).
  *
  * Features:
  *  - addTask    — create a new task with auto-generated ID
