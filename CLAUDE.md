@@ -4,153 +4,134 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Purpose
 
-Teaching repository for **GitHub Copilot for Developers** — a 4-hour O'Reilly Live Training course delivered by Tim Warner (Microsoft MVP, MCT). Contains course materials, a working Python MCP server demo app, customization examples, certification prep, and an archived history of previous deliveries.
+Teaching repository for **GitHub Copilot for Developers** — Tim Warner's 4-hour O'Reilly Live Training. Two things ship from here:
 
-## Key Commands
+1. **Course materials** — slide deck, course plan, tutorials, certification notes, news.
+2. **A working FastMCP server** (`/src`) that doubles as the Module 3 / 4 demo for MCP, Coding Agent, and Custom Agents.
 
-### Python MCP Server Application (src directory)
+Treat the source of truth for "what's current in Copilot" as `README.md` and `COURSE_PLAN_MAY_2026.md`. They are refreshed every delivery (last refresh: May 6, 2026 — AI Credits cutover, GPT-5.5, Claude Opus 4.7, Sonnet 4 deprecation, Autopilot mode, Debugger agent). When updating model names, prices, or feature GAs, update those two files first; this CLAUDE.md should stay structural.
+
+## Repository Layout (May 2026 reorg)
+
+```
+/                    README.md, CLAUDE.md, AGENTS.md, COURSE_PLAN_MAY_2026.md, *.pptx
+/docs                Tutorials, info articles, reference inputs (NOT code)
+  /docs/references   Microsoft Writing Style Guide + fictional-company pool
+  /docs/certification GH-300 exam objectives and study notes
+/src                 Python FastMCP demo app + tests + sample data
+/scripts             Helper scripts (PowerShell metrics report)
+/.github             Copilot customization examples (also configures THIS repo)
+/archive             Historical course materials — do not maintain unless explicitly asked
+```
+
+Convention: course plan + PPTX at root; prose under `/docs`; code under `/src` and `/scripts`. Don't put new tutorials at root.
+
+## Key Architectural Insight: `.github/` is dual-purpose
+
+Every file in `.github/` does **two jobs simultaneously**:
+
+1. It configures GitHub Copilot's behavior for *this* repo (Tim's own workflow).
+2. It is the **teaching example** Tim demos live in class.
+
+So when editing anything under `.github/`, optimize for **clarity of demonstration** over brevity. Comments explaining *why* a frontmatter field exists are pedagogical, not noise. The `Copilot Course Teaching Demo.agent.md` agent is the meta-example: it exercises multi-model fallback (`model: ["claude-opus-4-7", "gpt-5.5"]`), `handoffs` for agent chaining, and references all three skills.
+
+The intentional pairings in `.github/`:
+
+- **`agents/*.agent.md`** + **`AGENTS.md`** at root — both formats are recognized as of May 2026; they're shown side-by-side on purpose.
+- **`agents/*.agent.md`** + **`chatmodes/new-mode.chatmode.md`** — current vs deprecated format; teaching the rename.
+- **`prompts/*.prompt.md`** — all use `agent:` (the `mode:` field is deprecated). Variable syntax is `${input:varName}`.
+- **`skills/[name]/SKILL.md`** — required frontmatter is `name` (lowercase-hyphenated) + `description`. As of April 2026 the same SKILL.md works in Copilot, Claude Code, Cursor, and Codex CLI without modification.
+- **Tool scoping as security** — `Code Review and Security Expert.agent.md` deliberately omits `editFiles`; this is the live demo for "tool scope = trust boundary."
+
+The `.github/scripts/fetch_news.py` and `.github/workflows/copilot-news-fetcher.yml` write to **`docs/latest-github-news.md`** (not the repo root — that path was changed in the May 2026 reorg). If you edit either file, keep them in sync.
+
+## Demo App (`/src`) — Architectural Notes
+
+Python 3.10+ FastMCP server providing 46 curated Copilot tips across 6 categories.
+
+- **`copilot_tips_server.py`** — single-file server exposing tools (search/filter/random/delete/reset), resources (categories/stats), prompts (task suggestions/learning paths), and elicitations.
+- **`data/copilot_tips.json`** — source data; the 46 tips. Treat as data, not config.
+- **`data/copilot-metrics-sample.json`** — static sample of the Copilot Metrics API response for offline demos.
+- **`test-app.js`** — **contains an intentional bug on line 87** (`if (found = undefined)` instead of `=== undefined`). Do not "fix" this file — it is the live `/fix` target for the Coding Agent walkthrough in `docs/COPILOT_AGENT_TUTORIAL.md`. The bug is documented in the file's header comment.
+- Dependencies are managed with `uv` (not pip/poetry). The `pyproject.toml` declares `fastmcp>=2.0.0`, `mcp>=1.0.0`, `pytest`.
+
+## Common Commands
+
+### Set up the demo app
 
 ```bash
-# Set up the virtual environment (first time)
-cd src && uv venv && uv pip install -e ".[dev]"
+cd src && pwsh ./setup.ps1   # Windows
+cd src && ./setup.sh         # macOS/Linux
+# Both wrap: uv venv && uv pip install -e ".[dev]"
+```
 
-# Run the FastMCP server
-cd src && python copilot_tips_server.py
+### Run the MCP server
 
-# Launch MCP Inspector UI (browser-based testing)
-cd src && python start_inspector.py
+```bash
+cd src && python copilot_tips_server.py        # serve
+cd src && python start_inspector.py            # MCP Inspector UI for live demos
+```
 
-# Run tests
+### Tests
+
+```bash
 cd src && pytest test_copilot_tips_server.py -v
-
-# Run a single test
-cd src && pytest test_copilot_tips_server.py -v -k "test_name"
-
-# Run tests with coverage
+cd src && pytest test_copilot_tips_server.py -v -k "test_name"     # single test
 cd src && pytest test_copilot_tips_server.py --cov=copilot_tips_server --cov-report=term-missing
 ```
 
-### GitHub Workflows
+### Copilot Metrics demo
 
-```bash
-# The repo has 3 GitHub Actions workflows:
-# - codeql-analysis.yml    — Security scanning
-# - copilot-news-fetcher.yml — Automated news updates via DeepSeek API
-# - readme-checker.yml     — README validation
+```powershell
+# Live API pull — needs $env:GITHUB_TOKEN with read:org + Copilot metrics access
+.\scripts\Get-CopilotMetricsReport.ps1 -Organization 'your-org' -Days 28
 ```
 
-## Repository Architecture
+If no token, demo from `src/data/copilot-metrics-sample.json` (annotated walkthrough at `docs/copilot-metrics-report-sample.md`).
 
-### Active Course Content (root level)
+### News fetcher (run locally if testing the workflow)
 
-- **`COURSE_PLAN_*.md`** — Teaching punchlist for each delivery (segments, topics, demos)
-- **`COPILOT_AGENT_TUTORIAL.md`** — Step-by-step coding agent walkthrough (issue → PR)
-- **`COPILOT_CUSTOMIZATION_SAMPLES.md`** — Examples of instructions, prompts, agents, skills
-- **`warner-copilot-*.pptx`** — Course slide deck (large binary, ~100MB)
-- **`copilot-metrics.json`** — Sample Copilot Metrics API response for enterprise demos
-- **`latest-github-news.md`** — Auto-generated news file (from GitHub Actions workflow)
+```bash
+python .github/scripts/fetch_news.py    # writes to docs/latest-github-news.md
+```
 
-### Demo Application (`/src`)
+### Markdown lint
 
-Python 3.10+ FastMCP server providing 46 curated Copilot tips across 6 categories. This is the primary hands-on demo for showing MCP server concepts during the course.
+The repo enforces `.markdownlint.json` (ATX headings, fenced code blocks, ordered list style). No npm script is wired — run your editor's markdownlint integration or `markdownlint-cli`.
 
-- **`copilot_tips_server.py`** — Main server: tools (search, filter, random, delete/reset), resources (categories, stats), prompts (task suggestions, learning paths), and elicitations
-- **`test_copilot_tips_server.py`** — 26 pytest tests covering all server functionality
-- **`data/copilot_tips.json`** — Source data: 46 tips in Prompting, Shortcuts, Code Gen, Chat, Context, Security categories
-- **`start_inspector.py`** — Launches MCP Inspector browser UI for interactive testing
-- **`test-app.js`** — Task management utility with intentional bug on line 87 (`if (found = undefined)` assignment instead of `=== undefined`); used for live Coding Agent `/fix` demo in `COPILOT_AGENT_TUTORIAL.md`
-- **Dependencies**: `fastmcp>=2.0.0`, `mcp>=1.0.0`, managed via `uv`
+## Editing Conventions
 
-### Copilot Customization Demos (`.github/`)
+- **Date-sensitive content** (model names, prices, GA dates, deprecation dates): always verify against [Supported AI Models](https://docs.github.com/en/copilot/reference/ai-models/supported-models), the [Annual-plan multiplier table](https://docs.github.com/en/copilot/reference/copilot-billing/model-multipliers-for-annual-plans), and the [GitHub Changelog](https://github.blog/changelog/) before merging. The course is re-delivered monthly; staleness shows.
+- **Microsoft house voice**: when authoring slide copy, exercises, or any teaching prose, follow `docs/references/microsoft-style-guide.md` (sentence case, bold UI labels, Oxford commas, input-neutral verbs like "select" not "click", `should` vs `must`).
+- **Scenario stems**: pull company names from `docs/references/fictional-companies.md` rather than defaulting to Contoso.
+- **Python**: PEP 8, `snake_case`, docstrings written for *learners* (clarity > terseness — this code is read on stage).
+- **PowerShell**: follow `.github/instructions/powershell.instructions.md` (Verb-Noun, `[CmdletBinding()]`, `ShouldProcess`, no aliases). The PowerShell custom-instruction file is itself a teaching artifact; `scripts/Get-CopilotMetricsReport.ps1` is the working example of the patterns it codifies.
+- **Don't touch `archive/`** unless explicitly refreshing older material — it is preserved for reference, not maintained.
+- **Don't fix `src/test-app.js`** — see above, the bug is intentional.
 
-These files are teaching examples — they demonstrate how to configure GitHub Copilot for a real project:
+## Workflows
 
-- **`copilot-instructions.md`** — Repository-wide custom instructions (Azure, security-first, TDD focus)
-- **`agents/*.agent.md`** — 4 custom agent definitions (see table below); `description` is the only required frontmatter field; `model` accepts arrays for fallback priority; `handoffs` enables agent chaining
-- **`instructions/*.instructions.md`** — Path-scoped instructions (Python MCP, security-forward)
-- **`prompts/*.prompt.md`** — 9 reusable prompt files; use `agent:` field (`ask`/`agent`/`plan`) — `mode:` is deprecated; variable syntax is `${input:varName}`
-- **`skills/[name]/SKILL.md`** — 3 Agent Skills with supporting artifacts; `name` and `description` are required frontmatter; skills auto-load when relevant and can be invoked as `/skillname` in chat
-- **`chatmodes/*.chatmode.md`** — Legacy format kept intentionally for side-by-side comparison with `.agent.md`
+- `codeql-analysis.yml` — security scanning (JavaScript + Python)
+- `copilot-news-fetcher.yml` — daily DeepSeek-API-driven refresh of `docs/latest-github-news.md`; archives previous version under `news-archive/`
+- `readme-checker.yml` — lychee link checker on Markdown files
+- Dependabot (`.github/dependabot.yml`) and CODEOWNERS / SECURITY.md are present.
 
-#### Custom Agents
+## Customization-Demo Inventory (for context when editing `.github/`)
 
-| File | Model | Tools | Use Case |
-|------|-------|-------|----------|
-| `Copilot Course Teaching Demo.agent.md` | `["claude-opus-4-6","gpt-5.2"]` | 10 (broad) | Meta-demo: multi-model fallback, handoffs, references all skills |
-| `Code Review and Security Expert.agent.md` | `claude-sonnet-4-6` | 6 (read-only, no `editFiles`) | OWASP review, tool scoping as security boundary |
-| `Full-Stack Feature Builder.agent.md` | `claude-opus-4-6` | 12 (full) | 7-phase TDD workflow, broadest tool set |
-| `Python MCP Server Expert.agent.md` | `claude-sonnet-4-6` | default | FastMCP domain expert |
+| File / dir | What it teaches |
+|------------|-----------------|
+| `.github/copilot-instructions.md` | Repo-wide instructions baseline |
+| `.github/instructions/Python MCP Instructions.instructions.md` | Path-scoped instructions for `**/*.py` |
+| `.github/instructions/security-forward-instructions.instructions.md` | Path-scoped security-first overlay |
+| `.github/instructions/powershell.instructions.md` | Path-scoped PS cmdlet design rules (`**/*.ps1,**/*.psm1`) |
+| `.github/agents/Copilot Course Teaching Demo.agent.md` | Multi-model fallback array, `handoffs`, references all skills |
+| `.github/agents/Code Review and Security Expert.agent.md` | Read-only tool scope as a security boundary |
+| `.github/agents/Full-Stack Feature Builder.agent.md` | Broadest tool set + 7-phase TDD workflow |
+| `.github/agents/Python MCP Server Expert.agent.md` | Domain-specific FastMCP expert |
+| `.github/chatmodes/new-mode.chatmode.md` | Deprecated format kept for the rename comparison |
+| `.github/skills/webapp-testing/` | Skill with HTML + Playwright spec artifacts |
+| `.github/skills/api-endpoint-generator/` | Skill with TS + Python templates |
+| `.github/skills/legacy-code-refactor/` | Skill with before/after JS examples |
+| `.github/prompts/*.prompt.md` | 9 reusable prompts; `agent:` field, `${input:var}` syntax |
 
-#### Agent Skills
-
-| Skill | Directory | Artifacts | Invocation |
-|-------|-----------|-----------|------------|
-| `webapp-testing` | `skills/webapp-testing/` | `sample-login-page.html`, `example-test.spec.ts` | `/webapp-testing` |
-| `api-endpoint-generator` | `skills/api-endpoint-generator/` | `endpoint-template.ts`, `endpoint-template.py` | `/api-endpoint-generator` |
-| `legacy-code-refactor` | `skills/legacy-code-refactor/` | `legacy-example.js`, `refactored-example.js` | `/legacy-code-refactor` |
-
-### Certification Prep (`/copilot-certification`)
-
-- **`github-copilot-cert-exam-objectives.md`** — GH-300 exam domains and objectives
-- **`exam-notes-and-links.md`** — Study resources, practice materials, preparation checklist
-
-### Archive (`/archive`)
-
-Historical course materials from previous deliveries. Contains old modules, exercises, examples, and segment-based course plans. Kept for reference but not actively maintained.
-
-## Course Delivery Context
-
-The course runs as 4 segments (~55 min each) with breaks:
-
-1. **Foundations & Core Workflow** — Tiers, VS Code setup, completions, chat basics, prompt engineering
-2. **Chat Power Features** — Chat modes (Ask/Edit/Agent), custom instructions, prompt files, model selection, NES, Vision
-3. **Agentic Features** — Agent Mode, Coding Agent, Copilot CLI, Agent Skills, MCP, Extensions, Memory
-4. **Enterprise & Governance** — Spaces, Code Review, content exclusions, audit logs, policy enforcement, metrics
-
-## GitHub Copilot Feature Landscape (as of March 2026)
-
-Key features and terminology that appear throughout the materials:
-
-- **Chat Modes**: Ask (Q&A), Edit (controlled multi-file), Agent (autonomous with tool use)
-- **Custom Agents** (formerly "chat modes"): `.agent.md` files in `.github/agents/` — define specialized personas with tool access
-- **Agent Skills**: `.github/skills/[name]/SKILL.md` — teach Copilot repeatable workflows, auto-loaded when relevant
-- **Prompt Files**: `.github/prompts/*.prompt.md` — reusable prompt templates
-- **Instructions**: `.github/copilot-instructions.md` (repo-wide) and `.github/instructions/*.instructions.md` (path-scoped)
-- **Coding Agent**: Async agent that creates PRs from GitHub Issues (runs in GitHub Actions)
-- **Copilot CLI**: `gh copilot` — terminal-native agentic coding (GA Feb 2026)
-- **Copilot Spaces**: Persistent context hubs with repos, docs, files (GA Sep 2025, accessible via GitHub MCP server)
-- **Copilot Memory**: Repository-level persistent context, auto-expires after 28 days (Pro/Pro+ early access)
-- **MCP**: Model Context Protocol — connect Copilot to external tools/data sources; OAuth support for secure integrations
-- **Next Edit Suggestions (NES)**: Predictive editing that anticipates your next change location and content
-- **Vision**: Attach screenshots/mockups to chat for image-to-code workflows
-- **Agentic Code Review**: LLM + CodeQL/ESLint integration with full project context (GHEC)
-
-### Current Model Availability (March 2026)
-
-- **GPT-5.2** / **GPT-5.1** — GA across plans; strong reasoning
-- **Claude Opus 4.5/4.6**, **Sonnet 4/4.5/4.6** — GA; excellent for code understanding
-- **Gemini 3 Flash/Pro**, **Gemini 3.1 Pro** — Speed-optimized
-- **GPT-5 mini** — Included model (no premium request consumption)
-- Deprecated (Feb 2026): Claude Opus 4.1, GPT-5, GPT-5-Codex
-
-### Subscription Tiers
-
-| Tier | Price | Premium Requests |
-|------|-------|-----------------|
-| Free | $0 | 2,000 completions + 50 chats/mo |
-| Pro | $10/mo | 300/mo |
-| Pro+ | $39/mo | 1,500/mo |
-| Business | $19/user/mo | 300/user/mo |
-| Enterprise | $39/user/mo | 1,000/user/mo |
-
-### GH-300 Certification Exam (updated Jan 2026)
-
-Seven domains with new weighting: Responsible AI (15-20%), Use Copilot Features (25-30%), Copilot Features (25-30%), Data & Architecture (10-15%), Prompt Engineering (10-15%), Developer Productivity (10-15%), Privacy & Exclusions (10-15%). Now covers Agent Mode, MCP, Plan Mode, Sub-Agents, Spaces, Spark, and Copilot CLI.
-
-## Development Context
-
-- This is a **teaching repository** — prioritize clarity and educational value over production patterns
-- The `/src` app is a **FastMCP demo** used to teach MCP server concepts live; keep it self-contained
-- Course materials reference features across Free through Enterprise tiers
-- The `.github/` customization files serve double duty: they configure this repo AND serve as teaching examples
-- When updating course content, verify against [GitHub Copilot docs](https://docs.github.com/en/copilot), [VS Code Copilot docs](https://code.visualstudio.com/docs/copilot/overview), and [GitHub Changelog](https://github.blog/changelog/)
+When adding a new agent or skill, mirror the comment style of the existing files — the comments are part of the lesson.

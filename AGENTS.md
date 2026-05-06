@@ -4,9 +4,11 @@
 
 This repository is a teaching workspace for **GitHub Copilot for Developers** (O'Reilly live training).
 
-- Root course assets: `README.md`, `COURSE_PLAN_*.md`, `COPILOT_AGENT_TUTORIAL.md`, `COPILOT_CUSTOMIZATION_SAMPLES.md`, slide decks (`warner-copilot-*.pptx`), and `latest-github-news.md`.
-- Copilot customization demos: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md`, `.github/prompts/*.prompt.md`, `.github/agents/*.agent.md`, plus workflows under `.github/workflows/`.
-- Hands-on demo app: `src/` (Python FastMCP server + tests).
+- Root: `README.md`, `CLAUDE.md`, `AGENTS.md`, `COURSE_PLAN_*.md`, slide decks (`warner-copilot-*.pptx`), and the cover image. Layout convention (May 2026 reorg): course plan + PPTX at root; tutorials, info articles, and reference material under `docs/`; code under `src/` and `scripts/`.
+- Tutorials, info articles, and reference material: `docs/COPILOT_AGENT_TUTORIAL.md`, `docs/COPILOT_CUSTOMIZATION_SAMPLES.md`, `docs/latest-github-news.md`, `docs/copilot-metrics-report-sample.md`, `docs/certification/` (GH-300 exam prep), `docs/references/` (Microsoft Writing Style Guide + fictional-company pool).
+- Copilot customization demos: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` (Python MCP, security-forward, PowerShell), `.github/prompts/*.prompt.md`, `.github/agents/*.agent.md`, plus workflows under `.github/workflows/`. The singular `AGENTS.md` (this file) is also recognized at the repo root.
+- Hands-on demo app: `src/` (Python FastMCP server + tests; `src/data/` holds tip data and the Copilot metrics sample).
+- Helper scripts: `scripts/Get-CopilotMetricsReport.ps1` (live Copilot Metrics API report).
 - Historical reference content: `archive/` (not actively maintained unless explicitly refreshing older material).
 
 ## Build, Test, and Development Commands
@@ -22,8 +24,11 @@ Use commands from the repo root unless noted.
 ## Coding Style & Naming Conventions
 
 - Python follows PEP 8 with `snake_case` for functions/files and clear docstrings for teaching clarity.
+- PowerShell scripts (e.g., `scripts/Get-CopilotMetricsReport.ps1`) follow the patterns codified in `.github/instructions/powershell.instructions.md` (Verb-Noun, ShouldProcess, advanced functions, no aliases).
 - Markdown should satisfy `.markdownlint.json` rules (ATX headings, fenced code blocks, ordered list style).
-- Keep examples deterministic, copy/paste-friendly, and aligned with current GitHub Copilot terminology.
+- Prose and slide content authored in this repo should match Microsoft house voice — consult `docs/references/microsoft-style-guide.md` (sentence case, bold UI labels, Oxford commas, input-neutral verbs).
+- Scenario stems for demos and exercises should pull from `docs/references/fictional-companies.md` rather than defaulting to Contoso.
+- Keep examples deterministic, copy/paste-friendly, and aligned with current GitHub Copilot terminology (see `CLAUDE.md` for the May 2026 feature landscape).
 
 ## Testing Guidelines
 
@@ -33,7 +38,7 @@ Use commands from the repo root unless noted.
 
 ## Commit & Pull Request Guidelines
 
-- Match existing history style: short, imperative summaries (for example, `Update README`, `Add MCP server`, `Freshen repo for Mar 2026 delivery`).
+- Match existing history style: short, imperative summaries (for example, `Update README`, `Add MCP server`, `Refresh repo for May 2026 delivery`).
 - Keep commits scoped by concern (course-content refresh, demo app change, workflow update).
 - PRs should include: purpose, impacted files/segments, verification steps run (tests/lint), and screenshots when updating slides or visual teaching assets.
 
