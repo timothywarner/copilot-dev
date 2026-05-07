@@ -139,6 +139,22 @@ Gain experience with an AI-based pair programmer right now!
 - Basic understanding of Git and GitHub
 - Familiarity with at least one programming language
 
+## Demo tips API CRUD endpoints
+
+The demo server in `/src/server.js` now supports complete in-memory CRUD for tips:
+
+- `GET /api/tips` — list tips, metadata, and categories.
+- `GET /api/random-tip` — return one random tip (optionally excluding an ID via `?exclude=`).
+- `POST /api/tips` — create a tip with required fields: `id`, `title`, `description`, `category`, `difficulty`, `impact`.
+- `PATCH /api/tips/:tipId` — partially update a tip by ID and return before/after plus changed fields.
+
+Validation rules:
+
+- `category` must match one of the categories in `src/data/copilot_tips.json`.
+- `difficulty` must be `beginner`, `intermediate`, or `advanced`.
+- `impact` must be `low`, `medium`, `high`, or `critical`.
+- Duplicate IDs are rejected.
+
 ## Core Resources
 
 ### Official Documentation
