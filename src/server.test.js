@@ -53,6 +53,7 @@ test("createTip rejects duplicate IDs", () => {
 
   assert.equal(result.success, false);
   assert.match(result.error, /already exists/i);
+  assert.equal(tips.length, 1);
 });
 
 test("validateTipData rejects missing required fields for create", () => {
@@ -66,6 +67,18 @@ test("validateTipData rejects missing required fields for create", () => {
 
   assert.equal(result.valid, false);
   assert.match(result.error, /Missing required field/i);
+});
+
+test("validateTipData allows partial object for update mode", () => {
+  const result = validateTipData(
+    {
+      impact: "high",
+    },
+    categories,
+    { isUpdate: true },
+  );
+
+  assert.equal(result.valid, true);
 });
 
 test("updateTip applies partial updates with before/after", () => {

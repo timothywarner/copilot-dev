@@ -154,6 +154,7 @@ Validation rules:
 - `difficulty` must be `beginner`, `intermediate`, or `advanced`.
 - `impact` must be `low`, `medium`, `high`, or `critical`.
 - Duplicate IDs are rejected.
+- JSON request payloads are limited to 1 MB.
 
 ## Core Resources
 

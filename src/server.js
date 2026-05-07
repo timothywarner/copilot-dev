@@ -29,7 +29,10 @@ if (tips.length === 0) {
 }
 
 function normalizeId(value) {
-  return String(value).toLowerCase();
+  if (value === null || value === undefined) {
+    return "";
+  }
+  return String(value).trim().toLowerCase();
 }
 
 function findTipIndexById(tipsStore, tipId) {
@@ -54,16 +57,28 @@ export function validateTipData(tipData, categories, { isUpdate = false } = {}) 
     }
   }
 
-  if ("id" in tipData && (tipData.id === "" || tipData.id === null || tipData.id === undefined)) {
-    return { valid: false, error: "Tip id must be non-empty" };
+  if ("id" in tipData) {
+    if (normalizeId(tipData.id) === "") {
+      return { valid: false, error: "Tip id must be non-empty" };
+    }
   }
 
-  if ("title" in tipData && typeof tipData.title !== "string") {
-    return { valid: false, error: "Title must be a string" };
+  if ("title" in tipData) {
+    if (typeof tipData.title !== "string") {
+      return { valid: false, error: "Title must be a string" };
+    }
+    if (tipData.title.trim() === "") {
+      return { valid: false, error: "Title must be non-empty" };
+    }
   }
 
-  if ("description" in tipData && typeof tipData.description !== "string") {
-    return { valid: false, error: "Description must be a string" };
+  if ("description" in tipData) {
+    if (typeof tipData.description !== "string") {
+      return { valid: false, error: "Description must be a string" };
+    }
+    if (tipData.description.trim() === "") {
+      return { valid: false, error: "Description must be non-empty" };
+    }
   }
 
   if ("category" in tipData && !categories.includes(tipData.category)) {
@@ -119,13 +134,13 @@ export function updateTip(tipsStore, categories, tipId, updates) {
     return { success: false, error: `Tip '${tipId}' not found` };
   }
 
-  if (updates && "id" in updates && normalizeId(updates.id) !== normalizeId(tipId)) {
-    return { success: false, error: "Updating tip ID is not supported" };
-  }
-
   const validation = validateTipData(updates, categories, { isUpdate: true });
   if (!validation.valid) {
     return { success: false, error: validation.error };
+  }
+
+  if ("id" in updates && normalizeId(updates.id) !== normalizeId(tipId)) {
+    return { success: false, error: "Updating tip ID is not supported" };
   }
 
   const before = { ...tipsStore[tipIndex] };
@@ -145,7 +160,7 @@ export function updateTip(tipsStore, categories, tipId, updates) {
 
 const app = express();
 app.use(express.static(PUBLIC_DIR));
-app.use(express.json());
+app.use(express.json({ limit: "1mb" }));
 
 app.get("/api/tips", (_req, res) => {
   res.json({
