@@ -427,7 +427,6 @@ course-outline.md
 copilot_docs/
 
 # IDE and system files
-.vscode/
 .idea/
 *.swp
 *~
@@ -507,7 +506,6 @@ temp/
 *.log
 
 # IDE
-.vscode/
 .idea/
 *.swp
 *.swo
