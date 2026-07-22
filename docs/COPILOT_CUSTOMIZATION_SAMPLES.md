@@ -44,7 +44,6 @@ You are assisting with a JavaScript/Node.js teaching repository for GitHub Copil
 ```markdown
 ---
 applyTo: "src/frontend/**/*.{js,jsx,ts,tsx}"
-description: "React and frontend-specific instructions"
 ---
 
 # Frontend Development Instructions
@@ -99,7 +98,7 @@ export default Component;
 ```markdown
 ---
 applyTo: "src/api/**/*.{js,ts}, src/routes/**/*.{js,ts}"
-description: "API and backend route instructions"
+excludeAgent: "code-review"
 ---
 
 # API Development Instructions
@@ -161,7 +160,6 @@ router.post('/users',
 ```markdown
 ---
 applyTo: "**/*.test.{js,ts}, **/*.spec.{js,ts}, tests/**/*.{js,ts}"
-description: "Testing guidelines and patterns"
 ---
 
 # Testing Instructions
@@ -209,8 +207,8 @@ mockUserService.findById.mockResolvedValue({ id: 1, name: 'Test User' });
 
 ```markdown
 ---
-mode: 'agent'
-model: 'GPT-4o'
+agent: 'agent'
+model: 'GPT-5.4'
 tools: ['githubRepo', 'codebase']
 description: 'Generate a new React component with tests'
 ---
@@ -253,8 +251,8 @@ Please follow the coding standards in our copilot-instructions.md file.
 
 ````markdown
 ---
-mode: 'agent'
-model: 'Claude-3.5-Sonnet'
+agent: 'agent'
+model: 'Claude Sonnet 5'
 tools: ['codebase', 'terminal']
 description: 'Create a new REST API endpoint'
 ---
@@ -312,8 +310,8 @@ Run tests after creation to ensure everything works.
 
 ```markdown
 ---
-mode: 'edit'
-model: 'GPT-4o'
+agent: 'agent'
+model: 'GPT-5.4'
 description: 'Perform comprehensive code review'
 ---
 
@@ -368,8 +366,8 @@ Provide specific suggestions for improvements with code examples.
 
 ```markdown
 ---
-mode: 'agent'
-model: 'Claude-3.5-Sonnet'
+agent: 'agent'
+model: 'Claude Sonnet 5'
 tools: ['terminal', 'codebase', 'diagnostics']
 description: 'Debug and fix issues in JavaScript/Node.js code'
 ---
@@ -529,73 +527,58 @@ If the agent encounters an error:
 
 **File:** `.vscode/mcp.json`
 
+Use GitHub's **hosted** MCP server. The npm package `@modelcontextprotocol/server-github` is
+deprecated and no longer supported.
+
+The `inputs` block prompts for the token at first use and stores it in VS Code's secret
+storage, so no credential is ever committed to the repository.
+
 ```json
 {
-  "mcpServers": {
+  "inputs": [
+    {
+      "id": "github-pat",
+      "type": "promptString",
+      "description": "GitHub personal access token",
+      "password": true
+    }
+  ],
+  "servers": {
     "github": {
-      "command": "npx",
-      "args": ["-y", "@modelcontextprotocol/server-github"],
-      "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_TOKEN}"
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${input:github-pat}"
       }
     },
     "filesystem": {
       "command": "npx",
       "args": ["-y", "@modelcontextprotocol/server-filesystem", "path/to/allowed/directory"]
-    },
-    "postgres": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-postgres",
-        "postgresql://localhost/copilot_demo"
-      ]
     }
   }
 }
 ```
 
-## 📁 Knowledge Base Reference
+Note the key is `servers`, not `mcpServers`. Browse the **MCP Registry** in the VS Code
+extensions panel to install servers with one click.
 
-**File:** `.github/KB_REFERENCE.md`
+## 📁 Copilot Spaces
 
-````markdown
-# Knowledge Base Usage Guide
+**Knowledge Bases were retired on November 1, 2025.** Copilot Spaces replaced them.
 
-## Available Knowledge Bases
+Spaces are persistent context hubs that bundle repositories, code, pull requests, issues,
+files, images, and free text. They are GA and can be shared publicly (view-only, link-shared)
+or across an organization with admin, editor, and viewer roles.
 
-### @knowledge-base:javascript-patterns
-Contains best practices and design patterns for JavaScript development
-
-### @knowledge-base:copilot-training
-Training materials and exercises for GitHub Copilot
-
-### @knowledge-base:api-documentation
-API documentation and integration guides
-
-## How to Reference in Chat
+Reach a Space from the IDE through the GitHub MCP server rather than an `@knowledge-base`
+mention, which no longer exists:
 
 ```text
-
-@knowledge-base:javascript-patterns How do I implement the Observer pattern?
-
+Using the onboarding Space, explain how our authentication flow works.
 ```
 
-```text
-
-Using @knowledge-base:api-documentation, explain the user authentication flow
-
-```
-
-## Creating New Knowledge Bases
-
-1. Go to GitHub.com → Settings → Copilot → Knowledge bases
-2. Click "New knowledge base"
-3. Add repositories (max 20)
-4. Add documentation sources
-5. Name it descriptively
-6. Use in VS Code with @knowledge-base:name
-````
+Common uses: onboarding, standards enforcement, architecture documentation, and query
+libraries. Space content also informs the cloud agent and the CLI when accessed through MCP.
 
 ## Usage Tips
 
@@ -604,3 +587,14 @@ Using @knowledge-base:api-documentation, explain the user authentication flow
 - Version control all configuration files
 - Review and update regularly as patterns evolve
 - Share with team for consistency
+
+## A Note on Currency
+
+GitHub Copilot ships changes weekly. Everything above was verified against
+[GitHub Docs](https://docs.github.com/en/copilot) on **July 21, 2026**. Before you rely on a
+frontmatter field or a model name, check the primary reference:
+
+- [Custom agents configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
+- [Repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions)
+- [Prompt files in VS Code](https://code.visualstudio.com/docs/agent-customization/prompt-files)
+- [Supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models)

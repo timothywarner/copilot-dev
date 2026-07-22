@@ -1,10 +1,10 @@
-# GitHub Copilot Coding Agent Tutorial
+# GitHub Copilot Cloud Agent Tutorial
 
-A step-by-step guide to enabling and delegating work to GitHub Copilot's autonomous coding agent, including the complete workflow from bug assignment to PR creation.
+A step-by-step guide to enabling and delegating work to GitHub Copilot's autonomous cloud agent, including the complete workflow from bug assignment to PR creation.
 
-## 🚀 What is the Coding Agent?
+## 🚀 What is the Cloud Agent?
 
-GitHub Copilot's coding agent is an autonomous AI that can:
+GitHub Copilot's cloud agent is an autonomous AI that can:
 
 - Take on GitHub issues independently
 - Create feature branches
@@ -20,7 +20,7 @@ The agent works in a secure, cloud-based GitHub Actions environment and can hand
 ### Required Access
 
 - **GitHub Copilot Enterprise** or **Business** subscription
-- **Administrator must enable** the "Copilot coding agent" policy for your organization
+- **Administrator must enable** the Copilot cloud agent policy for your organization
 - **VS Code 1.99+** or VS Code Insiders
 
 ### Required Extensions
@@ -49,18 +49,18 @@ The agent works in a secure, cloud-based GitHub Actions environment and can hand
 
 ## 🎯 Step 2: Create a GitHub Issue (Example Bug)
 
-We've intentionally added a bug to `src/test-app.js` on line 42. Let's create an issue for it:
+We've intentionally added a bug to `src/tip-lookup.js` on line 35. Let's create an issue for it:
 
 ### Create the Issue
 
 1. **Go to your GitHub repository**
 2. **Click Issues → New Issue**
-3. **Title**: `Fix assignment instead of comparison bug in test-app.js`
+3. **Title**: `Fix assignment instead of comparison bug in tip-lookup.js`
 4. **Description**:
 
 ```markdown
 ## Bug Description
-There's a JavaScript assignment bug in `src/test-app.js` line 42 where we're using `=` instead of `===` for comparison.
+There's a JavaScript assignment bug in `src/tip-lookup.js` line 35 where we're using `=` instead of `===` for comparison.
 
 ## Current Behavior
 ```
@@ -112,10 +112,10 @@ gh issue edit [ISSUE_NUMBER] --add-assignee github-copilot[bot]
 2. **Start a conversation**:
 
 ```text
-I need to fix a JavaScript bug in src/test-app.js line 42. There's an assignment operator (=) being used instead of a comparison operator (===). Can you create a branch, fix this bug, add a test, and open a PR?
+I need to fix a JavaScript bug in src/tip-lookup.js line 35. There's an assignment operator (=) being used instead of a comparison operator (===). Can you create a branch, fix this bug, add a test, and open a PR?
 ```
 
-1. **Click "Delegate to coding agent"** button (if UI integration enabled)
+1. **Click "Delegate to cloud agent"** button (if UI integration enabled)
 
 ### Method 4: New Agents Panel (GitHub.com)
 
@@ -124,7 +124,7 @@ I need to fix a JavaScript bug in src/test-app.js line 42. There's an assignment
 3. **Describe your task**:
 
 ```text
-Fix the JavaScript assignment bug in src/test-app.js line 42 where = should be ===. Create a branch, fix the bug, add a test to prevent regression, and open a PR linked to issue #[NUMBER]
+Fix the JavaScript assignment bug in src/tip-lookup.js line 35 where = should be ===. Create a branch, fix the bug, add a test to prevent regression, and open a PR linked to issue #[NUMBER]
 ```
 
 1. **Select your repository** and submit
@@ -195,7 +195,7 @@ if (code === 0) {  // Fixed: Strict comparison
 ```
 
 1. **Pull Request** with:
-   - Clear title: "Fix assignment operator in test-app.js condition"
+   - Clear title: "Fix assignment operator in tip-lookup.js condition"
    - Detailed description of the change
    - Link to original issue: "Fixes #X"
    - Test results showing green CI
@@ -209,7 +209,7 @@ if (code === 0) {  // Fixed: Strict comparison
 
 ### Agent Doesn't Respond
 
-- Check if Copilot coding agent policy is enabled in your org
+- Check if Copilot cloud agent policy is enabled in your org
 - Ensure you have the right subscription (Business/Enterprise)
 - Try reassigning the issue
 
@@ -305,7 +305,7 @@ The agent will wait for CI checks and attempt to fix failures automatically.
 
 ### Usage Tracking
 
-- **Cost**: Each agent session uses one premium request
+- **Cost**: Agent sessions consume AI Credits, metered by model and token count. Code completions and Next Edit Suggestions remain free.
 - **GitHub Actions minutes** are consumed during execution
 - **Track usage** via GitHub's Copilot Metrics API
 
@@ -365,4 +365,4 @@ This hands-on experience will help you understand the agent's capabilities and h
 4. **Monitor results** and refine your process
 5. **Scale up** to more complex tasks as you build confidence
 
-The GitHub Copilot coding agent represents a significant step toward autonomous development assistance. By following this tutorial, you'll be able to effectively delegate routine development tasks and focus on higher-level architecture and product decisions.
+The GitHub Copilot cloud agent represents a significant step toward autonomous development assistance. By following this tutorial, you'll be able to effectively delegate routine development tasks and focus on higher-level architecture and product decisions.
