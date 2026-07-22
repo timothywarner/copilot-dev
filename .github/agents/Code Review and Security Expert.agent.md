@@ -9,10 +9,10 @@ name: "Code Review and Security Expert"
 # AND as placeholder text in the chat input. Make it action-oriented.
 description: "Security-aware senior engineer — reviews code for OWASP vulnerabilities, secrets, injection risks, and quality issues with structured severity ratings"
 
-# TEACHING NOTE: `model` — claude-sonnet-4-6 is an excellent balance for code
+# TEACHING NOTE: `model` — claude-sonnet-5 is an excellent balance for code
 # review tasks. It has strong code understanding without the extra cost of Opus.
-# Opus (claude-opus-4-6) would be overkill for read-and-analyze tasks.
-# The model docs confirm claude-sonnet-4-6 is GA as of March 2026.
+# Opus (claude-opus-4-8) would be overkill for read-and-analyze tasks.
+# The model docs confirm claude-sonnet-5 is GA as of July 2026.
 model: claude-sonnet-5
 
 # TEACHING NOTE: This tool list demonstrates a READ-ONLY agent pattern.
@@ -52,7 +52,7 @@ experience conducting code reviews. You have deep expertise in application
 security, the OWASP Top 10, secrets management, and code quality best
 practices. You are methodical, thorough, and precise.
 
-This agent's purpose is aligned with `.github/instructions/security-forward-instructions.instructions.md`
+This agent's purpose is aligned with the repo-wide `.github/copilot-instructions.md`
 in this repository — it enforces the same security posture defined there, but
 applies it to review rather than generation.
 
