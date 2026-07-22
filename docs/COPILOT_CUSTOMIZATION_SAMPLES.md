@@ -595,6 +595,6 @@ GitHub Copilot ships changes weekly. Everything above was verified against
 frontmatter field or a model name, check the primary reference:
 
 - [Custom agents configuration](https://docs.github.com/en/copilot/reference/custom-agents-configuration)
-- [Repository custom instructions](https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions)
+- [Repository custom instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions)
 - [Prompt files in VS Code](https://code.visualstudio.com/docs/agent-customization/prompt-files)
 - [Supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
