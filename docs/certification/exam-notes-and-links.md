@@ -3,15 +3,15 @@
 ## 🎯 Certification Overview
 
 - **Exam Code:** GH-300
-- **Exam Provider:** Pearson VUE (https://examregistration.github.com/)
+- **Exam Provider:** Pearson VUE (https://learn.github.com/)
 - **Format:** Online proctored
 - **Duration:** 100 minutes
-- **Questions:** ~65 total
+- **Questions:** Not published by Microsoft
 - **Question Types:** Multiple choice and multiple response
 - **Passing Score:** 700 (scaled score)
-- **Price:** $99 USD
+- **Price:** Varies by country or region; confirm at scheduling
 - **Languages:** English (additional languages available ~8 weeks after English updates)
-- **Validity:** 2 years
+- **Validity:** 1 year (free online renewal on Microsoft Learn)
 - **Last Major Update:** January 2026 (significant restructuring)
 
 ## 📚 Official Resources
@@ -35,14 +35,14 @@
 - [GitHub Copilot Certification Page](https://learn.microsoft.com/en-us/credentials/certifications/github-copilot/)
 - [Exam Sandbox (Practice Environment)](https://aka.ms/GHExamDemo-enu)
 - [Certification Renewal](https://learn.microsoft.com/en-us/credentials/certifications/renew-your-microsoft-certification)
-- [Pearson VUE: GitHub Exam Registration](https://examregistration.github.com/)
-- [Pearson VUE OnVUE System Requirements](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
+- [Pearson VUE: GitHub Exam Registration](https://learn.github.com/)
+- [Pearson VUE OnVUE System Requirements](https://www.pearsonvue.com/content/dam/VUE/vue/en/documents/tech-specs/online-proctored/onvue-technical-requirements.pdf)
 
 ## 🛠️ Practice Resources
 
 ### Official Practice Materials
 
-- [GitHub Skills](https://skills.github.com/)
+- [GitHub Skills](https://learn.github.com/skills/)
 - [GitHub Learning Lab](https://github.com/apps/github-learning-lab)
 - [GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 
@@ -50,7 +50,7 @@
 
 - [VS Code Extension Details](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [JetBrains Extension Details](https://plugins.jetbrains.com/plugin/17718-github-copilot)
-- [Neovim Extension Setup](https://docs.github.com/en/copilot/get-started/quickstart?tool=neovim)
+- [Neovim Extension Setup](https://docs.github.com/en/copilot/get-started/quickstart)
 
 ## 📋 Exam Preparation Checklist
 
@@ -130,26 +130,23 @@
 
 ### Support Resources
 
-- [GitHub Copilot Support](https://support.github.com/contact?tags=copilot-support)
-- [Pearson VUE Test Taker Support](https://pvhelp.pearsonvue.com/s/)
-- [Pearson VUE OnVUE Technical Requirements](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
+- [GitHub Copilot Support](https://support.github.com/)
+- [Pearson VUE Test Taker Support](https://www.pearsonvue.com/us/en/test-takers/customer-service.html)
+- [Pearson VUE OnVUE Technical Requirements](https://www.pearsonvue.com/content/dam/VUE/vue/en/documents/tech-specs/online-proctored/onvue-technical-requirements.pdf)
 
 ## 🎓 Additional Learning Resources
 
 ### Official GitHub Resources
 
-- [GitHub Copilot FAQ](https://github.com/features/copilot#faq)
+- [GitHub Copilot FAQ](https://github.com/features/copilot)
 - [GitHub Copilot for Business](https://github.com/features/copilot/copilot-business)
 - [GitHub Copilot Product Page](https://github.com/features/copilot)
-- [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli)
+- [GitHub Copilot CLI Documentation](https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-copilot-cli)
 - [GitHub Copilot Security Features](https://docs.github.com/en/copilot)
 
 ### Official Video Content
 
-- [GitHub Universe 2023: Copilot Sessions](https://www.youtube.com/playlist?list=PL0lo9MOBetEEzTzyEKFSWU6aQGheOVe_k)
-- [GitHub Copilot Office Hours](https://www.youtube.com/playlist?list=PL0lo9MOBetEHkjUOn6QPB8vcG5yKqXAT9)
-- [GitHub Copilot Enterprise Overview](https://www.youtube.com/watch?v=0yXB8-t-Bz4)
-- [Microsoft Build 2023: Copilot Sessions](https://www.youtube.com/playlist?list=PLlrxD0HtieHgJsKkAk3MY0TM_LPzHqnN_)
+- [GitHub on YouTube](https://www.youtube.com/@GitHub/playlists) - current playlists; the 2023-era Universe and Office Hours lists were removed
 
 ### Technical Deep Dives
 
@@ -161,13 +158,13 @@
 ### Expert Community Content
 
 - [GitHub Skills: Code with GitHub Copilot](https://github.com/skills/copilot-codespaces-vscode)
-- [GitHub Skills: Copilot](https://skills.github.com/)
+- [GitHub Skills: Copilot](https://learn.github.com/skills/)
 - [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
 - [GitHub Copilot Quickstart](https://docs.github.com/en/copilot/get-started/quickstart)
 
 ### Interactive Learning
 
-- [GitHub Codespaces + Copilot Quickstart](https://github.com/codespaces/templates)
+- [GitHub Codespaces + Copilot Quickstart](https://docs.github.com/en/codespaces/getting-started/quickstart)
 - [VS Code GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [GitHub Copilot Extension](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot)
 - [GitHub CLI with Copilot](https://cli.github.com/manual/gh_copilot)
@@ -182,9 +179,9 @@
 ### Certification Preparation Tools
 
 - [Microsoft Learn for GitHub](https://learn.microsoft.com/en-us/training/github/)
-- [GitHub Skills Courses](https://skills.github.com/)
-- [GitHub Learning Pathways](https://resources.github.com/learn/)
-- [Pearson VUE OnVUE Candidate Guide](https://home.pearsonvue.com/op/OnVUE-technical-requirements)
+- [GitHub Skills Courses](https://learn.github.com/skills/)
+- [GitHub Learning Pathways](https://github.com/resources)
+- [Pearson VUE OnVUE Candidate Guide](https://www.pearsonvue.com/content/dam/VUE/vue/en/documents/tech-specs/online-proctored/onvue-technical-requirements.pdf)
 
 ### Regular Updates and News
 

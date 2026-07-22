@@ -10,13 +10,13 @@ Get exam-ready for the GitHub Copilot Certification. This guide reflects the **J
 |------|--------|
 | **Exam Code** | GH-300 |
 | **Format** | Online proctored (Pearson VUE) |
-| **Questions** | ~65 total |
+| **Questions** | Not published by Microsoft |
 | **Duration** | 100 minutes |
 | **Question Types** | Multiple choice and multiple response |
 | **Passing Score** | 700 (scaled) |
-| **Price** | $99 USD |
-| **Validity** | 2 years |
-| **Last Updated** | January 2026 |
+| **Price** | Varies by country or region; confirm at scheduling |
+| **Validity** | 1 year (free online renewal on Microsoft Learn) |
+| **Last Updated** | Skills measured as of **August 7, 2026** |
 
 ## Exam Domains and Objectives (January 2026)
 

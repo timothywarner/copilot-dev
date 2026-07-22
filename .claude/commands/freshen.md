@@ -18,7 +18,7 @@ You are auditing this teaching repo for date-sensitive Copilot content that may 
 
 2. **Cross-check** against authoritative sources using WebSearch and WebFetch:
    - https://docs.github.com/en/copilot/reference/ai-models/supported-models
-   - https://docs.github.com/en/copilot/reference/copilot-billing/model-multipliers-for-annual-plans
+   - https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals
    - https://github.blog/changelog/ (filter for entries since the last delivery)
    - https://github.com/github/copilot-cli/releases (latest CLI version)
 

@@ -19,14 +19,14 @@ The agent works in a secure, cloud-based GitHub Actions environment and can hand
 
 ### Required Access
 
-- **GitHub Copilot Enterprise** or **Business** subscription
+- A paid **GitHub Copilot** plan (Pro, Pro+, Max, Business, or Enterprise)
 - **Administrator must enable** the Copilot cloud agent policy for your organization
-- **VS Code 1.99+** or VS Code Insiders
+- **VS Code 1.129+** or VS Code Insiders
 
 ### Required Extensions
 
-- GitHub Copilot extension
-- GitHub Pull Requests extension (signed into correct GitHub account)
+- GitHub Pull Requests extension (signed into the correct GitHub account)
+- Copilot Chat ships in VS Code 1.129+; only the inline-completions extension is separate
 
 ## ⚙️ Step 1: Enable Agent Mode
 
@@ -66,7 +66,7 @@ There's a JavaScript assignment bug in `src/tip-lookup.js` line 35 where we're u
 ```
 
 ```javascript
-if (code = 0) {  // BUG: Assignment instead of comparison
+if (tip.id = targetId) {  // BUG: assignment, not comparison
 ```
 
 ```markdown
@@ -75,12 +75,22 @@ Should use strict comparison:
 ```
 
 ```javascript
-if (code === 0) {
+if (tip.id === targetId) {
 ```
 
 ```markdown
 ## Impact
-This causes the condition to always evaluate to truthy (except when code is 0), making the success/failure logic incorrect.
+Assignment in the condition is legal JavaScript, so this parses and lints clean. It fails only at runtime, in three visible ways:
+
+1. **Returns the wrong record.** Every iteration is truthy, so the first element is always returned regardless of the id requested.
+2. **Corrupts the caller's data.** Each comparison overwrites `tip.id` with `targetId`, mutating the array that was passed in.
+3. **Invents records.** Looking up an id that does not exist returns the first element with a fabricated `id`, instead of `undefined`.
+
+Reproduce:
+
+    node -e "import('./src/tip-lookup.js').then(m=>console.log(m.findTipById([{id:1,category:'Chat'},{id:2,category:'CLI'}],2)))"
+
+Expected `{ id: 2, category: 'CLI' }`; actual returns the `Chat` record.
 
 ## Acceptance Criteria
 - [ ] Fix the assignment operator to use strict comparison (`===`)
@@ -112,7 +122,7 @@ gh issue edit [ISSUE_NUMBER] --add-assignee github-copilot[bot]
 2. **Start a conversation**:
 
 ```text
-I need to fix a JavaScript bug in src/tip-lookup.js line 35. There's an assignment operator (=) being used instead of a comparison operator (===). Can you create a branch, fix this bug, add a test, and open a PR?
+In src/tip-lookup.js line 35, findTipById uses an assignment (tip.id = targetId) where a strict comparison (===) belongs. It returns the wrong record, mutates the caller's array, and fabricates a record for a nonexistent id. Create a branch, fix it, add regression tests covering all three symptoms, and open a PR.
 ```
 
 1. **Click "Delegate to cloud agent"** button (if UI integration enabled)
@@ -124,7 +134,7 @@ I need to fix a JavaScript bug in src/tip-lookup.js line 35. There's an assignme
 3. **Describe your task**:
 
 ```text
-Fix the JavaScript assignment bug in src/tip-lookup.js line 35 where = should be ===. Create a branch, fix the bug, add a test to prevent regression, and open a PR linked to issue #[NUMBER]
+Fix the assignment bug in src/tip-lookup.js line 35: findTipById uses tip.id = targetId where === belongs. Create a branch, fix it, add regression tests, and open a PR linked to issue #[NUMBER]
 ```
 
 1. **Select your repository** and submit
@@ -191,7 +201,7 @@ If the agent's solution needs adjustments, comment on the PR:
 2. **Fixed Code**:
 
 ```javascript
-if (code === 0) {  // Fixed: Strict comparison
+if (tip.id === targetId) {  // Fixed: strict comparison
 ```
 
 1. **Pull Request** with:
@@ -254,7 +264,7 @@ Fix [specific problem] in [specific file/location]
 ✅ **Good**: "Fix the strict comparison bug and add defensive checks"
 ❌ **Bad**: "Make the code better"
 
-✅ **Good**: "Add unit tests for both success (code=0) and failure (code≠0) paths"
+✅ **Good**: "Add unit tests for both a matching id, a non-matching id, and an id that is absent entirely"
 ❌ **Bad**: "Add some tests"
 
 ### Repository Preparation

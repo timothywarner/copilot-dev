@@ -309,7 +309,8 @@ No token? Walk `docs/copilot-metrics-report-sample.md`.
 ### SHOW: GH-300 (8 min)
 
 - Seven domains, **weightings unchanged**; revision effective **Aug 7, 2026** (Minor changes only)
-- ~65 questions, 100 min, passing 700, $99, 2-year validity, Pearson VUE
+- 100 minutes, passing score **700**, Pearson VUE. Microsoft publishes no question count or fixed price
+- **Valid 1 year**, renewed free with an unproctored open-book assessment on Microsoft Learn
 - Covers Agent Mode, MCP, Plan Mode, sub-agents, Spaces, Spark, CLI
 
 > The blueprint genuinely lists both "Use GitHub Copilot features" and "GitHub Copilot features" at 25-30%. **That is GitHub's own wording -- do not "fix" it on screen.**
