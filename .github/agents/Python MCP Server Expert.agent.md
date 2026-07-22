@@ -1,7 +1,7 @@
 ---
 description: "Expert assistant for developing Model Context Protocol (MCP) servers in Python"
 name: "Python MCP Server Expert"
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 ---
 
 # Python MCP Server Expert

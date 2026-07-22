@@ -1,6 +1,6 @@
 ---
 agent: ask
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Write a complete Architecture Decision Record (ADR) in standard MADR format'
 argument-hint: 'Describe the decision you need to document (e.g., "choosing between SQLite and PostgreSQL for local dev")'
 ---

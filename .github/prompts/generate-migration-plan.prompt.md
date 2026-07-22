@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Scan the codebase and produce a phased migration plan with effort estimates and breaking change inventory'
 argument-hint: 'Describe the migration (e.g., "JavaScript to TypeScript", "React 17 to 19", "Python 2 to 3", "REST to GraphQL")'
 tools: ['read', 'search/codebase', 'list', 'fetch']

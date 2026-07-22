@@ -16,7 +16,7 @@ description: "Autonomous feature builder — plans, writes tests first (TDD), im
 # - Making architectural decisions mid-implementation
 # - Recovering from unexpected test failures with novel approaches
 # The extra reasoning depth of Opus pays off for complex agentic coding tasks.
-model: claude-opus-4-6
+model: claude-opus-4-8
 
 # TEACHING NOTE: This tool list demonstrates a FULL-CAPABILITY agent.
 # Compare this to the Code Review agent (read-only) to see how tool scoping

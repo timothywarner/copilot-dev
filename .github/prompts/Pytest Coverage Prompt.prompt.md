@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Analyze pytest coverage gaps and generate tests to reach 80%+ coverage'
 argument-hint: 'Optionally specify a module name or test file to target (e.g., "copilot_tips_server")'
 tools: ['read', 'edit', 'runCommand']

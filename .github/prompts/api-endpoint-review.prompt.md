@@ -1,6 +1,6 @@
 ---
 agent: ask
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Review a REST API endpoint for correctness, security, error handling, and best practices'
 argument-hint: 'Select your endpoint handler code, then run this prompt'
 ---

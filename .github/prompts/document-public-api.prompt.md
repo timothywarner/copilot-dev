@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: GPT-4o
+model: GPT-5.4
 description: 'Add complete JSDoc or Google-style docstrings to all public functions, classes, and methods in the selected file'
 argument-hint: 'Select the code to document, or specify a file — works with TypeScript, JavaScript, and Python'
 tools: ['read', 'edit']

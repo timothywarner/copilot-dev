@@ -15,7 +15,7 @@ description: "Senior developer assistant — demonstrates agentic tools, skills,
 #   benefit from the deepest reasoning available.
 # - The array syntax ["claude-opus-4-6", "gpt-5.2"] means: try claude-opus-4-6
 #   first; if unavailable, fall back to gpt-5.2.
-model: ["claude-opus-4-6", "gpt-5.2"]
+model: ["claude-opus-4-8", "gpt-5.6-sol"]
 
 # TEACHING NOTE: `tools` is an array of tool names this agent can invoke.
 # - Omitting `tools` enables ALL available tools (the default for Agent mode).

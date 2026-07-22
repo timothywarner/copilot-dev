@@ -1,6 +1,6 @@
 ---
 agent: ask
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Get guidance on test file structure, naming, setup/teardown, and what makes a great test'
 argument-hint: 'Describe your testing scenario or paste code you want to test'
 ---

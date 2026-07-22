@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Scan code for OWASP Top 10 vulnerabilities, hardcoded secrets, injection risks, and insecure patterns'
 argument-hint: 'Select the code to scan, or specify a file path to analyze'
 tools: ['read', 'search/codebase']

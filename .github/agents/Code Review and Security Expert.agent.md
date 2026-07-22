@@ -13,7 +13,7 @@ description: "Security-aware senior engineer — reviews code for OWASP vulnerab
 # review tasks. It has strong code understanding without the extra cost of Opus.
 # Opus (claude-opus-4-6) would be overkill for read-and-analyze tasks.
 # The model docs confirm claude-sonnet-4-6 is GA as of March 2026.
-model: claude-sonnet-4-6
+model: claude-sonnet-5
 
 # TEACHING NOTE: This tool list demonstrates a READ-ONLY agent pattern.
 # Notice what is MISSING: editFiles, runCommands, runTests.

@@ -1,6 +1,6 @@
 ---
 agent: agent
-model: GPT-4o
+model: GPT-5.4
 description: 'Scaffold a production-ready TypeScript React functional component with props, hooks, accessibility, and a test stub'
 argument-hint: 'Component name and purpose (e.g., "UserProfileCard — displays user avatar, name, and role")'
 tools: ['read', 'edit', 'search/codebase']

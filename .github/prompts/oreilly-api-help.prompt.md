@@ -1,6 +1,6 @@
 ---
 agent: ask
-model: Claude Sonnet 4
+model: Claude Sonnet 5
 description: 'Get help finding the right GitHub REST or GraphQL API endpoint for your goal'
 argument-hint: 'Describe what you want to do programmatically (e.g., "list open PRs", "create an issue", "get org members")'
 ---
