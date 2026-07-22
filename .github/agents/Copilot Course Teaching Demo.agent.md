@@ -24,7 +24,7 @@ model: ["claude-opus-4-8", "gpt-5.6-sol"]
 # - Listing specific tools restricts the agent to only those capabilities.
 # - This is a key customization lever: a read-only planning agent would list
 #   only ['codebase', 'fetch', 'search', 'usages'] to prevent accidental edits.
-# - Built-in VS Code tool names (verified March 2026):
+# - Built-in VS Code tool names (verified July 2026):
 #   codebase, editFiles, fetch, findTestFiles, githubRepo, new, problems,
 #   runCommands, runNotebooks, runTasks, runTests, search, terminalLastCommand,
 #   terminalSelection, testFailure, usages, workspaceDetails

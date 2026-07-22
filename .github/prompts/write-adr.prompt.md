@@ -164,7 +164,7 @@ Save this file as: `docs/adr/ADR-[three-digit-number]-[kebab-case-title].md`
 
 Examples:
 
-- `docs/adr/ADR-001-use-fastmcp-for-mcp-server.md`
+- `docs/adr/ADR-001-use-express-for-demo-server.md`
 - `docs/adr/ADR-002-sqlite-for-local-development.md`
 - `docs/adr/ADR-003-github-actions-for-ci.md`
 

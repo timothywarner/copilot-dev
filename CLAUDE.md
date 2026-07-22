@@ -39,8 +39,8 @@ So when editing anything under `.github/`, optimize for **clarity of demonstrati
 
 The intentional pairings in `.github/`:
 
-- **`agents/*.agent.md`** + **`AGENTS.md`** at root — both are recognized. GitHub honors the **nearest `AGENTS.md`** in the directory tree, plus `CLAUDE.md` and `GEMINI.md` at root.
-- **`agents/*.agent.md`** + **`chatmodes/new-mode.chatmode.md`** — current vs deprecated format; teaching the rename.
+- **`.github/agents/*.agent.md`** + **`AGENTS.md`** at root — both are recognized. GitHub honors the **nearest `AGENTS.md`** in the directory tree, plus `CLAUDE.md` and `GEMINI.md` at root.
+- **`agents/*.agent.md`** + **`.github/chatmodes/new-mode.chatmode.md`** — current vs deprecated format; teaching the rename.
 - **`prompts/*.prompt.md`** — all use `agent:`. The `mode:` field is **gone from the docs entirely**, not merely deprecated. `agent:` accepts `ask`, `agent`, `plan`, or a custom agent name. Variable syntax is `${input:varName}`.
 - **`skills/[name]/SKILL.md`** — required frontmatter is `name` (max 64 chars, lowercase-hyphenated, must match the parent directory) + `description` (1-1024 chars). Optional: `license`, `compatibility`, `metadata`, `allowed-tools` (experimental). The same SKILL.md works in Copilot, Claude Code, Cursor, and Codex CLI. **Do not label the feature GA or preview** — GitHub's docs assign it no maturity tier.
 - **Tool scoping as security** — `Code Review and Security Expert.agent.md` deliberately omits `editFiles`; this is the live demo for "tool scope = trust boundary."
@@ -104,7 +104,7 @@ The repo enforces `.markdownlint.json` (ATX headings, fenced code blocks, ordere
 - **Microsoft house voice**: when authoring slide copy, exercises, or any teaching prose, follow `docs/references/microsoft-style-guide.md` (sentence case, bold UI labels, Oxford commas, input-neutral verbs like "select" not "click", `should` vs `must`).
 - **Scenario stems**: pull company names from `docs/references/fictional-companies.md` rather than defaulting to Contoso.
 - **JavaScript**: ES modules, `camelCase`, small focused handlers. Comments explain *why*, since this code is read aloud on stage.
-- **Python** (skills templates, `.github/scripts/`): PEP 8, `snake_case`, docstrings written for *learners*.
+- **Python** (skills templates in `.github/skills/*/`): PEP 8, `snake_case`, docstrings written for *learners*.
 - **PowerShell**: follow `.github/instructions/powershell.instructions.md` (Verb-Noun, `[CmdletBinding()]`, `ShouldProcess`, no aliases). The PowerShell custom-instruction file is itself a teaching artifact; `scripts/Get-CopilotMetricsReport.ps1` is the working example of the patterns it codifies.
 - **Don't touch `archive/`** unless explicitly refreshing older material — it is preserved for reference, not maintained.
 - **Don't fix `src/tip-lookup.js`** — see above, the bug is intentional.

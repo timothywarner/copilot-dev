@@ -4,7 +4,7 @@
 
 This repository is a teaching workspace for **GitHub Copilot for Developers** (O'Reilly live training).
 
-- Root: `README.md`, `CLAUDE.md`, `AGENTS.md`, `COURSE_PLAN_*.md`, slide decks (`warner-copilot-*.pptx`), and the cover image. Layout convention (May 2026 reorg): course plan + PPTX at root; tutorials, info articles, and reference material under `docs/`; code under `src/` and `scripts/`.
+- Root: `README.md`, `CLAUDE.md`, `AGENTS.md`, `COURSE_PLAN_*.md`, slide decks (`warner-copilot-*.pptx`), and the cover image. Layout convention: course plan + PPTX at root; tutorials, info articles, and reference material under `docs/`; code under `src/` and `scripts/`.
 - Tutorials, info articles, and reference material: `docs/COPILOT_AGENT_TUTORIAL.md`, `docs/COPILOT_CUSTOMIZATION_SAMPLES.md`, `docs/latest-github-news.md`, `docs/copilot-metrics-report-sample.md`, `docs/certification/` (GH-300 exam prep), `docs/references/` (Microsoft Writing Style Guide + fictional-company pool).
 - Copilot customization demos: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` (Python MCP, Markdown style, PowerShell), `.github/prompts/*.prompt.md`, `.github/agents/*.agent.md`, `.github/skills/*/SKILL.md`, plus workflows under `.github/workflows/`. The singular `AGENTS.md` (this file) is also recognized at the repo root, and GitHub honors the nearest `AGENTS.md` in the directory tree.
 - Hands-on demo app: `src/` (Node + Express tips browser; `src/data/` holds tip data and the Copilot metrics sample).
@@ -46,7 +46,7 @@ aloud and modified live on camera, so it stays deliberately small.
 
 ## Commit & Pull Request Guidelines
 
-- Match existing history style: short, imperative summaries (for example, `Update README`, `Add MCP server`, `Refresh repo for May 2026 delivery`).
+- Match existing history style: short, imperative summaries (for example, `Update README`, `Add MCP server`, `Refresh repo for July 2026 delivery`).
 - Keep commits scoped by concern (course-content refresh, demo app change, workflow update).
 - PRs should include: purpose, impacted files/segments, verification steps run (tests/lint), and screenshots when updating slides or visual teaching assets.
 

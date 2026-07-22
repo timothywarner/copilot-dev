@@ -9,7 +9,7 @@ name: "Full-Stack Feature Builder"
 # — it builds complete, tested features. The description sets that expectation.
 description: "Autonomous feature builder — plans, writes tests first (TDD), implements, runs tests, and iterates until green. Handles frontend + backend + tests end-to-end."
 
-# TEACHING NOTE: `model` — claude-opus-4-6 is correct here.
+# TEACHING NOTE: `model` — claude-opus-4-8 is correct here.
 # Multi-file feature implementation requires deep reasoning:
 # - Tracking which files were changed and why
 # - Understanding how components interact across layers

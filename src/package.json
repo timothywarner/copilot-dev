@@ -1,7 +1,7 @@
 {
   "name": "copilot-tips-app",
   "version": "1.0.0",
-  "description": "GitHub Copilot tips browser — 100 modern tips for the May 2026 delivery of Tim Warner's O'Reilly course.",
+  "description": "GitHub Copilot tips browser — 100 modern tips for the July 2026 delivery of Tim Warner's O'Reilly course.",
   "private": true,
   "type": "module",
   "main": "server.js",

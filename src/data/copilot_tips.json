@@ -1,21 +1,21 @@
 {
   "metadata": {
-    "version": "3.0.0",
-    "lastUpdated": "2026-05-06",
+    "version": "3.1.0",
+    "lastUpdated": "2026-07-22",
     "totalTips": 100,
-    "currency": "May 2026 delivery (AI Credits cutover June 1, 2026)",
+    "currency": "July 2026 delivery (post AI Credits cutover)",
     "sources": [
       "GitHub Copilot Documentation (docs.github.com)",
       "VS Code Copilot Documentation",
       "GitHub Changelog",
-      "Tim Warner O'Reilly course plan May 2026"
+      "Tim Warner O'Reilly course plan July 2026"
     ]
   },
   "categories": [
     "Billing & AI Credits",
     "Models & Selection",
     "Agent Mode & Autopilot",
-    "Coding Agent",
+    "Cloud Agent",
     "Copilot CLI",
     "Custom Agents & Skills",
     "Custom Instructions & Prompts",
@@ -29,13 +29,13 @@
     "Workflow Optimization",
     "Security & Governance",
     "Metrics & ROI",
-    "Spark & Extensions"
+    "Spark & Agents"
   ],
   "tips": [
     {
       "id": 1,
-      "title": "Plan for the AI Credits cutover on June 1, 2026",
-      "description": "Premium requests are being replaced by AI Credits at $0.01 each, token-metered at API rates. Annual subscribers stay on requests until renewal but face higher multipliers. Open the Usage panel in VS Code and the CLI now to baseline your team's burn before the switch.",
+      "title": "AI Credits replaced premium requests on June 1, 2026",
+      "description": "Premium requests are legacy. Billing is usage-based on GitHub AI Credits at $0.01 each, metered on input, output, and cached tokens at API rates. Code completions and Next Edit Suggestions stay free and consume no credits. Open the Usage panel in VS Code or the CLI to watch burn in real time.",
       "category": "Billing & AI Credits",
       "difficulty": "beginner",
       "impact": "critical"
@@ -50,8 +50,8 @@
     },
     {
       "id": 3,
-      "title": "Code reviews start consuming GitHub Actions minutes June 1",
-      "description": "Copilot code review will draw against your GitHub Actions minute pool starting June 1, 2026. Forecast minute usage on monorepos before enabling review on every PR, and consider scoping review-on-PR with path filters.",
+      "title": "Copilot code review consumes GitHub Actions minutes",
+      "description": "Since June 1, 2026 Copilot code review draws against your GitHub Actions minute pool on top of AI Credits. On monorepos, scope review-on-PR with path filters rather than enabling it for every pull request.",
       "category": "Billing & AI Credits",
       "difficulty": "intermediate",
       "impact": "high"
@@ -83,7 +83,7 @@
     {
       "id": 7,
       "title": "Reach for Claude Opus 4.7 on hard reasoning tasks",
-      "description": "Opus 4.7 is the strongest reasoning model in the Copilot lineup as of May 2026. Use it for architectural design, complex refactors, and tricky bug hunts; it is Pro+, Business, and Enterprise only since the Pro tier removal in April 2026.",
+      "description": "Opus 4.7 is the strongest reasoning model in the Copilot lineup as of July 2026. Use it for architectural design, complex refactors, and tricky bug hunts; it is Pro+, Business, and Enterprise only since the Pro tier removal in April 2026.",
       "category": "Models & Selection",
       "difficulty": "intermediate",
       "impact": "high"
@@ -98,8 +98,8 @@
     },
     {
       "id": 9,
-      "title": "Migrate off Sonnet 4 — it was deprecated May 6, 2026",
-      "description": "Anthropic Claude Sonnet 4 was removed from Copilot today. Update prompt files, agent files, and CI workflows that pinned Sonnet 4 to Sonnet 4.5 or 4.6 to avoid silent fallbacks.",
+      "title": "Audit pinned models after every deprecation wave",
+      "description": "GitHub retires models steadily, and a prompt file or agent file pinned to a removed model fails or silently falls back. Claude Sonnet 4 went in May 2026 and GPT-5.2 is gone as well. Grep .github/prompts, .github/agents, and CI workflows for hard-coded model names each time a deprecation lands.",
       "category": "Models & Selection",
       "difficulty": "beginner",
       "impact": "high"
@@ -107,7 +107,7 @@
     {
       "id": 10,
       "title": "Treat the model picker like a cost dial",
-      "description": "Match model to task: Haiku 4.5 for quick rewrites, Sonnet 4.6 or GPT-5.4 for balanced work, Opus 4.7 or GPT-5.5 for deep reasoning. Switching mid-conversation is supported and is the cheapest optimization you can make.",
+      "description": "Match model to task: Haiku 4.5 for quick rewrites, Sonnet 5 or GPT-5.4 for balanced work, Opus 4.8 or GPT-5.6 for deep reasoning. Under AI Credits the price difference is token-metered, so switching mid-conversation is the cheapest optimization you can make. Auto model selection picks for you unless you pin.",
       "category": "Models & Selection",
       "difficulty": "intermediate",
       "impact": "high"
@@ -194,17 +194,17 @@
     },
     {
       "id": 21,
-      "title": "Use the Coding Agent for background PR work",
-      "description": "Assign an issue to GitHub Copilot and the Coding Agent creates a branch, commits, opens a PR, and writes the description in the background via GitHub Actions. Review the PR like any other; you can request changes and the agent iterates.",
-      "category": "Coding Agent",
+      "title": "Use the cloud agent for background PR work",
+      "description": "Assign an issue to GitHub Copilot and the cloud agent creates a branch, commits, opens a PR, and writes the description in the background via GitHub Actions. Review the PR like any other; you can request changes and the agent iterates.",
+      "category": "Cloud Agent",
       "difficulty": "intermediate",
       "impact": "high"
     },
     {
       "id": 22,
       "title": "Write the issue like a brief, not a ticket",
-      "description": "The Coding Agent reads the issue body as its prompt. Include intent, constraints, acceptance criteria, and links to related code. A two-line ticket gets a two-line PR; a thorough brief gets a thorough PR.",
-      "category": "Coding Agent",
+      "description": "The cloud agent reads the issue body as its prompt. Include intent, constraints, acceptance criteria, and links to related code. A two-line ticket gets a two-line PR; a thorough brief gets a thorough PR.",
+      "category": "Cloud Agent",
       "difficulty": "intermediate",
       "impact": "high"
     },
@@ -212,38 +212,38 @@
       "id": 23,
       "title": "Launch cloud agent sessions from Visual Studio",
       "description": "As of April 2026 you can start a cloud agent session directly from Visual Studio, not just from VS Code or github.com. Useful when your daily IDE is VS but your team uses cloud agents for long-running work.",
-      "category": "Coding Agent",
+      "category": "Cloud Agent",
       "difficulty": "beginner",
       "impact": "medium"
     },
     {
       "id": 24,
       "title": "Configure firewall endpoints by plan",
-      "description": "Coding Agent runners use plan-specific endpoints since February 27, 2026: Pro/Pro+ uses api.individual.githubcopilot.com, Business uses api.business.githubcopilot.com, Enterprise uses api.enterprise.githubcopilot.com. Add the right one to your egress allowlist.",
-      "category": "Coding Agent",
+      "description": "cloud agent runners use plan-specific endpoints since February 27, 2026: Pro/Pro+ uses api.individual.githubcopilot.com, Business uses api.business.githubcopilot.com, Enterprise uses api.enterprise.githubcopilot.com. Add the right one to your egress allowlist.",
+      "category": "Cloud Agent",
       "difficulty": "advanced",
       "impact": "high"
     },
     {
       "id": 25,
       "title": "Cloud agent startup is more than 20 percent faster",
-      "description": "Custom Actions runner images shipped in April 2026 cut cold-start time by over 20 percent. If you previously avoided the Coding Agent because of latency, retest it; the gap to a local agent run is much smaller now.",
-      "category": "Coding Agent",
+      "description": "Custom Actions runner images shipped in April 2026 cut cold-start time by over 20 percent. If you previously avoided the cloud agent because of latency, retest it; the gap to a local agent run is much smaller now.",
+      "category": "Cloud Agent",
       "difficulty": "beginner",
       "impact": "medium"
     },
     {
       "id": 26,
-      "title": "Steer the Coding Agent through PR reviews",
-      "description": "The Coding Agent reads PR review comments and reacts to them. Treat the review like a conversation: leave specific, actionable comments instead of a vague 'please refactor this' and the next push will be more focused.",
-      "category": "Coding Agent",
+      "title": "Steer the cloud agent through PR reviews",
+      "description": "The cloud agent reads PR review comments and reacts to them. Treat the review like a conversation: leave specific, actionable comments instead of a vague 'please refactor this' and the next push will be more focused.",
+      "category": "Cloud Agent",
       "difficulty": "intermediate",
       "impact": "medium"
     },
     {
       "id": 27,
-      "title": "Install the Copilot CLI for terminal-native agents",
-      "description": "gh copilot went GA February 25, 2026 and ships v1.0.42 as of May 6. Install it once with gh extension install github/gh-copilot and use Plan and Autopilot modes from any terminal where you have gh.",
+      "title": "Install the Copilot CLI from @github/copilot",
+      "description": "The terminal-native agent installs with npm install -g @github/copilot, which requires Node 22 or later. The binary is copilot. Do not confuse it with the older gh copilot GitHub CLI extension, which was retired and repurposed as a launcher. Homebrew and WinGet packages are also available.",
       "category": "Copilot CLI",
       "difficulty": "beginner",
       "impact": "high"
@@ -299,7 +299,7 @@
     {
       "id": 34,
       "title": "Use AGENTS.md at the repo root for the singular pattern",
-      "description": "AGENTS.md (singular) at the repo root is the May 2026 standard alongside the .github/agents/ directory. Both formats are recognized; AGENTS.md is the right place for the one main agent description.",
+      "description": "AGENTS.md (singular) at the repo root is the current standard alongside the .github/agents/ directory. Both formats are recognized; AGENTS.md is the right place for the one main agent description.",
       "category": "Custom Agents & Skills",
       "difficulty": "intermediate",
       "impact": "high"
@@ -482,8 +482,8 @@
     },
     {
       "id": 57,
-      "title": "Try Copilot Memory in early access",
-      "description": "Copilot Memory (Pro/Pro+ early access) is repository-level persistent context that grows as you work. Memories are shared across Coding Agent, Code Review, and CLI; they auto-expire after 28 days unless validated.",
+      "title": "Copilot Memory is public preview, and its clock resets",
+      "description": "Memory stores repository-level facts and user-level preferences, shared across the cloud agent, code review, and the CLI. It is on by default for individual plans but admin-gated for Business and Enterprise. Entries are removed after 28 days without use; the timer resets each time Copilot successfully uses one.",
       "category": "Spaces & Memory",
       "difficulty": "intermediate",
       "impact": "high"
@@ -506,8 +506,8 @@
     },
     {
       "id": 60,
-      "title": "Hand off Code Review to the Coding Agent for fixes",
-      "description": "When Code Review flags an issue, hand off to the Coding Agent to apply the fix. The handoff turns 'here is what is wrong' into 'here is the PR that fixes it' without manual round trips.",
+      "title": "Hand off Code Review to the cloud agent for fixes",
+      "description": "When Code Review flags an issue, hand off to the cloud agent to apply the fix. The handoff turns 'here is what is wrong' into 'here is the PR that fixes it' without manual round trips.",
       "category": "Code Review",
       "difficulty": "intermediate",
       "impact": "high"
@@ -794,8 +794,8 @@
     },
     {
       "id": 96,
-      "title": "Forecast AI Credit burn before June 1",
-      "description": "Use current premium-request usage and the published model multiplier table to project June+ AI Credit burn. Walk leadership through it before the cutover so the first invoice is not a surprise.",
+      "title": "Track AI Credit burn per user and per repository",
+      "description": "The usage metrics API reports AI Credits consumed per user, and repository-level metrics went GA July 17, 2026. Pull both, find the heaviest repositories and models, then set per-user budgets and cost centers.",
       "category": "Metrics & ROI",
       "difficulty": "advanced",
       "impact": "high"
@@ -812,15 +812,15 @@
       "id": 98,
       "title": "Build full-stack apps with GitHub Spark",
       "description": "GitHub Spark (Pro+ and Enterprise) turns natural language into a full-stack app with live preview, embedded AI features, and a one-click open-in-VS-Code-agent or push-to-repo. Useful for rapid prototyping and demos.",
-      "category": "Spark & Extensions",
+      "category": "Spark & Agents",
       "difficulty": "intermediate",
       "impact": "high"
     },
     {
       "id": 99,
-      "title": "Browse Copilot Extensions in the Marketplace",
-      "description": "Perplexity, Docker, Sentry, Azure, and dozens more ship official Copilot Extensions. Install the ones that match your stack — they appear as @-participants and tools in chat without any other setup.",
-      "category": "Spark & Extensions",
+      "title": "MCP servers replaced Copilot Extensions",
+      "description": "GitHub App-based Copilot Extensions were disabled on November 10, 2025. MCP servers replaced them: build once and the server works across any compatible agent. Tools are invoked with # in the IDE and can be called autonomously by agent mode and the cloud agent. Browse the MCP Registry in VS Code to install one.",
+      "category": "Spark & Agents",
       "difficulty": "beginner",
       "impact": "medium"
     },

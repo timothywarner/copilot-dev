@@ -308,7 +308,7 @@ copilot plugin install <plugin-name>@awesome-copilot
 ### Reference inputs (this repo)
 
 - `docs/references/microsoft-style-guide.md` - Microsoft Writing Style Guide for prose matching Microsoft house voice
-- `docs/references/fictional-companies.md` - 54 Microsoft fictional companies for scenario stems
+- `docs/references/fictional-companies.md` - Microsoft fictional companies for scenario stems
 - `docs/certification/` - GH-300 exam objectives and study notes
 - `COURSE_PLAN_JULY_2026.md` - the presenter run sheet for this delivery
 
