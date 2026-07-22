@@ -15,9 +15,9 @@ Place test files alongside (or in a sibling `tests/` directory to) the code they
 
 ```text
 src/
-  copilot_tips_server.py       # production code
+  tip_service.py               # production code
   tests/
-    test_copilot_tips_server.py  # test file — mirrors the source name
+    test_tip_service.py          # test file — mirrors the source name
     conftest.py                  # shared fixtures
     __init__.py
 ```
@@ -26,7 +26,7 @@ src/
 
 | What | Convention | Example |
 |------|-----------|---------|
-| Test files | `test_<module>.py` | `test_copilot_tips_server.py` |
+| Test files | `test_<module>.py` | `test_tip_service.py` |
 | Test classes | `Test<ClassName>` | `TestTipSearchTool` |
 | Test functions | `test_<what>_<condition>_<expected>` | `test_search_with_empty_query_returns_all_tips` |
 | Fixtures | noun describing what they provide | `sample_tip`, `tips_database`, `mock_client` |

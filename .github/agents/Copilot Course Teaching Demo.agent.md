@@ -11,10 +11,12 @@ description: "Senior developer assistant — demonstrates agentic tools, skills,
 # TEACHING NOTE: `model` selects the AI model for this agent.
 # - Omit this field to use whatever model the user has selected in the picker.
 # - Use a string for a single model, or an ARRAY for fallback priority order.
-# - claude-opus-4-6 is used here because complex agentic orchestration tasks
+# - claude-opus-4-8 is used here because complex agentic orchestration tasks
 #   benefit from the deepest reasoning available.
-# - The array syntax ["claude-opus-4-6", "gpt-5.2"] means: try claude-opus-4-6
-#   first; if unavailable, fall back to gpt-5.2.
+# - The array syntax ["claude-opus-4-8", "gpt-5.6-sol"] means: try
+#   claude-opus-4-8 first; if unavailable, fall back to gpt-5.6-sol.
+# - Model names go stale fast. Verify against the supported-models reference
+#   before each delivery: a pinned model that no longer exists fails live.
 model: ["claude-opus-4-8", "gpt-5.6-sol"]
 
 # TEACHING NOTE: `tools` is an array of tool names this agent can invoke.

@@ -7,18 +7,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 Teaching repository for **GitHub Copilot for Developers** — Tim Warner's 4-hour O'Reilly Live Training. Two things ship from here:
 
 1. **Course materials** — slide deck, course plan, tutorials, certification notes, news.
-2. **A working FastMCP server** (`/src`) that doubles as the Module 3 / 4 demo for MCP, Coding Agent, and Custom Agents.
+2. **A working Node demo app** (`/src`) that doubles as the Segment 3 / 4 demo for the cloud agent, Custom Agents, and Agent Skills.
 
-Treat the source of truth for "what's current in Copilot" as `README.md` and `COURSE_PLAN_MAY_2026.md`. They are refreshed every delivery (last refresh: May 6, 2026 — AI Credits cutover, GPT-5.5, Claude Opus 4.7, Sonnet 4 deprecation, Autopilot mode, Debugger agent). When updating model names, prices, or feature GAs, update those two files first; this CLAUDE.md should stay structural.
+Treat the source of truth for "what's current in Copilot" as `README.md` and the newest `COURSE_PLAN_*.md`. They are refreshed every delivery (current: `COURSE_PLAN_JULY_2026.md`, verified 2026-07-21 — AI Credits now live, Copilot Max tier, GPT-5.6 family, Claude Sonnet 5 and Opus 4.8, cloud agent rename, Copilot Vision GA). When updating model names, prices, or feature GAs, update those two files first; this CLAUDE.md should stay structural.
 
-## Repository Layout (May 2026 reorg)
+**Superseded material to never reintroduce**: Copilot Extensions (disabled Nov 10, 2025), premium requests as the billing model (legacy since June 1, 2026), "coding agent" as the primary term (renamed to cloud agent in April 2026), and `gh copilot` as the agentic CLI (the package is `@github/copilot`).
+
+## Repository Layout
 
 ```
-/                    README.md, CLAUDE.md, AGENTS.md, COURSE_PLAN_MAY_2026.md, *.pptx
+/                    README.md, CLAUDE.md, AGENTS.md, COURSE_PLAN_*.md, *.pptx
 /docs                Tutorials, info articles, reference inputs (NOT code)
   /docs/references   Microsoft Writing Style Guide + fictional-company pool
   /docs/certification GH-300 exam objectives and study notes
-/src                 Python FastMCP demo app + tests + sample data
+/src                 Node + Express demo app + sample data
 /scripts             Helper scripts (PowerShell metrics report)
 /.github             Copilot customization examples (also configures THIS repo)
 /archive             Historical course materials — do not maintain unless explicitly asked
@@ -33,51 +35,54 @@ Every file in `.github/` does **two jobs simultaneously**:
 1. It configures GitHub Copilot's behavior for *this* repo (Tim's own workflow).
 2. It is the **teaching example** Tim demos live in class.
 
-So when editing anything under `.github/`, optimize for **clarity of demonstration** over brevity. Comments explaining *why* a frontmatter field exists are pedagogical, not noise. The `Copilot Course Teaching Demo.agent.md` agent is the meta-example: it exercises multi-model fallback (`model: ["claude-opus-4-7", "gpt-5.5"]`), `handoffs` for agent chaining, and references all three skills.
+So when editing anything under `.github/`, optimize for **clarity of demonstration** over brevity. Comments explaining *why* a frontmatter field exists are pedagogical, not noise. The `Copilot Course Teaching Demo.agent.md` agent is the meta-example: it exercises multi-model fallback (`model: ["claude-opus-4-8", "gpt-5.6-sol"]`) and references all three skills. Note `handoffs` and `argument-hint` are **VS Code only** and are ignored by the cloud agent on github.com.
 
 The intentional pairings in `.github/`:
 
-- **`agents/*.agent.md`** + **`AGENTS.md`** at root — both formats are recognized as of May 2026; they're shown side-by-side on purpose.
+- **`agents/*.agent.md`** + **`AGENTS.md`** at root — both are recognized. GitHub honors the **nearest `AGENTS.md`** in the directory tree, plus `CLAUDE.md` and `GEMINI.md` at root.
 - **`agents/*.agent.md`** + **`chatmodes/new-mode.chatmode.md`** — current vs deprecated format; teaching the rename.
-- **`prompts/*.prompt.md`** — all use `agent:` (the `mode:` field is deprecated). Variable syntax is `${input:varName}`.
-- **`skills/[name]/SKILL.md`** — required frontmatter is `name` (lowercase-hyphenated) + `description`. As of April 2026 the same SKILL.md works in Copilot, Claude Code, Cursor, and Codex CLI without modification.
+- **`prompts/*.prompt.md`** — all use `agent:`. The `mode:` field is **gone from the docs entirely**, not merely deprecated. `agent:` accepts `ask`, `agent`, `plan`, or a custom agent name. Variable syntax is `${input:varName}`.
+- **`skills/[name]/SKILL.md`** — required frontmatter is `name` (max 64 chars, lowercase-hyphenated, must match the parent directory) + `description` (1-1024 chars). Optional: `license`, `compatibility`, `metadata`, `allowed-tools` (experimental). The same SKILL.md works in Copilot, Claude Code, Cursor, and Codex CLI. **Do not label the feature GA or preview** — GitHub's docs assign it no maturity tier.
 - **Tool scoping as security** — `Code Review and Security Expert.agent.md` deliberately omits `editFiles`; this is the live demo for "tool scope = trust boundary."
 
-The `.github/scripts/fetch_news.py` and `.github/workflows/copilot-news-fetcher.yml` write to **`docs/latest-github-news.md`** (not the repo root — that path was changed in the May 2026 reorg). If you edit either file, keep them in sync.
+`docs/latest-github-news.md` is **maintained by hand**. The former `copilot-news-fetcher.yml` workflow depended on a third-party DeepSeek API key, last ran in March 2026, and was removed in July 2026. Refresh that file from primary sources when preparing a delivery.
 
 ## Demo App (`/src`) — Architectural Notes
 
-Python 3.10+ FastMCP server providing 46 curated Copilot tips across 6 categories.
+Node 18+ Express app serving a browsable catalog of curated Copilot tips. It replaced the
+Python FastMCP server; there is no Python, no `uv`, and no pytest suite in `/src` anymore.
 
-- **`copilot_tips_server.py`** — single-file server exposing tools (search/filter/random/delete/reset), resources (categories/stats), prompts (task suggestions/learning paths), and elicitations.
-- **`data/copilot_tips.json`** — source data; the 46 tips. Treat as data, not config.
-- **`data/copilot-metrics-sample.json`** — static sample of the Copilot Metrics API response for offline demos.
-- **`test-app.js`** — **contains an intentional bug on line 87** (`if (found = undefined)` instead of `=== undefined`). Do not "fix" this file — it is the live `/fix` target for the Coding Agent walkthrough in `docs/COPILOT_AGENT_TUTORIAL.md`. The bug is documented in the file's header comment.
-- Dependencies are managed with `uv` (not pip/poetry). The `pyproject.toml` declares `fastmcp>=2.0.0`, `mcp>=1.0.0`, `pytest`.
+- **`server.js`** — small Express server. `GET /api/tips` returns the full dataset with
+  metadata and categories; `GET /api/random-tip?exclude=<id>` returns one random tip,
+  optionally excluding an id. Serves `public/` statically. `PORT` env var overrides port 3000.
+- **`public/index.html`** — single-page front end for the tips browser.
+- **`data/copilot_tips.json`** — source data. Treat as data, not config.
+- **`data/copilot-metrics-sample.json`** — static sample of a Copilot Metrics API response
+  for offline demos. Note the legacy metrics APIs closed down January 29, 2026; verify this
+  sample against the current schema before demoing it as live-shaped.
+- **`tip-lookup.js`** — **contains an intentional bug on line 35** (`if (tip.id = targetId)`
+  instead of `===`). Do not "fix" this file. It is the live target for the cloud agent
+  walkthrough in `docs/COPILOT_AGENT_TUTORIAL.md`. The bug returns the wrong record, mutates
+  the caller's array, and fabricates a record for a nonexistent id. The header comment
+  documents how to reproduce it.
+- The app deliberately ships with **no test suite** so it stays small enough to read aloud
+  on camera. If you add tests, use Node's built-in runner (`node --test`) rather than adding
+  a dependency.
 
 ## Common Commands
 
-### Set up the demo app
+### Set up and run the demo app
 
 ```bash
-cd src && pwsh ./setup.ps1   # Windows
-cd src && ./setup.sh         # macOS/Linux
-# Both wrap: uv venv && uv pip install -e ".[dev]"
+cd src && npm install
+cd src && npm start            # http://localhost:3000
+PORT=4000 npm start            # override the port
 ```
 
-### Run the MCP server
+### Lint Markdown
 
 ```bash
-cd src && python copilot_tips_server.py        # serve
-cd src && python start_inspector.py            # MCP Inspector UI for live demos
-```
-
-### Tests
-
-```bash
-cd src && pytest test_copilot_tips_server.py -v
-cd src && pytest test_copilot_tips_server.py -v -k "test_name"     # single test
-cd src && pytest test_copilot_tips_server.py --cov=copilot_tips_server --cov-report=term-missing
+cd src && npx markdownlint-cli "**/*.md" --ignore node_modules
 ```
 
 ### Copilot Metrics demo
@@ -89,30 +94,24 @@ cd src && pytest test_copilot_tips_server.py --cov=copilot_tips_server --cov-rep
 
 If no token, demo from `src/data/copilot-metrics-sample.json` (annotated walkthrough at `docs/copilot-metrics-report-sample.md`).
 
-### News fetcher (run locally if testing the workflow)
-
-```bash
-python .github/scripts/fetch_news.py    # writes to docs/latest-github-news.md
-```
-
 ### Markdown lint
 
 The repo enforces `.markdownlint.json` (ATX headings, fenced code blocks, ordered list style). No npm script is wired — run your editor's markdownlint integration or `markdownlint-cli`.
 
 ## Editing Conventions
 
-- **Date-sensitive content** (model names, prices, GA dates, deprecation dates): always verify against [Supported AI Models](https://docs.github.com/en/copilot/reference/ai-models/supported-models), the [Annual-plan multiplier table](https://docs.github.com/en/copilot/reference/copilot-billing/model-multipliers-for-annual-plans), and the [GitHub Changelog](https://github.blog/changelog/) before merging. The course is re-delivered monthly; staleness shows.
+- **Date-sensitive content** (model names, prices, GA dates, deprecation dates): always verify against [Supported AI Models](https://docs.github.com/en/copilot/reference/ai-models/supported-models), [Models and pricing](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing), [Copilot plans](https://docs.github.com/en/copilot/get-started/plans), and the [GitHub Changelog](https://github.blog/changelog/) before merging. The course is re-delivered roughly monthly and staleness shows immediately on camera. Premium-request multipliers are **legacy** and apply only to annual subscribers who stayed on request-based billing; billing is AI Credits since June 1, 2026.
 - **Microsoft house voice**: when authoring slide copy, exercises, or any teaching prose, follow `docs/references/microsoft-style-guide.md` (sentence case, bold UI labels, Oxford commas, input-neutral verbs like "select" not "click", `should` vs `must`).
 - **Scenario stems**: pull company names from `docs/references/fictional-companies.md` rather than defaulting to Contoso.
-- **Python**: PEP 8, `snake_case`, docstrings written for *learners* (clarity > terseness — this code is read on stage).
+- **JavaScript**: ES modules, `camelCase`, small focused handlers. Comments explain *why*, since this code is read aloud on stage.
+- **Python** (skills templates, `.github/scripts/`): PEP 8, `snake_case`, docstrings written for *learners*.
 - **PowerShell**: follow `.github/instructions/powershell.instructions.md` (Verb-Noun, `[CmdletBinding()]`, `ShouldProcess`, no aliases). The PowerShell custom-instruction file is itself a teaching artifact; `scripts/Get-CopilotMetricsReport.ps1` is the working example of the patterns it codifies.
 - **Don't touch `archive/`** unless explicitly refreshing older material — it is preserved for reference, not maintained.
-- **Don't fix `src/test-app.js`** — see above, the bug is intentional.
+- **Don't fix `src/tip-lookup.js`** — see above, the bug is intentional.
 
 ## Workflows
 
-- `codeql-analysis.yml` — security scanning (JavaScript + Python)
-- `copilot-news-fetcher.yml` — daily DeepSeek-API-driven refresh of `docs/latest-github-news.md`; archives previous version under `news-archive/`
+- `codeql-analysis.yml` — security scanning (JavaScript)
 - `readme-checker.yml` — lychee link checker on Markdown files
 - Dependabot (`.github/dependabot.yml`) and CODEOWNERS / SECURITY.md are present.
 
@@ -122,9 +121,9 @@ The repo enforces `.markdownlint.json` (ATX headings, fenced code blocks, ordere
 |------------|-----------------|
 | `.github/copilot-instructions.md` | Repo-wide instructions baseline |
 | `.github/instructions/Python MCP Instructions.instructions.md` | Path-scoped instructions for `**/*.py` |
-| `.github/instructions/security-forward-instructions.instructions.md` | Path-scoped security-first overlay |
+| `.github/instructions/markdown-style.instructions.md` | Path-scoped Markdown rules for `**/*.md` |
 | `.github/instructions/powershell.instructions.md` | Path-scoped PS cmdlet design rules (`**/*.ps1,**/*.psm1`) |
-| `.github/agents/Copilot Course Teaching Demo.agent.md` | Multi-model fallback array, `handoffs`, references all skills |
+| `.github/agents/Copilot Course Teaching Demo.agent.md` | Multi-model fallback array; note `handoffs` is VS Code only and is ignored by the cloud agent |
 | `.github/agents/Code Review and Security Expert.agent.md` | Read-only tool scope as a security boundary |
 | `.github/agents/Full-Stack Feature Builder.agent.md` | Broadest tool set + 7-phase TDD workflow |
 | `.github/agents/Python MCP Server Expert.agent.md` | Domain-specific FastMCP expert |

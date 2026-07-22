@@ -2,7 +2,7 @@
 agent: agent
 model: Claude Sonnet 5
 description: 'Analyze pytest coverage gaps and generate tests to reach 80%+ coverage'
-argument-hint: 'Optionally specify a module name or test file to target (e.g., "copilot_tips_server")'
+argument-hint: 'Optionally specify a module name or test file to target (e.g., "tip_service")'
 tools: ['read', 'edit', 'runCommand']
 ---
 
@@ -17,7 +17,7 @@ Run the annotated coverage report so we can see exactly which lines are uncovere
 pytest --cov --cov-report=annotate:cov_annotate --cov-report=term-missing -v
 
 # For a specific module (replace MODULE_NAME if provided)
-pytest --cov=${input:module:copilot_tips_server} --cov-report=annotate:cov_annotate --cov-report=term-missing -v
+pytest --cov=${input:module:tip_service} --cov-report=annotate:cov_annotate --cov-report=term-missing -v
 
 # For a specific test file only
 pytest ${input:testfile:tests/} --cov --cov-report=term-missing -v

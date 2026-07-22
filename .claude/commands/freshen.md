@@ -35,7 +35,7 @@ You are auditing this teaching repo for date-sensitive Copilot content that may 
 - If you cannot verify a fact (web search inconclusive), mark it `UNVERIFIED` rather than guessing.
 - Skip `archive/` — it is preserved historical material, not current.
 - Skip the deliberately-deprecated demo file `.github/chatmodes/new-mode.chatmode.md` (kept for the rename teaching moment).
-- Skip the intentional bug in `src/test-app.js` (line 87 — documented in its header).
+- Skip the intentional bug in `src/tip-lookup.js` (line 35 — documented in its header).
 - The `references/` and `docs/references/` files (Microsoft Style Guide, fictional companies) are not date-sensitive — skip them.
 
 ## Output length

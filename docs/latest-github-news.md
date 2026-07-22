@@ -1,134 +1,121 @@
-# GitHub Copilot News — March 2026
+# GitHub Copilot News — July 2026
+
+**Last updated**: 2026-07-21
+**Maintenance**: this file is now maintained **by hand**. The former `copilot-news-fetcher.yml` workflow depended on a third-party API key and last ran in March 2026. Every claim below was verified against a primary source on the date above.
 
 ---
 
-## Major Milestones
+## Headline: AI Credits are the billing model
 
-### Copilot CLI Reaches General Availability (Feb 25, 2026)
+The cutover completed **June 1, 2026**. Premium requests are legacy.
 
-After five months of public preview since September 2025, GitHub Copilot CLI (`gh copilot`) is now production-ready for all paid Copilot subscribers. The terminal-native coding agent can plan complex tasks, execute multistep workflows, edit files, run tests, and iterate autonomously. Ships with GitHub's MCP server built in and supports custom MCP servers.
+- **1 AI credit = $0.01 USD**, metered on input, output, and cached tokens at published per-model rates
+- **Code completions and Next Edit Suggestions are unlimited on paid plans and consume zero credits**
+- Credits are spent by chat, agent mode, code review, cloud agent, CLI, and Copilot Apps
+- **Copilot code review also consumes GitHub Actions minutes**
+- **No rollover.** Unused credits are forfeited and the allowance resets at 00:00:00 UTC on the first of each month
+- Base credits match the subscription price one-for-one; the flex allotment sits on top and is expected to change as AI economics change
 
-- [GitHub Changelog: Copilot CLI GA](https://github.blog/changelog/2026-02-25-github-copilot-cli-is-now-generally-available/)
+Sources: [usage-based billing for individuals](https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-individuals), [for organizations and enterprises](https://docs.github.com/en/copilot/concepts/billing/usage-based-billing-for-organizations-and-enterprises), [changelog](https://github.blog/changelog/2026-06-01-updates-to-github-copilot-billing-and-plans/)
 
-### Model Deprecations (Feb 17, 2026)
+### Plans and credit allowances
 
-Claude Opus 4.1, GPT-5, and GPT-5-Codex have been deprecated across all Copilot experiences (Chat, inline edits, agent modes, code completions). Newer replacements include Claude Opus 4.5/4.6 and GPT-5.1/5.2.
+| Plan | Price | Base | Flex | Total credits/mo | $ value |
+|------|-------|------|------|------------------|---------|
+| Free | $0 | not published | not published | not published | not published |
+| Student | Free | not published | not published | not published | not published |
+| Pro | $10/mo | 1,000 | 500 | **1,500** | $15 |
+| Pro+ | $39/mo | 3,900 | 3,100 | **7,000** | $70 |
+| **Max** | **$100/mo** | 10,000 | 10,000 | **20,000** | $200 |
+| Business | $19/seat/mo | 1,900 | n/a | **1,900** | $19 |
+| Enterprise | $39/seat/mo | 3,900 | n/a | **3,900** | $39 |
 
-- [GitHub Changelog: Model Deprecations](https://github.blog/changelog/2025-10-23-selected-claude-openai-and-gemini-copilot-models-are-now-deprecated/)
+**Copilot Max is a new tier.** GitHub publishes no numeric credit figure for Free or Student; Free includes 2,000 code completions per month and Student includes unlimited completions.
 
----
+**Promotion, June 1 to September 1, 2026**: existing Business customers receive **3,000** credits per user and existing Enterprise customers **7,000**. Seat prices did not change. The last covered month is **August**. Existing customers only.
 
-## AI Model Updates
-
-### Current Model Roster (March 2026)
-
-| Model Family | Available Models | Notes |
-|-------------|-----------------|-------|
-| OpenAI GPT | GPT-5.2, GPT-5.1, GPT-5.1-Codex, GPT-5 mini | GPT-5 mini is included (no premium requests) |
-| Anthropic Claude | Opus 4.5/4.6, Sonnet 4/4.5/4.6, Haiku 4.5 | Opus models have higher premium multiplier |
-| Google Gemini | 3 Flash, 3 Pro, 3.1 Pro, 2.5 Pro | Flash optimized for speed |
-
-### Premium Request System
-
-All tiers except Free get monthly premium request allocations. Extra requests cost $0.04 each. Different models consume different amounts — larger models like Claude Opus have higher multipliers.
-
----
-
-## VS Code Updates
-
-### VS Code v1.109 (January Release, published Feb 4, 2026)
-
-- **Claude Agent Support** — Public preview of Anthropic Claude Agent SDK integration for delegating tasks using Claude models from your Copilot subscription
-- **Faster Chat** — Improved streaming responsiveness and higher-quality reasoning results
-- **MCP Improvements** — Richer tool-driven, interactive Copilot experiences in chat
-
-### VS Code v1.110 Cycle (In Progress)
-
-- **Native Browser Integration** — AI agents can interact with page elements, capture screenshots, and pull real-time console logs from inside the editor
-- **Copilot Memory** — Agents retain relevant context across interactions
-- **Faster Code Search** — External indexing improves retrieval speed for large repos
-- **Auto-Approval Rules** — Better safety controls for agent-driven actions
-
-- [GitHub Changelog: VS Code v1.109](https://github.blog/changelog/2026-02-04-github-copilot-in-visual-studio-code-v1-109-january-release/)
-
-### Long-Distance Next Edit Suggestions (Feb 26, 2026)
-
-NES can now predict and suggest edits anywhere in your file, not just near your current cursor position. Uses new data pipelines, reinforcement learning, and continuous model updates.
-
-- [VS Code Blog: Long-Distance NES](https://code.visualstudio.com/blogs/2026/02/26/long-distance-nes)
+Per-model token rates: [models and pricing](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing). The Claude Sonnet 5 promotional rate expires August 31, 2026.
 
 ---
 
-## Agent & Agentic Features
+## Model roster (July 2026)
 
-### Copilot CLI Features
+| Provider | Models | Notes |
+|----------|--------|-------|
+| OpenAI | GPT-5.6 Sol / Terra / Luna, GPT-5.5, GPT-5.4 (+ mini, nano), GPT-5.3-Codex, GPT-5 mini | All GA |
+| Anthropic | Opus 4.8, 4.7, 4.6, 4.5; Sonnet 5, 4.6, 4.5; Haiku 4.5; Fable 5 | GA. Opus 4.8 fast mode is preview. Fable 5 needs Business/Enterprise enablement |
+| Google | Gemini 3.6 Flash, 3.5 Flash, 2.5 Pro | GA. 3.1 Pro and 3 Flash are preview. 2.5 Pro and 3 Flash have retirement announced |
+| Microsoft | MAI-Code-1-Flash | GA |
+| Other | Raptor mini, Kimi K2.7 Code (Moonshot AI) | GA |
 
-- **Plan Mode** — Analyze requests, ask clarifying questions, build structured implementation plans before writing code
-- **Autopilot Mode** — Fully autonomous execution without stopping for approval
-- **Sub-Agent Delegation** — Automatically delegates to Explore, Task, Code Review, and Plan agents
-- **Built-in GitHub MCP Server** — Access GitHub data natively
-- **Custom MCP Server Support** — Connect any external tool or service
+**Auto model selection** picks per request unless pinned. **Free and Student plans get Auto only, with no manual picker.** Enterprises can set Auto as the org default via `model: auto` in `managed-settings.json`.
 
-- [GitHub Changelog: CLI Enhanced Agents](https://github.blog/changelog/2026-01-14-github-copilot-cli-enhanced-agents-context-management-and-new-ways-to-install/)
+**Retired**: GPT-5.2, Claude Sonnet 4 (May 6, 2026), Claude Opus 4.1 / GPT-5 / GPT-5-Codex (Feb 17, 2026), plus 20+ models since October 2025.
 
-### Agent Skills Update
-
-Skills now work across Copilot Coding Agent, Copilot CLI, and VS Code agent mode. Project skills go in `.github/skills/`, personal skills in `~/.copilot/skills/`. Each skill has a `SKILL.md` with YAML frontmatter (name, description) and optional scripts/resources.
-
-- [GitHub Docs: Agent Skills](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
-
-### Custom Agents (Terminology Update)
-
-"Custom chat modes" have been renamed to "Custom Agents." The `.chatmode.md` extension is replaced by `.agent.md`. Files go in `.github/agents/`. Agents can specify their own tools, MCP servers, and instructions.
-
-- [VS Code Docs: Custom Agents](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
-
-### Copilot Memory Expansion
-
-Memory is now used by Coding Agent, Code Review, and CLI. Memories are repository-scoped, auto-expire after 28 days, and persist longer when validated through use. Available in early access for Pro and Pro+ plans.
-
-- [GitHub Blog: Building an Agentic Memory System](https://github.blog/ai-and-ml/github-copilot/building-an-agentic-memory-system-for-github-copilot/)
+Source: [supported AI models](https://docs.github.com/en/copilot/reference/ai-models/supported-models)
 
 ---
 
-## Enterprise & Governance
+## What shipped since the last delivery
 
-### Enterprise MCP Governance (Visual Studio 2026)
+| Date | Update |
+|------|--------|
+| Jun 1 | **AI Credits cutover completed.** Code review begins consuming Actions minutes |
+| Jun 2 | **Copilot SDK GA** — TypeScript, Python, Go, .NET, Rust, Java |
+| Jun 12 | Copilot code review now respects content exclusion |
+| Jun 17 | **Agent Finder GA** — implements the Agentic Resource Discovery (ARD) spec via `ai-catalog.json` |
+| Jun 17 | Individual plan sign-ups reopened |
+| Jun 19 | AI credits consumed per user added to the usage metrics API |
+| Jun 30 | **Claude Sonnet 5 GA**; Opus 4.8 in the picker |
+| Jul 1 | **Copilot Vision GA** — images and **PDFs**, all tiers including Free, on by default |
+| Jul 1 | Browser tools GA in VS Code; `managed-settings.json` GA; Auto as enterprise default |
+| Jul 7 | **Copilot app GA to all plans** — parallel sessions on isolated git worktrees |
+| Jul 8 | MDM push of Copilot settings; enterprise OpenTelemetry export for VS Code and CLI |
+| Jul 10 | Agentic autofix (public preview) for code scanning alerts |
+| Jul 15 | **VS Code 1.129.1** — Agent Host process, session-management tools, `!` terminal prefix |
+| Jul 17 | **Repository-level usage metrics GA**; Copilot app added to the metrics API |
+| Jul 21 | Gemini 3.6 Flash added |
 
-Admins can now specify allowlists for which MCP servers are permitted within their organizations, enforced in Visual Studio 2026.
+### Coming up
 
-- [VS 2026 Release Notes](https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes)
-
-### Agentic Code Review Updates
-
-Code Review now supports rich agentic tool calling for full project context, integration with CodeQL and ESLint, and seamless hand-off to Coding Agent for auto-fixing issues found during review. Available for Enterprise Cloud with data residency.
-
-- [GitHub Docs: Code Review](https://docs.github.com/en/copilot/concepts/agents/code-review)
-
-### Spaces Generally Available
-
-Anyone with a Copilot license (including Free) can create and use Spaces. Recent additions: public spaces, individual sharing, file integration from code viewer, and IDE access via the GitHub MCP server.
-
-- [GitHub Changelog: Spaces GA](https://github.blog/changelog/2025-09-24-copilot-spaces-is-now-generally-available/)
+| Date | Event |
+|------|-------|
+| Jul 28 | **MCP spec `2026-07-28` ships** (release candidate since May 21) |
+| Aug 1 | `used_copilot_coding_agent` metrics field deprecates; use `used_copilot_cloud_agent` |
+| Aug 7 | GH-300 revision takes effect (Minor changes, weightings unchanged) |
+| Aug 31 | Claude Sonnet 5 promotional token rate expires |
+| Sep 1 | Business/Enterprise promotional credits end |
 
 ---
 
-## GH-300 Certification Exam Update (January 2026)
+## Terminology and corrections
 
-The exam has been significantly restructured with new domains, reworded objectives, and coverage of Agent Mode, MCP, Plan Mode, Sub-Agents, Copilot CLI, Spaces, and Spark. See `docs/certification/` in this repo for updated objectives.
-
-- [GH-300 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/gh-300)
+- **Copilot cloud agent**, not "coding agent". Renamed April 2026. It is no longer limited to pull request workflows: it researches, plans, and writes code on a branch. **Cloud agent runs on GitHub's infrastructure; agent mode runs in your IDE.**
+- **Copilot Extensions are gone.** GitHub App-based Extensions were disabled **November 10, 2025**. MCP servers replaced them: tools are invoked with `#` rather than `@`-participants, and can be called autonomously by agent mode and the cloud agent.
+- **The CLI package is `@github/copilot`**, not `@github/copilot-cli`. Install with `npm install -g @github/copilot`; the binary is `copilot`. Requires **Node 22+** and, on Windows, **PowerShell 6+**. The repo slug is `github/copilot-cli`, which intentionally differs from the package name.
+- **`gh copilot` still works**, but it is not the agentic CLI. The old `gh copilot suggest` extension retired October 25, 2025; the command was repurposed as a launcher that installs and forwards to the new CLI. Avoid saying flatly that it is deprecated.
+- **Copilot Memory is public preview.** Entries are removed after **28 days without use**, and the timer **resets each time Copilot successfully uses one**. On by default for individual plans; admin-gated for Business and Enterprise.
+- **Agent Skills carry no maturity label.** GitHub's docs never call the feature GA or preview. The `gh skill` CLI surface *is* labeled public preview.
+- **Agent HQ has no published status tier.** The Agents tab shipped January 2026 with no label; third-party coding agents (Claude, Codex) are the piece explicitly in public preview. The old Mission Control docs URL now 404s — navigate to `github.com/copilot/agents`.
 
 ---
 
-## Pricing & Plans (Current)
+## Governance note: the content exclusion gap
 
-| Tier | Price | Premium Requests |
-|------|-------|-----------------|
-| Free | $0 | 2,000 completions + 50 chats/mo |
-| Pro | $10/mo | 300/mo |
-| Pro+ | $39/mo | 1,500/mo |
-| Business | $19/user/mo | 300/user/mo |
-| Enterprise | $39/user/mo | 1,000/user/mo |
+Content exclusions protect the **assistive** surfaces, not the **autonomous** ones.
 
-- [Plans & Pricing](https://github.com/features/copilot/plans)
+Verbatim from [GitHub Docs](https://docs.github.com/en/copilot/how-tos/configure-content-exclusion/exclude-content-from-copilot): "GitHub Copilot CLI, Copilot cloud agent, and Agent mode in Copilot Chat in IDEs, do not support content exclusion." [Edit mode is also excluded](https://docs.github.com/en/copilot/concepts/context/content-exclusion).
+
+The [cloud agent page](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent) goes further: "Copilot will not ignore these files, and will be able to see and update them." Not just read. Update.
+
+Additional documented limits: symlinks and remote filesystems are not covered, semantic information can leak indirectly, and changes take up to **30 minutes** to propagate. Content exclusion on github.com and GitHub Mobile is public preview.
+
+---
+
+## MCP status
+
+- **Current finalized spec: `2025-11-25`.** The **`2026-07-28`** revision has been a release candidate since May 21 and publishes July 28, 2026
+- Hosted GitHub MCP server: **`https://api.githubcopilot.com/mcp/`**. The npm package `@modelcontextprotocol/server-github` is **deprecated**
+- **MCP Apps landed in VS Code 1.109** (January 2026) via the `ui://` scheme in a sandboxed iframe. Inline display only; send-message fills the chat box but does not auto-send
+- Enterprise MCP allowlists remain **preview**; GitHub is redesigning them to scale across organizations
+- GitHub's MCP server does not publish a targeted protocol revision in its docs
