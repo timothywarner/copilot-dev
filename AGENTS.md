@@ -6,8 +6,8 @@ This repository is a teaching workspace for **GitHub Copilot for Developers** (O
 
 - Root: `README.md`, `CLAUDE.md`, `AGENTS.md`, `COURSE_PLAN_*.md`, slide decks (`warner-copilot-*.pptx`), and the cover image. Layout convention (May 2026 reorg): course plan + PPTX at root; tutorials, info articles, and reference material under `docs/`; code under `src/` and `scripts/`.
 - Tutorials, info articles, and reference material: `docs/COPILOT_AGENT_TUTORIAL.md`, `docs/COPILOT_CUSTOMIZATION_SAMPLES.md`, `docs/latest-github-news.md`, `docs/copilot-metrics-report-sample.md`, `docs/certification/` (GH-300 exam prep), `docs/references/` (Microsoft Writing Style Guide + fictional-company pool).
-- Copilot customization demos: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` (Python MCP, security-forward, PowerShell), `.github/prompts/*.prompt.md`, `.github/agents/*.agent.md`, plus workflows under `.github/workflows/`. The singular `AGENTS.md` (this file) is also recognized at the repo root.
-- Hands-on demo app: `src/` (Python FastMCP server + tests; `src/data/` holds tip data and the Copilot metrics sample).
+- Copilot customization demos: `.github/copilot-instructions.md`, `.github/instructions/*.instructions.md` (Python MCP, Markdown style, PowerShell), `.github/prompts/*.prompt.md`, `.github/agents/*.agent.md`, `.github/skills/*/SKILL.md`, plus workflows under `.github/workflows/`. The singular `AGENTS.md` (this file) is also recognized at the repo root, and GitHub honors the nearest `AGENTS.md` in the directory tree.
+- Hands-on demo app: `src/` (Node + Express tips browser; `src/data/` holds tip data and the Copilot metrics sample).
 - Helper scripts: `scripts/Get-CopilotMetricsReport.ps1` (live Copilot Metrics API report).
 - Historical reference content: `archive/` (not actively maintained unless explicitly refreshing older material).
 
@@ -15,26 +15,34 @@ This repository is a teaching workspace for **GitHub Copilot for Developers** (O
 
 Use commands from the repo root unless noted.
 
-- `cd src && pwsh .\setup.ps1` (Windows) or `cd src && ./setup.sh` (macOS/Linux): create venv and install dev dependencies.
-- `cd src && python copilot_tips_server.py`: run the MCP demo server.
-- `cd src && python start_inspector.py`: launch MCP Inspector for live demos.
-- `cd src && pytest test_copilot_tips_server.py -v`: run unit tests.
-- `cd src && pytest test_copilot_tips_server.py --cov=copilot_tips_server --cov-report=term-missing`: run coverage check for demo changes.
+- `cd src && npm install`: install dependencies (requires Node 18 or later).
+- `cd src && npm start`: run the tips browser at `http://localhost:3000`. Set `PORT` to override.
+- `cd src && npx markdownlint-cli "**/*.md" --ignore node_modules`: lint Markdown against `.markdownlint.json`.
+
+The demo app exposes `GET /api/tips` and `GET /api/random-tip?exclude=<id>`, and serves
+`src/public/index.html` as a static front end.
 
 ## Coding Style & Naming Conventions
 
-- Python follows PEP 8 with `snake_case` for functions/files and clear docstrings for teaching clarity.
+- JavaScript uses ES modules (`"type": "module"`), `camelCase` for functions and variables,
+  and small focused handlers so each route reads clearly on screen during a live demo.
 - PowerShell scripts (e.g., `scripts/Get-CopilotMetricsReport.ps1`) follow the patterns codified in `.github/instructions/powershell.instructions.md` (Verb-Noun, ShouldProcess, advanced functions, no aliases).
 - Markdown should satisfy `.markdownlint.json` rules (ATX headings, fenced code blocks, ordered list style).
 - Prose and slide content authored in this repo should match Microsoft house voice — consult `docs/references/microsoft-style-guide.md` (sentence case, bold UI labels, Oxford commas, input-neutral verbs).
 - Scenario stems for demos and exercises should pull from `docs/references/fictional-companies.md` rather than defaulting to Contoso.
-- Keep examples deterministic, copy/paste-friendly, and aligned with current GitHub Copilot terminology (see `CLAUDE.md` for the May 2026 feature landscape).
+- Keep examples deterministic, copy/paste-friendly, and aligned with current GitHub Copilot terminology (see `CLAUDE.md` for the July 2026 feature landscape).
+- Use GitHub's current names. The async agent is the **Copilot cloud agent**, not the "coding agent". Billing is measured in **AI Credits**, not premium requests. The terminal tool is the standalone `copilot` binary from `@github/copilot`, not the older `gh copilot` extension.
 
 ## Testing Guidelines
 
-- Framework: `pytest` (`src/test_copilot_tips_server.py`).
-- Add/adjust tests whenever `src/copilot_tips_server.py` behavior changes.
-- Prefer test names like `test_<behavior>_<expected_outcome>`.
+The demo app currently ships without an automated test suite, by design. It exists to be read
+aloud and modified live on camera, so it stays deliberately small.
+
+- Verify changes manually: `cd src && npm start`, then exercise `/api/tips` and
+  `/api/random-tip` and confirm the page renders.
+- If you add a test suite, use Node's built-in runner (`node --test`) rather than adding a
+  dependency. Every dependency is one more thing that can break in front of an audience.
+- Name tests `<behavior>_<expected outcome>`.
 
 ## Commit & Pull Request Guidelines
 
