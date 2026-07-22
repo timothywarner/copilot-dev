@@ -509,3 +509,17 @@ temp/
 .idea/
 *.swp
 *.swo
+
+# ---------------------------------------------------------------------------
+# Microsoft Office lock / owner files
+# PowerPoint, Word, and Excel create these while a document is open. They are
+# transient, machine-specific, and must never be committed. The deck at the
+# repo root is edited during every delivery, so this matters here.
+# ---------------------------------------------------------------------------
+~$*
+~$*.pptx
+~$*.docx
+~$*.xlsx
+*.pptx.tmp
+.~lock.*
+
