@@ -1,380 +1,214 @@
 # GitHub Copilot for Developers -- July 2026
 
-> Presenter run sheet. Four ~55-minute segments with ~9-minute breaks. Facts verified against primary sources 2026-07-21.
-
----
+> Say the version out loud, demo the pickers instead of reading lists, and let the room watch you verify.
 
 ## At a Glance
 
-The arc: **Editor to Enterprise**. One verb per block: **Set it up, Steer it, Delegate it, Govern it.**
+| Segment | Title | Verb | What You Cover |
+|---|---|---|---|
+| 1 | Foundations & Core Workflow | **Orient** | Plans, AI Credits, install, completions, NES, the agent picker, prompt craft |
+| 2 | Chat Power Features | **Steer** | `#` context, `/` commands, models, custom agents, instructions, prompt files, skills |
+| 3 | Agentic | **Delegate** | Agent and Plan agents, Autopilot, subagents, Copilot CLI, cloud agent, MCP |
+| 4 | Enterprise & Governance | **Control** | AI Controls, content exclusion gaps, MCP allowlist, audit log, metrics reports |
 
-| Segment | Title | Subtitle | What You Cover |
-|---------|-------|----------|----------------|
-| **1** | **Foundations & Core Workflow** | Set it up | AI Credits, tiers, VS Code, completions, chat basics, prompting |
-| **2** | **Chat Power Features** | Steer it | Ask/Edit/Agent, instructions, prompt files, model selection, NES, Vision |
-| **3** | **Agentic Features** | Delegate it | Agent mode, cloud agent, CLI, custom agents, Skills, MCP, Memory |
-| **4** | **Enterprise & Governance** | Govern it | Spaces, code review, exclusions, AI Controls, metrics, GH-300 |
+## Pre-Class Checks
 
-> **Headline**: the AI Credits cutover is **done** (June 1, 2026). Last delivery taught it as a forecast. Today it is the operating model, and the useful material is what two billing cycles revealed.
-
----
-
-## PRE-CLASS CHECKLIST (5 min)
-
-- [ ] `npm view @github/copilot version` -- three releases shipped in the six days before this delivery
-- [ ] Open [plans page](https://docs.github.com/en/copilot/get-started/plans) -- confirm whether the Copilot Business sign-up pause banner is still live
-- [ ] Open [models and pricing](https://docs.github.com/en/copilot/reference/copilot-billing/models-and-pricing) -- navigate live, do not recite rates
+- [ ] **VS Code version** on screen via `code --version`, and re-read the cheat sheet the morning of delivery
+- [ ] **Copilot CLI current** -- `npm update -g @github/copilot`, confirm Node 22+ and PowerShell 6+
+- [ ] **Demo app runs** -- `cd src && npm start`, browse the tips UI, confirm the `tip-lookup.js` line 35 bug is intact
+- [ ] **Cloud agent reachable** -- paid seat active, `.vscode/mcp.json` loads, PAT input prompts
 
 ---
 
 ## Segment 1: Foundations & Core Workflow (55 min)
 
-> **Subtitle: Set it up.**
+> **Orient.**
 
-### NEED TO COVER (punchlist)
+### MUST TEACH
 
-- [ ] **AI Credits are the billing model** -- since June 1, 2026. 1 credit = $0.01, token-metered. Premium requests are legacy.
-- [ ] **Completions and NES are free** -- unlimited on paid plans, zero credits. Credits go to chat, agent mode, code review, cloud agent, CLI.
-- [ ] **Tiers including Max** -- $100/mo tier is new. Free / Student / Pro / Pro+ / Max / Business / Enterprise.
-- [ ] **Credits are counts, not dollars** -- Pro+ is 7,000 credits *worth* $70. Do not conflate these.
-- [ ] **VS Code 1.129.x** -- Chat is built in; Agent Host runs Copilot, Claude, and Codex harnesses.
-- [ ] **Chat basics**: `Ctrl+I` inline, sidebar, `@workspace` / `@terminal` / `@vscode` / `@github`, `/explain` `/fix` `/tests` `/doc` `/new` `/troubleshoot`.
-- [ ] **Context references**: `#file`, `#selection`, `#changes`, `#codebase`.
-- [ ] **Prompt engineering**: zero-shot, few-shot, chain-of-thought, role-based, constraint specification.
-- [ ] **Responsible AI**: hallucinations, bias, license exposure, security.
+- [ ] **AI Credits** replaced premium requests June 1, 2026 -- 1 credit = $0.01, token-metered, not per-request
+- [ ] **Completions and NES cost zero credits** -- the everyday loop is free on every paid tier
+- [ ] **Plan ladder**: Free $0, Pro $10, Pro+ $39, Max $100, Business $19/seat, Enterprise $39/seat
+- [ ] **Monthly credits**: Pro 1,500, Pro+ 7,000, Max 20,000, Business 1,900, Enterprise 3,900
+- [ ] **Promo through Sep 1, 2026** -- existing Business 3,000 and Enterprise 7,000 credits, existing customers only
+- [ ] **Business self-serve signup is paused** for orgs on GitHub Free or Team, banner still live
+- [ ] **Agent picker** in the Chat view holds three built-in agents: **Agent**, **Plan**, **Ask**
+- [ ] **Ask is agentic now** -- backed by a custom agent definition, it researches your codebase
+- [ ] **Keybindings**: Chat view `Ctrl+Alt+I`, inline chat `Ctrl+I`, Quick Chat `Ctrl+Shift+Alt+L`
 
-### SHOW: AI Credits & Tiers (12 min)
+### DEMO (20 min)
 
-Open the plans page live. Walk the table.
+1. Open `src/public/index.html`, type a function signature, accept a completion, then trigger NES.
+2. Open the Chat view with `Ctrl+Alt+I` and show the agent picker holding Agent, Plan, Ask.
+3. Press `Ctrl+I` in the editor for inline chat, then again in the integrated terminal.
+4. Show the billing page live: credits consumed to date, not request counts.
+5. Run a vague prompt, then the same goal with a file, an error, and a constraint. Compare output.
+6. Point at your VS Code version in the About dialog and say the number out loud.
 
-| Plan | Price | Base | Flex | Total credits/mo | $ value |
-|------|-------|------|------|------------------|---------|
-| Free | $0 | not published | not published | **not published** | -- |
-| Student | Free | not published | not published | **not published** | -- |
-| Pro | $10/mo | 1,000 | 500 | **1,500** | $15 |
-| Pro+ | $39/mo | 3,900 | 3,100 | **7,000** | $70 |
-| **Max** | **$100/mo** | 10,000 | 10,000 | **20,000** | $200 |
-| Business | $19/seat | 1,900 | n/a | **1,900** | $19 |
-| Enterprise | $39/seat | 3,900 | n/a | **3,900** | $39 |
+### LAB (10 min)
 
-**The line that makes it click**: "Base credits match your subscription price one-for-one. Ten dollars buys a thousand credits of base. Everything above that is flex."
-
-- **No rollover.** Unused credits are forfeited; allowance resets 00:00:00 UTC on the 1st
-- **Flex is designed to move**; base stays stable
-- **Code review also consumes GitHub Actions minutes**
-- **Promo, June 1 - Sep 1, 2026**: existing Business gets **3,000**, Enterprise **7,000** credits/user. Prices unchanged. Last covered month is **August**. Existing customers only
-- Free includes 2,000 completions/mo; Student unlimited. **Say "not published" for their credit figures** -- blank beats a guess
-
-> Sign-ups: individual plans reopened June 17. Business still shows a pause banner for orgs on GitHub Free/Team, but the originating changelog is tagged Retired. Verify live; do not promise a Business trial.
-
-### SHOW: VS Code Setup (8 min)
-
-1. Confirm version 1.129.x -- Chat is **built in**, no separate extension
-2. Show the **Agent Host** process (Copilot, Claude, Codex harnesses; one session across windows)
-3. Open the **Usage panel** -- credit burn in real time
-
-### SHOW: Completions & Chat Basics (12 min)
-
-1. Ghost text, multi-line, Tab to accept -- **free, zero credits**
-2. `Ctrl+I` inline vs sidebar chat
-3. Participants, then a slash command against real code
-4. `#codebase` semantic index vs `#file`
-
-> For external systems reach for **`#` tool references from MCP servers**. The `@`-participant model from Extensions is gone.
-
-### SHOW: Prompt Engineering (10 min)
-
-Same task, four framings, side by side: bare, role-based, constrained, few-shot. Let the quality delta make the argument.
-
-### LAB 1 (10 min)
-
-Students set up VS Code, accept a completion, run `/explain` on `src/server.js`, and open the Usage panel.
+Rewrite one weak prompt into goal, context, constraint, example form. Run both against `src/tip-lookup.js` and compare the diffs.
 
 ---
 
 ## Segment 2: Chat Power Features (55 min)
 
-> **Subtitle: Steer it.**
+> **Steer.**
 
-### NEED TO COVER (punchlist)
+### MUST TEACH
 
-- [ ] **Ask vs Edit vs Agent** -- and when each is wrong.
-- [ ] **Three instruction formats**: `copilot-instructions.md`, path-scoped `*.instructions.md` (**`applyTo` required**, `excludeAgent` optional), and **`AGENTS.md`** (nearest in tree wins).
-- [ ] **Precedence**: personal > repository > organization. All relevant sets are sent, not just the winner.
-- [ ] **Prompt files use `agent:`** -- `mode:` is *gone from the docs*, not merely deprecated. Accepts `ask` / `agent` / `plan` / custom agent name.
-- [ ] **Auto model selection is the paradigm** -- Free and Student get Auto only, no picker. The question is when to *override*.
-- [ ] **Current roster** -- GPT-5.6 family, Opus 4.8, Sonnet 5, Gemini 3.6 Flash, MAI-Code-1-Flash, Kimi K2.7.
-- [ ] **NES** -- predictive, free, zero credits.
-- [ ] **Vision GA** (July 1) -- images **and PDFs**, all tiers including Free.
-- [ ] **Lab 2 runs**: students write an instructions file and a prompt file.
+- [ ] **Type `#` to discover context** -- files, folders, symbols, and tools all sit behind one key
+- [ ] **`#codebase`** is the sanctioned shorthand for semantic whole-codebase search, still current
+- [ ] **Agents run semantic search automatically** -- the docs say you usually do not need `#codebase`
+- [ ] **Three chat participants survive**: `@github`, `@terminal`, `@vscode`. That is the entire list
+- [ ] **Type `/` to discover commands** -- the lists churn monthly, the picker never lies
+- [ ] **`/compact` and `/fork`** are the context-window hygiene commands for long agent runs
+- [ ] **Custom agents** are `.agent.md` files in `.github/agents/`, formerly called custom chat modes
+- [ ] **`.agent.md` frontmatter**: `description`, `name`, `tools`, `model`, `handoffs`, `target`, `user-invocable`
+- [ ] **`model:` accepts an array** for fallback priority in VS Code, though Copilot CLI still rejects that syntax
+- [ ] **Instructions layer**: repo-wide `copilot-instructions.md`, path-scoped `.instructions.md`, plus `AGENTS.md`
+- [ ] **Precedence is priority, not exclusion** -- GitHub sends every matching instruction set to the model
+- [ ] **Prompt files use `agent:`**, values `ask`, `agent`, `plan`, or a custom agent name
+- [ ] **SKILL.md needs exactly two fields**, `name` and `description`, and `name` must match its folder
 
-### SHOW: Chat Modes (15 min)
+### DEMO (25 min)
 
-One prompt, three modes, same repo:
+1. Type `#` in chat, scroll the picker, then attach a file plus `#codebase` on one prompt.
+2. Type `/` and scroll the live command list rather than reading a slide.
+3. Open `.github/agents/Code Review and Security Expert.agent.md` and read its scoped `tools` list.
+4. Select that agent, request an edit, and watch it decline for lack of `edit/editFiles`.
+5. Run `/create-skill`, scaffold a skill, rename its folder, and show it silently fail to load.
+6. Open View > Output > GitHub Copilot Chat and point at the instructions actually injected.
+7. Swap models mid-conversation with `Ctrl+Alt+.` and name the credit implication.
 
-| Mode | Scope | Use when |
-|------|-------|----------|
-| **Ask** | Read-only answer | You need understanding, not edits |
-| **Edit** | You pick files, it edits | You know exactly what changes |
-| **Agent** | It picks files, runs tools, iterates | The blast radius is unknown |
+### LAB (12 min)
 
-> Agent mode consumes more credits than Edit. Edit is more predictable. Reach for Agent when you cannot enumerate the files yourself.
-
-### SHOW: Instructions & Prompt Files (15 min)
-
-1. Open `.github/copilot-instructions.md` -- repo-wide baseline
-2. Open `powershell.instructions.md` -- `applyTo: "**/*.ps1,**/*.psm1"` scopes cleanly
-3. Open `AGENTS.md` -- nearest-in-tree wins; `CLAUDE.md` and `GEMINI.md` also honored
-4. Open a `.prompt.md` -- `agent:`, `${input:varName}`, `argument-hint`
-5. Show the **unified chat customization editor**
-
-> **Live teaching moment**: this repo shipped an instructions file with **no frontmatter**, so it silently never applied. Missing `applyTo` fails quietly -- the worst failure mode. Show the fix.
-
-### SHOW: Model Selection (10 min)
-
-Open the [supported models reference](https://docs.github.com/en/copilot/reference/ai-models/supported-models). Do not recite; navigate.
-
-| Provider | Models |
-|----------|--------|
-| OpenAI | GPT-5.6 Sol / Terra / Luna, 5.5, 5.4 (+mini/nano), 5.3-Codex, 5 mini |
-| Anthropic | Opus 4.8 / 4.7 / 4.6 / 4.5, Sonnet 5 / 4.6 / 4.5, Haiku 4.5, Fable 5 |
-| Google | Gemini 3.6 Flash, 3.5 Flash, 2.5 Pro |
-| Other | MAI-Code-1-Flash, Raptor mini, Kimi K2.7 Code |
-
-- **Preview**: Opus 4.8 fast mode, Gemini 3.1 Pro, Gemini 3 Flash. **Fable 5** needs Business/Enterprise enablement
-- **Gone**: GPT-5.2, Sonnet 4 (May 6), Opus 4.1 / GPT-5 / GPT-5-Codex (Feb 17), 20+ since Oct 2025
-- Several models support **1M context** and configurable reasoning
-
-### SHOW: NES & Vision (5 min)
-
-1. NES predicts the *next* edit location, not just the next token -- free
-2. Drop a screenshot into chat, then a **PDF**. GA July 1, all tiers including Free
-
-### LAB 2 (10 min)
-
-Students author a path-scoped instructions file with a working `applyTo`, then a prompt file with `${input:}`.
+Write an `.instructions.md` scoped to `**/*.js` that bans mutation. Regenerate a function in `src/tip-lookup.js` and confirm the rule landed by reading the Output channel.
 
 ---
 
-## Segment 3: Agentic Features (55 min)
+## Segment 3: Agentic (55 min)
 
-> **Subtitle: Delegate it.**
+> **Delegate.**
 
-> **Terminology reset**: what you learned as **Copilot coding agent** is now **Copilot cloud agent** (renamed April 2026). **Agent mode runs in your IDE; cloud agent runs on GitHub's infrastructure.**
+### MUST TEACH
 
-### NEED TO COVER (punchlist)
+- [ ] **Plan agent** builds a structured plan first, saved to `/memories/session/plan.md`, cleared at session end
+- [ ] **Autopilot is a permission level**, not a mode -- it sits beside Default Approvals and Bypass Approvals
+- [ ] **Autopilot iterates until `task_complete`** -- enable with `chat.autopilot.enabled`
+- [ ] **Subagents are agent-initiated** context isolation via `agent/runSubagent`, max nesting depth 5
+- [ ] **Copilot CLI install**: `npm install -g @github/copilot`, binary is `copilot`, Node 22+, GA Feb 25, 2026
+- [ ] **CLI modes cycle with `Shift+Tab`** -- there is no `/plan` and no `/autopilot` slash command
+- [ ] **`/fleet <prompt>`** splits a plan into parallel subagent tasks, each with its own context window
+- [ ] **`/delegate` or the `&` prefix** hands work to the cloud agent, which opens a branch and draft PR
+- [ ] **Copilot cloud agent** is the current name, runs on Actions infrastructure, requires a paid plan
+- [ ] **Agents panel** on github.com is the delegation and monitoring hub, present on every page
+- [ ] **VS Code hands off to cloud** via the session type dropdown and the Plan agent's Continue in Cloud
+- [ ] **MCP replaced Copilot Extensions**, which were disabled Nov 10, 2025
+- [ ] **MCP spec is 2025-11-25** today, with the 2026-07-28 revision shipping in six days
+- [ ] **Copilot Memory is public preview** -- removed after 28 unused days, the timer resets on use
 
-- [ ] **Agent mode**: Plan mode, Autopilot, sub-agents (Explore, Task, Code Review, Plan), auto-approval rules.
-- [ ] **Cloud agent**: issue to PR, and it now researches and plans too, not just PRs.
-- [ ] **CLI package is `@github/copilot`** -- NOT `@github/copilot-cli`. Binary is `copilot`. Node 22+, PowerShell 6+ on Windows.
-- [ ] **`gh copilot` still works** but is a launcher now, not the agentic CLI. Do not say flatly "deprecated."
-- [ ] **Custom agents**: only `description` is required. `infer` is retired -> `disable-model-invocation`. 30,000-char body cap.
-- [ ] **Agent Skills**: `name` + `description` required. **Assign no maturity label** -- GitHub's docs give it none.
-- [ ] **MCP**: current spec `2025-11-25`; `2026-07-28` ships in **one week**. Extensions are dead; MCP replaced them.
-- [ ] **Memory is public preview** -- removed if *unused* 28 days; timer **resets on use**.
-- [ ] **Lab 3 runs**: students assign an issue to the cloud agent.
+### DEMO (25 min)
 
-### SHOW: Agent Mode & Sub-Agents (10 min)
+1. Select the Plan agent, request a feature, then open the plan with Chat: Show Memory Files.
+2. Open the permissions picker and switch from Default Approvals to Autopilot.
+3. Run `copilot`, press `Shift+Tab` twice, and narrate the modes you actually see on screen.
+4. Fire `/fleet` on a multi-part task, then `/tasks` to show the parallel subagents.
+5. Type `& fix the id comparison bug in src/tip-lookup.js` and watch the branch and draft PR appear.
+6. Open the repository Agents tab, read the live log, and pause the session mid-run.
+7. Open `.vscode/mcp.json`, start the GitHub MCP server, and call a tool from chat.
 
-1. Plan mode -- plan before execution
-2. Autopilot -- no per-step confirmation
-3. Sub-agent delegation: Explore, Task, Code Review, Plan
-4. Auto-approval rules for trusted tools
+### LAB (12 min)
 
-### SHOW: Cloud Agent (12 min)
-
-1. Assign an issue to Copilot -- it branches, commits, opens a PR
-2. Leave a review comment; watch it iterate
-3. Show the **Agents tab**
-
-**The issue body IS the prompt.** A two-line ticket gets a two-line PR.
-
-- Delegate from: agents panel, Issues, VS Code, `@copilot` PR comments, scheduled workflows, Azure Boards / JIRA / Linear / Slack / Teams
-- Firewall endpoints by plan: Pro/Pro+ `api.individual.`, Business `api.business.`, Enterprise `api.enterprise.githubcopilot.com`
-- **Metrics gotcha**: `used_copilot_coding_agent` deprecates **August 1** -- eleven days out. Use `used_copilot_cloud_agent`
-
-> **Agent HQ** is an umbrella brand with **no published GA or preview tier**. The Agents tab shipped unlabeled. Only **third-party coding agents** (Claude, Codex) are explicitly public preview. Mission Control's old docs URL 404s -- navigate to `github.com/copilot/agents`.
-
-### SHOW: Copilot CLI (10 min)
-
-```bash
-npm install -g @github/copilot   # NOT @github/copilot-cli
-copilot                          # the binary
-```
-
-1. `npm view @github/copilot version` -- **teach the check, not the number**
-2. Plan mode, then autopilot
-3. `&` prefix to delegate to the cloud agent in the background
-
-> The repo slug is `github/copilot-cli`; the package is `@github/copilot`. That mismatch trips people up. Requires **Node 22+**; **PowerShell 6+** on Windows.
-
-### SHOW: Custom Agents & Skills (10 min)
-
-1. Open `.github/agents/*.agent.md` -- `description` required; `target`, `tools`, `model`, `disable-model-invocation`, `user-invocable` optional
-2. Open `.github/skills/<name>/SKILL.md` -- `name` (max 64, matches directory) + `description` (1-1024)
-3. Invoke a skill as `/skill-name`
-
-- **`argument-hint` and `handoffs` are VS Code only** -- ignored by the cloud agent
-- **`description` is the highest-leverage line in a skill** -- it drives auto-loading
-- Same SKILL.md works in Claude Code, Cursor, and Codex CLI (open standard)
-
-### SHOW: MCP & Memory (8 min)
-
-1. Open `.vscode/mcp.json` -- hosted server at `https://api.githubcopilot.com/mcp/`
-2. Agent mode: "List my open GitHub issues"
-3. MCP Registry in the extensions panel
-
-- **`@modelcontextprotocol/server-github` is deprecated** -- use the hosted server
-- Spec `2025-11-25` is current; **`2026-07-28` ships July 28** -- "if you are watching this later, that number already flipped"
-- **MCP Apps** landed in **VS Code 1.109** -- say VS Code, not Copilot generically
-- **Memory**: public preview, on by default for individual plans, **admin-gated for Business/Enterprise**
-
-> Also worth naming: **Copilot SDK GA** (June 2) and the **Copilot app** (GA to all plans July 7).
-
-### LAB 3 (5 min)
-
-Students assign the `src/tip-lookup.js` bug (line 35) to the cloud agent and watch the PR open.
+Delegate the `src/tip-lookup.js` line 35 assignment bug to the cloud agent. Review its PR and leave a `@copilot` comment requesting a regression test.
 
 ---
 
 ## Segment 4: Enterprise & Governance (55 min)
 
-> **Subtitle: Govern it.**
+> **Control.**
 
-### NEED TO COVER (punchlist)
+### MUST TEACH
 
-- [ ] **Spaces** -- GA since Sep 2025; persistent context hubs.
-- [ ] **Code review** -- agentic, CodeQL + ESLint, hands off to cloud agent, **burns Actions minutes**.
-- [ ] **Content exclusion gap** -- the centerpiece. Exclusions protect assistive surfaces, not autonomous ones.
-- [ ] **Enterprise AI Controls** GA; `managed-settings.json` GA July 1; **MCP allowlists still preview**.
-- [ ] **Metrics** GA, repo-level GA July 17, credits-per-user in the API. **Legacy metrics APIs closed Jan 29.**
-- [ ] **Credit governance** -- cost centers, pooling, per-user budgets.
-- [ ] **GH-300** -- seven domains, weightings unchanged, revision effective Aug 7.
-- [ ] **Lab 4 runs**: students browse enterprise policies and the metrics report.
+- [ ] **AI Controls tab** is the permanent home for Copilot policy -- the old Policies page and its redirect are gone
+- [ ] **Content exclusion needs Business or Enterprise** -- no equivalent control exists on Free, Pro, or Pro+
+- [ ] **Content exclusion is not honored** by Copilot CLI, cloud agent, Agent mode, or Edit mode. Say it out loud
+- [ ] **Exclusion leaks semantically** -- type info, hover definitions, and build config still reach the model
+- [ ] **Exclusion skips symlinks and remote filesystems**, and takes up to 30 minutes to reach loaded IDEs
+- [ ] **Copilot code review does honor exclusion** -- the one agentic-adjacent surface that respects it
+- [ ] **MCP allowlist has two settings**: Allow all, and Registry only
+- [ ] **MCP allowlist enforcement is advisory** -- name matching is bypassable by editing config files
+- [ ] **MCP conflicts resolve to the more restrictive** setting, with enterprise beating organization
+- [ ] **Agentic audit events reuse normal action names** -- filter on `actor_is_agent` and `agent_session_id`
+- [ ] **Audit retention is 180 days**; the live Agent sessions view covers only 24 hours
+- [ ] **Cloud agent commits carry an `Agent-Logs-Url` trailer** and are signed. Provenance for free
+- [ ] **Metrics are report-based** at `/copilot/metrics/reports/*`; legacy endpoints sunset April 2, 2026
+- [ ] **Repository-level usage metrics went GA July 17, 2026** -- five days ago, call it brand new
+- [ ] **GH-300**: 700 to pass, seven domains, revision effective Aug 7, 2026, one year with free open-book renewal
 
-### SHOW: Spaces & Code Review (10 min)
+### DEMO (20 min)
 
-1. Build a Space: repos, PRs, issues, files, free text
-2. Query it from the IDE via the GitHub MCP server
-3. Copilot code review on a live PR, then hand off to the cloud agent for the fix
+1. Open enterprise settings > AI Controls and walk the policy toggles you actually see.
+2. Add a content exclusion rule, then re-open the file to show the propagation lag.
+3. Prove the gap: open that excluded file in Agent mode and watch Copilot read it anyway.
+4. Set the MCP allowlist to Registry only, then edit a config file to demonstrate the bypass.
+5. Filter the enterprise audit log with `actor:Copilot` and open an `agent_session.task` event.
+6. Open a cloud agent commit and follow its `Agent-Logs-Url` trailer back to the session log.
+7. Run `scripts/Get-CopilotMetricsReport.ps1` and open the returned report.
 
-> Code review consumes **Actions minutes** since June 1. Scope with path filters on monorepos.
+### LAB (10 min)
 
-### SHOW: Content Exclusion -- The Gap (12 min)
-
-Configure an exclusion, then show what ignores it.
-
-| Surface | Honors exclusion? |
-|---------|-------------------|
-| Inline completions | Yes |
-| Ask-mode chat | Yes |
-| Copilot code review | Yes (since June 12, 2026) |
-| **Agent mode** | **No** |
-| **Edit mode** | **No** |
-| **Copilot CLI** | **No** |
-| **Cloud agent** | **No** |
-
-Verbatim from docs: *"GitHub Copilot CLI, Copilot cloud agent, and Agent mode in Copilot Chat in IDEs, do not support content exclusion."*
-
-The cloud agent page goes further: *"Copilot will not ignore these files, and will be able to see and update them."* **Not just read. Update.**
-
-**The framing**: "Exclusions protect the assistive surfaces, not the autonomous ones."
-
-- Cite **both** pages -- neither alone supports the full list
-- Also: symlinks and remote filesystems not covered, semantic leakage possible, **30-minute** propagation delay
-- Exclusion on github.com and Mobile is **public preview**
-
-### SHOW: Enterprise AI Controls (10 min)
-
-1. AI Administrator role and workspace
-2. **Agent activity in audit logs** -- who the agent acted on behalf of, `agent_session.task` events
-3. Custom agent standards; one-click push rule to protect file paths
-4. `managed-settings.json` (GA July 1), MDM push, OpenTelemetry export
-
-> **MCP enterprise allowlists are still preview.** GitHub is redesigning them to scale across orgs.
-
-### SHOW: Metrics & Credit Governance (10 min)
-
-```powershell
-.\scripts\Get-CopilotMetricsReport.ps1 -Organization '<org>'
-```
-
-No token? Walk `docs/copilot-metrics-report-sample.md`.
-
-- **Legacy metrics APIs closed down Jan 29, 2026** -- verify the sample against the current schema
-- Repo-level metrics **GA July 17**; **AI credits per user** added June 19
-- Cost centers with pooling (Jul 2), per-user budgets (Jul 7)
-- The forecast era is over. This is measurement: find the heaviest repos and models, then set budgets
-
-### SHOW: GH-300 (8 min)
-
-- Seven domains, **weightings unchanged**; revision effective **Aug 7, 2026** (Minor changes only)
-- 100 minutes, passing score **700**, Pearson VUE. Microsoft publishes no question count or fixed price
-- **Valid 1 year**, renewed free with an unproctored open-book assessment on Microsoft Learn
-- Covers Agent Mode, MCP, Plan Mode, sub-agents, Spaces, Spark, CLI
-
-> The blueprint genuinely lists both "Use GitHub Copilot features" and "GitHub Copilot features" at 25-30%. **That is GitHub's own wording -- do not "fix" it on screen.**
-
-### LAB 4 (5 min)
-
-Students browse org Copilot policies and read the metrics sample.
+Pick one surface content exclusion does not cover. Name the policy toggle plus the audit filter you would use instead. Two lines, no tooling.
 
 ---
 
-## Instructor Quick Reference
+## Do Not Teach
 
-### Talking Points to Hit
-
-- **"Base credits match your price one-for-one."** Turns the pricing table into arithmetic
-- **"Credits are counts, not dollars."** Pro+ is 7,000 credits *worth* $70. Easiest way to get corrected live
-- **"Exclusions protect the assistive surfaces, not the autonomous ones."** Segment 4's anchor
-- **"Teach the check, not the number."** Run `npm view @github/copilot version` on stage
-- **MCP spec `2026-07-28` ships in one week.** Being current to the week buys credibility
-
-### Do Not Teach
-
-| Dead material | Reality |
+| Dead thing | What replaced it |
 |---|---|
-| Copilot Extensions | Disabled **Nov 10, 2025**. MCP replaced them |
-| Premium request multipliers | Legacy; annual holdovers only |
-| "Coding agent" | Renamed **cloud agent**, April 2026 |
-| `gh copilot` as the agentic CLI | Wrong tool. It is a launcher now |
-| "Memory auto-expires after 28 days" | Removed if **unused** 28 days; resets on use |
-| Sonnet 4 / Opus 4.7 / GPT-5.5 as headline | Superseded by Sonnet 5, Opus 4.8, GPT-5.6 |
-| "Background Agent renamed to Copilot CLI Agent" | **False.** No primary source |
-| Knowledge Bases | Retired **Nov 1, 2025**. Use Spaces |
+| `@workspace` in VS Code | `#codebase`, or let the agent search on its own. Still valid in Visual Studio only |
+| Edit mode as a normal surface | Agent mode. Edit mode is deprecated, visible only where policy disables Agent mode |
+| `chat.editMode.hidden` | Nothing. Release notes say removed, docs still list it. Do not assert either on stage |
+| Ask / Edit / Agent three-mode dropdown | The agent picker: Agent, Plan, Ask, plus your custom agents |
+| The phrase "chat modes" | "Agents", chosen from the agents dropdown |
+| `.chatmode.md` files | `.agent.md` in `.github/agents/` |
+| "Chat variables" for `#` references | Context items and chat tools |
+| `#block` `#class` `#function` `#line` `#path` `#project` | `#` plus a file, folder, or symbol, or a namespaced tool |
+| Bare tool names in `.agent.md` tool lists | Namespaced: `search/codebase`, `read/problems`, `edit/editFiles` |
+| Autopilot as a fourth chat mode | A permission level in the permissions picker |
+| Explore / Task / Code Review as named VS Code subagents | Generic subagents via `agent/runSubagent`, plus your own `.agent.md` |
+| `/plan` or `/autopilot` as CLI slash commands | `Shift+Tab` mode cycling, or the `--autopilot` flag |
+| `gh extension install github/gh-copilot` | `npm install -g @github/copilot`, binary `copilot` |
+| `gh copilot suggest` and `gh copilot explain` | The agentic CLI. `gh copilot` now forwards to `copilot` |
+| Node 18 or Node 20 as the CLI floor | Node 22 or later |
+| "Copilot coding agent" | "Copilot cloud agent", renamed April 1, 2026 |
+| `used_copilot_coding_agent` metrics field | `used_copilot_cloud_agent` |
+| Issue assignment as the only delegation path | Agents panel, repo Agents tab, VS Code dropdown, CLI `/delegate` or `&` |
+| Cloud agent as PR-only | It also does deep research and standalone planning, no PR required |
+| `mode:` in prompt files | `agent:` |
+| `license`, `version`, `allowed-tools` in SKILL.md | `name` and `description`, plus `argument-hint` and `user-invocable` |
+| `github.copilot.chat.codeGeneration.instructions` settings | File-based `.instructions.md` |
+| Precedence framed as override | All matching instruction sets are sent, only conflicts resolve by priority |
+| Copilot Extensions | MCP servers |
+| Premium requests | AI Credits, token-metered |
+| `/orgs/{org}/copilot/metrics` and `/copilot/usage` | `/copilot/metrics/reports/*` |
+| Enterprise Copilot > Policies page | AI Controls tab. Redirect fully removed, old bookmarks 404 |
+| Microsoft Purview Copilot audit docs | GitHub enterprise audit log, `actor:Copilot`. Purview is M365 Copilot |
+| `docs.github.com/en/copilot/reference/cheat-sheet` for VS Code UI | `code.visualstudio.com/docs/agents/reference/ai-features-cheat-sheet` |
+| `/docs/copilot/customization/skills` | `/docs/agent-customization/agent-skills` |
 
-### Critical Dates
+## Where To Send Them Next
 
-| Date | Event |
-|------|-------|
-| Nov 10, 2025 | Copilot Extensions disabled |
-| Feb 25, 2026 | Copilot CLI GA |
-| Feb 26-27, 2026 | Enterprise AI Controls GA; Metrics GA |
-| Apr 2026 | Coding agent renamed **cloud agent** |
-| **Jun 1, 2026** | **AI Credits cutover**; code review starts consuming Actions minutes |
-| Jun 2, 2026 | Copilot SDK GA |
-| Jun 12, 2026 | Code review honors content exclusion |
-| Jun 17, 2026 | Agent Finder GA (ARD spec); individual sign-ups reopen |
-| Jun 30, 2026 | Claude Sonnet 5 GA |
-| Jul 1, 2026 | Vision GA; browser tools GA; `managed-settings.json` GA |
-| Jul 7, 2026 | Copilot app GA to all plans |
-| Jul 15, 2026 | VS Code 1.129.1 (Agent Host) |
-| Jul 17, 2026 | Repository-level metrics GA |
-| **Jul 28, 2026** | **MCP spec `2026-07-28` ships** |
-| **Aug 1, 2026** | `used_copilot_coding_agent` deprecates |
-| Aug 7, 2026 | GH-300 revision effective |
-| Aug 31 / Sep 1, 2026 | Sonnet 5 promo rate ends / Business-Enterprise promo credits end |
-
-### Demo Assets in This Repo
-
-| Asset | Segment | Purpose |
-|-------|---------|---------|
-| `src/server.js` + `public/` | 1, 2 | Node tips browser; `npm start` |
-| `src/tip-lookup.js` | 3 | **Intentional bug line 35** -- cloud agent target. Do not fix |
-| `.github/instructions/*` | 2 | `applyTo` scoping, incl. the missing-frontmatter lesson |
-| `.github/prompts/*` (9) | 2 | `agent:` field, `${input:}` syntax |
-| `.github/agents/*` (4) | 3 | Model fallback arrays, tool scoping as trust boundary |
-| `.github/skills/*` (3) | 3 | SKILL.md with supporting artifacts |
-| `scripts/Get-CopilotMetricsReport.ps1` | 4 | Live metrics report |
-| `docs/copilot-metrics-report-sample.md` | 4 | Offline metrics walkthrough |
+| Destination | Link |
+|---|---|
+| Copilot Fundamentals Part 1, 9 modules | learn.microsoft.com/training/paths/copilot/ |
+| Copilot Fundamentals Part 2, 6 agentic modules | learn.microsoft.com/training/paths/gh-copilot-2/ |
+| Get started with AI-assisted development | learn.microsoft.com/training/paths/accelerate-app-development-using-github-copilot/ |
+| Building applications with agent mode | learn.microsoft.com/training/modules/github-copilot-agent-mode/ |
+| Accelerate development with Cloud Agent | learn.microsoft.com/training/modules/github-copilot-code-agent/ |
+| Introduction to MCP Server | learn.microsoft.com/training/modules/mcp-server/ |
+| GH-300 study guide, Aug 7 2026 revision | learn.microsoft.com/credentials/certifications/resources/study-guides/gh-300 |
+| VS Code AI features cheat sheet, authoritative | code.visualstudio.com/docs/agents/reference/ai-features-cheat-sheet |
+| Copilot CLI docs | docs.github.com/copilot/concepts/agents/about-copilot-cli |
+| Content exclusion reference | docs.github.com/copilot/how-tos/configure-content-exclusion/exclude-content-from-copilot |
+| Microsoft Learn MCP server | learn.microsoft.com/api/mcp |
