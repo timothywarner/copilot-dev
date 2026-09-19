@@ -1,0 +1,148 @@
+# =============================================================================
+# Deploy Copilot Tips App → Azure App Service
+# Triggers: push to main | manual dispatch
+# Requires secrets: AZURE_CLIENT_ID, AZURE_TENANT_ID, AZURE_SUBSCRIPTION_ID
+# Uses OIDC (no stored credentials) — set up with:
+#   az ad sp create-for-rbac --role contributor --scopes /subscriptions/<id>
+# =============================================================================
+
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "src/**"
+      - "infra/**"
+      - ".github/workflows/azure-deploy.yml"
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target environment"
+        required: true
+        default: "dev"
+        type: choice
+        options: [ dev, staging, prod ]
+
+permissions:
+  id-token: write # OIDC token
+  contents: read
+
+env:
+  RESOURCE_GROUP: rg-copilottips-${{ github.event.inputs.environment || 'dev' }}
+  AZURE_LOCATION: eastus
+  APP_NAME: copilottips
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Lint Bicep
+  # ---------------------------------------------------------------------------
+  lint:
+    name: Lint Bicep
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint Bicep
+        run: az bicep build --file infra/main.bicep
+
+  # ---------------------------------------------------------------------------
+  # 2. Provision infrastructure
+  # ---------------------------------------------------------------------------
+  provision:
+    name: Provision Infrastructure
+    runs-on: ubuntu-latest
+    needs: lint
+    outputs:
+      webAppName: ${{ steps.deploy.outputs.webAppName }}
+      appUrl: ${{ steps.deploy.outputs.appUrl }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create resource group
+        run: |
+          az group create \
+            --name "$RESOURCE_GROUP" \
+            --location "$AZURE_LOCATION" \
+            --tags environment=${{ github.event.inputs.environment || 'dev' }} managedBy=bicep
+
+      - name: Deploy Bicep
+        id: deploy
+        run: |
+          OUTPUT=$(az deployment group create \
+            --resource-group "$RESOURCE_GROUP" \
+            --template-file infra/main.bicep \
+            --parameters infra/main.bicepparam \
+            --parameters environment=${{ github.event.inputs.environment || 'dev' }} \
+            --query "properties.outputs" \
+            --output json)
+
+          echo "webAppName=$(echo $OUTPUT | jq -r '.webAppName.value')" >> $GITHUB_OUTPUT
+          echo "appUrl=$(echo $OUTPUT | jq -r '.appUrl.value')"         >> $GITHUB_OUTPUT
+
+  # ---------------------------------------------------------------------------
+  # 3. Deploy application code
+  # ---------------------------------------------------------------------------
+  deploy:
+    name: Deploy App Code
+    runs-on: ubuntu-latest
+    needs: provision
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: src/package-lock.json
+
+      - name: Install production dependencies
+        working-directory: src
+        run: npm ci --omit=dev
+
+      - name: Zip artifact
+        run: |
+          cd src
+          zip -r ../deploy.zip . \
+            --exclude "*.test.*" \
+            --exclude "node_modules/.cache/*"
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy to App Service
+        run: |
+          az webapp deploy \
+            --resource-group "$RESOURCE_GROUP" \
+            --name "${{ needs.provision.outputs.webAppName }}" \
+            --src-path deploy.zip \
+            --type zip \
+            --async false
+
+      - name: Verify deployment
+        run: |
+          URL="${{ needs.provision.outputs.appUrl }}/api/tips"
+          echo "Checking $URL ..."
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$URL")
+          if [ "$STATUS" != "200" ]; then
+            echo "Health check failed — HTTP $STATUS"
+            exit 1
+          fi
+          echo "✅ App is live at ${{ needs.provision.outputs.appUrl }}"
+
+      - name: Print app URL
+        run: echo "🚀 Deployed → ${{ needs.provision.outputs.appUrl }}"

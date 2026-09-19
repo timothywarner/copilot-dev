@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Security Audit Console</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #0d1117 0%, #1c2128 100%);
+        color: #c9d1d9;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #238636;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        color: #58a6ff;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        color: #8b949e;
+        font-size: 0.95em;
+      }
+
+      .control-panel {
+        display: grid;
+        grid-template-columns: 1fr 1fr 200px;
+        gap: 15px;
+        margin-bottom: 30px;
+        background: #161b22;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #30363d;
+      }
+
+      input,
+      select {
+        background: #0d1117;
+        border: 1px solid #30363d;
+        color: #c9d1d9;
+        padding: 10px 12px;
+        border-radius: 6px;
+        font-size: 0.95em;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: #58a6ff;
+        box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.1);
+      }
+
+      button {
+        background: #238636;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+      }
+
+      button:hover {
+        background: #2ea043;
+      }
+
+      button:active {
+        background: #1a7f37;
+      }
+
+      button:disabled {
+        background: #30363d;
+        cursor: not-allowed;
+        color: #6e7681;
+      }
+
+      .events-container {
+        display: grid;
+        gap: 15px;
+      }
+
+      .event-card {
+        background: #161b22;
+        border-left: 4px solid #238636;
+        padding: 16px;
+        border-radius: 6px;
+        border: 1px solid #30363d;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .event-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(88, 166, 255, 0.15);
+      }
+
+      .event-card.warning {
+        border-left-color: #d29922;
+      }
+
+      .event-card.error {
+        border-left-color: #f85149;
+      }
+
+      .event-card.info {
+        border-left-color: #58a6ff;
+      }
+
+      .event-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 8px;
+      }
+
+      .event-type {
+        background: #238636;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.85em;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .event-time {
+        color: #8b949e;
+        font-size: 0.9em;
+      }
+
+      .event-description {
+        color: #c9d1d9;
+        margin-bottom: 8px;
+        line-height: 1.5;
+      }
+
+      .event-details {
+        background: #0d1117;
+        padding: 12px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.85em;
+        color: #79c0ff;
+        overflow-x: auto;
+        margin-top: 8px;
+      }
+
+      .actor {
+        color: #58a6ff;
+        font-weight: 600;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-left: 8px;
+      }
+
+      .status.success {
+        background: #238636;
+        color: white;
+      }
+
+      .status.failure {
+        background: #f85149;
+        color: white;
+      }
+
+      .status.pending {
+        background: #d29922;
+        color: black;
+      }
+
+      .loading {
+        text-align: center;
+        padding: 40px;
+        color: #8b949e;
+      }
+
+      .spinner {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 3px solid #30363d;
+        border-top-color: #58a6ff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+        margin-right: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .error-box {
+        background: #f85149;
+        color: white;
+        padding: 16px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        border: 1px solid #da3633;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px;
+        color: #8b949e;
+        background: #161b22;
+        border: 1px dashed #30363d;
+        border-radius: 6px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: #161b22;
+        padding: 16px;
+        border-radius: 6px;
+        border: 1px solid #30363d;
+        text-align: center;
+      }
+
+      .stat-number {
+        font-size: 2em;
+        font-weight: 700;
+        color: #58a6ff;
+      }
+
+      .stat-label {
+        color: #8b949e;
+        font-size: 0.9em;
+        margin-top: 4px;
+      }
+
+      @media (max-width: 768px) {
+        .control-panel {
+          grid-template-columns: 1fr;
+        }
+
+        h1 {
+          font-size: 1.8em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🔐 GitHub Security Audit Console</h1>
+        <p class="subtitle">
+          Real-time security event monitoring for your repository
+        </p>
+      </header>
+
+      <div class="control-panel">
+        <div>
+          <label for="owner">Repository Owner</label>
+          <input
+            type="text"
+            id="owner"
+            placeholder="e.g., timothywarner"
+            value="timothywarner"
+          />
+        </div>
+        <div>
+          <label for="repo">Repository Name</label>
+          <input
+            type="text"
+            id="repo"
+            placeholder="e.g., copilot-dev"
+            value="copilot-dev"
+          />
+        </div>
+        <div>
+          <label for="token">GitHub PAT</label>
+          <input
+            type="password"
+            id="token"
+            placeholder="ghp_..."
+            title="Your personal access token"
+          />
+        </div>
+        <button onclick="fetchSecurityEvents()" style="grid-column: 1 / -1">
+          Fetch Security Events
+        </button>
+      </div>
+
+      <div id="stats" class="stats"></div>
+      <div id="error"></div>
+      <div id="events" class="events-container"></div>
+    </div>
+
+    <script>
+      /**
+       * GitHub Security Audit Console
+       * Demonstrates: GitHub API v3, async/await, error handling, DOM manipulation
+       * Perfect for teaching modern JavaScript + API integration patterns.
+       */
+
+      class GitHubSecurityAudit {
+        constructor(owner, repo, token) {
+          this.owner = owner;
+          this.repo = repo;
+          this.token = token;
+          this.baseUrl = "https://api.github.com";
+          this.events = [];
+        }
+
+        /**
+         * Validate inputs before making API calls
+         */
+        validate() {
+          if (!this.owner?.trim())
+            throw new Error("Repository owner is required");
+          if (!this.repo?.trim())
+            throw new Error("Repository name is required");
+          if (!this.token?.trim()) throw new Error("GitHub PAT is required");
+          return true;
+        }
+
+        /**
+         * Build GitHub API headers with Bearer token authentication
+         */
+        getHeaders() {
+          return {
+            Authorization: `Bearer ${this.token}`,
+            Accept: "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+          };
+        }
+
+        /**
+         * Generic API call with error handling
+         */
+        async apiCall(endpoint) {
+          try {
+            const response = await fetch(`${this.baseUrl}${endpoint}`, {
+              headers: this.getHeaders(),
+            });
+
+            if (!response.ok) {
+              if (response.status === 401) {
+                throw new Error("Authentication failed. Check your PAT.");
+              }
+              if (response.status === 404) {
+                throw new Error("Repository not found.");
+              }
+              throw new Error(`API error: ${response.statusText}`);
+            }
+
+            return await response.json();
+          } catch (error) {
+            throw error;
+          }
+        }
+
+        /**
+         * Fetch repository events (push, pull_request, etc.)
+         */
+        async getRepositoryEvents() {
+          const endpoint = `/repos/${this.owner}/${this.repo}/events?per_page=30`;
+          return await this.apiCall(endpoint);
+        }
+
+        /**
+         * Fetch security-related check runs (status checks, CI/CD)
+         */
+        async getStatusChecks() {
+          try {
+            const endpoint = `/repos/${this.owner}/${this.repo}/commits/HEAD/check-runs`;
+            return await this.apiCall(endpoint);
+          } catch {
+            return { check_runs: [] };
+          }
+        }
+
+        /**
+         * Fetch repository collaborators (access control audit)
+         */
+        async getCollaborators() {
+          try {
+            const endpoint = `/repos/${this.owner}/${this.repo}/collaborators`;
+            return await this.apiCall(endpoint);
+          } catch {
+            return [];
+          }
+        }
+
+        /**
+         * Aggregate and filter security-relevant events
+         */
+        async collectSecurityEvents() {
+          const [events, collaborators] = await Promise.all([
+            this.getRepositoryEvents(),
+            this.getCollaborators(),
+          ]);
+
+          this.events = [];
+
+          // Process repository events (push, PR, workflow, etc.)
+          events.forEach((event) => {
+            if (this.isSecurityRelevant(event)) {
+              this.events.push(this.normalizeEvent(event));
+            }
+          });
+
+          // Add collaborator changes as access-control events
+          if (collaborators.length > 0) {
+            this.events.push({
+              type: "access_control",
+              actor: "system",
+              description: `Repository has ${collaborators.length} collaborators`,
+              timestamp: new Date().toISOString(),
+              severity: "info",
+              details: collaborators
+                .map((c) => `${c.login} (${c.role})`)
+                .join(", "),
+            });
+          }
+
+          return this.events;
+        }
+
+        /**
+         * Determine if an event is security-relevant
+         */
+        isSecurityRelevant(event) {
+          const relevantTypes = [
+            "PushEvent", // Code changes to protected branches
+            "PullRequestEvent", // Code reviews and merges
+            "DeleteEvent", // Branch/tag deletion
+            "CreateEvent", // Branch/tag creation
+            "PublicEvent", // Repo visibility changes
+            "MemberEvent", // Collaborator additions/removals
+          ];
+          return relevantTypes.includes(event.type);
+        }
+
+        /**
+         * Normalize GitHub event to our audit format
+         */
+        normalizeEvent(event) {
+          const actor = event.actor?.login || "unknown";
+          const timestamp = event.created_at;
+
+          let description = "";
+          let severity = "info";
+          let details = "";
+
+          switch (event.type) {
+            case "PushEvent":
+              const commits = event.payload?.commits?.length || 1;
+              const branch = event.payload?.ref?.split("/")?.pop() || "unknown";
+              description = `${actor} pushed ${commits} commit(s) to ${branch}`;
+              details =
+                event.payload?.commits?.map((c) => c.message).join("\n") || "";
+              break;
+
+            case "PullRequestEvent":
+              const action = event.payload?.action || "unknown";
+              const pr = event.payload?.pull_request?.title || "PR";
+              description = `${actor} ${action} pull request: "${pr}"`;
+              severity = action === "closed" ? "success" : "pending";
+              break;
+
+            case "DeleteEvent":
+              const deletedType = event.payload?.ref_type || "ref";
+              description = `${actor} deleted ${deletedType}: ${event.payload?.ref}`;
+              severity = "warning";
+              break;
+
+            case "CreateEvent":
+              const createdType = event.payload?.ref_type || "ref";
+              description = `${actor} created ${createdType}: ${event.payload?.ref}`;
+              break;
+
+            case "MemberEvent":
+              const memberAction = event.payload?.action || "unknown";
+              const member = event.payload?.member?.login || "unknown";
+              description = `${actor} ${memberAction} collaborator: ${member}`;
+              severity = "warning";
+              break;
+
+            default:
+              description = `${actor} triggered ${event.type}`;
+          }
+
+          return {
+            type: event.type,
+            actor,
+            description,
+            timestamp,
+            severity,
+            details,
+          };
+        }
+      }
+
+      /**
+       * UI Controller - handles rendering and user interaction
+       */
+      async function fetchSecurityEvents() {
+        const owner = document.getElementById("owner").value;
+        const repo = document.getElementById("repo").value;
+        const token = document.getElementById("token").value;
+
+        const eventsContainer = document.getElementById("events");
+        const errorContainer = document.getElementById("error");
+        const statsContainer = document.getElementById("stats");
+
+        errorContainer.innerHTML = "";
+        eventsContainer.innerHTML =
+          '<div class="loading"><span class="spinner"></span>Loading security events...</div>';
+        statsContainer.innerHTML = "";
+
+        try {
+          const audit = new GitHubSecurityAudit(owner, repo, token);
+          audit.validate();
+
+          const events = await audit.collectSecurityEvents();
+
+          if (events.length === 0) {
+            eventsContainer.innerHTML =
+              '<div class="empty-state">No security events found for this repository.</div>';
+            return;
+          }
+
+          // Calculate and display statistics
+          const stats = calculateStats(events);
+          renderStats(stats);
+
+          // Render events
+          eventsContainer.innerHTML = events
+            .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+            .map(renderEventCard)
+            .join("");
+        } catch (error) {
+          errorContainer.innerHTML = `<div class="error-box">⚠️ ${error.message}</div>`;
+          eventsContainer.innerHTML = "";
+        }
+      }
+
+      /**
+       * Calculate security event statistics
+       */
+      function calculateStats(events) {
+        return {
+          total: events.length,
+          byType: events.reduce((acc, e) => {
+            acc[e.type] = (acc[e.type] || 0) + 1;
+            return acc;
+          }, {}),
+          bySeverity: events.reduce((acc, e) => {
+            acc[e.severity] = (acc[e.severity] || 0) + 1;
+            return acc;
+          }, {}),
+          activeUsers: new Set(events.map((e) => e.actor)).size,
+        };
+      }
+
+      /**
+       * Render statistics cards
+       */
+      function renderStats(stats) {
+        const statsContainer = document.getElementById("stats");
+        statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-number">${stats.total}</div>
+                    <div class="stat-label">Total Events</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.activeUsers}</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.bySeverity.warning || 0}</div>
+                    <div class="stat-label">⚠️ Warnings</div>
+                </div>
+            `;
+      }
+
+      /**
+       * Render individual event card
+       */
+      function renderEventCard(event) {
+        const timeAgo = getTimeAgo(event.timestamp);
+        const detailsHtml = event.details
+          ? `<div class="event-details">${escapeHtml(event.details)}</div>`
+          : "";
+
+        return `
+                <div class="event-card ${event.severity}">
+                    <div class="event-header">
+                        <span class="event-type">${event.type}</span>
+                        <span class="event-time">${timeAgo}</span>
+                    </div>
+                    <div class="event-description">
+                        <span class="actor">${escapeHtml(event.actor)}</span>
+                        ${escapeHtml(event.description)}
+                    </div>
+                    ${detailsHtml}
+                </div>
+            `;
+      }
+
+      /**
+       * Format timestamp as relative time (e.g., "2 hours ago")
+       */
+      function getTimeAgo(timestamp) {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const seconds = Math.floor((now - then) / 1000);
+
+        if (seconds < 60) return "just now";
+        if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+        return `${Math.floor(seconds / 86400)}d ago`;
+      }
+
+      /**
+       * Sanitize HTML to prevent XSS
+       */
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Allow Enter key to fetch events
+      document.getElementById("token").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") fetchSecurityEvents();
+      });
+    </script>
+  </body>
+</html>
